@@ -1,2 +1,2 @@
 # CgGame
-Computergrafik Uniporjekt.
+Computergrafik Uniprojekt.
