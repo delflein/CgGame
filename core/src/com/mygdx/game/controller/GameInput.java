@@ -64,6 +64,10 @@ public class GameInput implements InputProcessor {
             position.set(ray.direction).scl(distance).add(ray.origin);
             ImmutableArray<Entity> entities = gameScreen.getEngine().getSystem(RenderSystem.class).getEntities();
             ModelComponent mod = entities.get(gameScreen.selected).getComponent(ModelComponent.class);
+            Vector3 old_position = new Vector3();
+            mod.getInstance().transform.getTranslation(old_position);
+            // Keep Height over NN
+            position.y = old_position.y;
             mod.getInstance().transform.setTranslation(position);
             mod.getInstance().calculateBoundingBox(mod.bounds);
             mod.bounds.mul(mod.getInstance().transform);
