@@ -5,6 +5,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
@@ -16,11 +17,11 @@ public class RenderSystem extends EntitySystem {
     private ModelBatch batch;
     private Environment environment;
 
-    private PerspectiveCamera cam;
+    private Camera cam;
 
     private int visibleCount;
 
-    public RenderSystem(ModelBatch batch, Environment environment, PerspectiveCamera cam) {
+    public RenderSystem(ModelBatch batch, Environment environment, Camera cam) {
         this.batch = batch;
         this.environment = environment;
         this.cam = cam;

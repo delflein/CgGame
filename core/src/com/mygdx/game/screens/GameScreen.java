@@ -6,6 +6,7 @@ import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
@@ -43,6 +44,9 @@ public class GameScreen implements Screen {
     private Label label;
     private StringBuilder stringBuilder;
 
+    //Sound
+    private Music music;
+
     public GameScreen(MyGdxGame game) {
         this.game = game;
         batch = new ModelBatch();
@@ -55,7 +59,14 @@ public class GameScreen implements Screen {
         initEnvironment();
         ModelFactory.init();
         initEngine();
+        startBGM();
         //Gdx.input.setCursorCatched(true);
+    }
+
+    private void startBGM() {
+            music =  Gdx.audio.newMusic(Gdx.files.internal("BGM/game_theme.mp3"));
+            music.setLooping(true);
+            music.play();
     }
 
     private void initGui() {

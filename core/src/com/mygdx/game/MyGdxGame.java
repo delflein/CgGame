@@ -3,16 +3,17 @@ package com.mygdx.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.mygdx.game.screens.GameScreen;
+import com.mygdx.game.screens.MainMenuScreen;
 import com.mygdx.game.utils.ModelFactory;
 
 public class MyGdxGame extends Game {
+
 
     @Override
     public void create() {
         ModelFactory.init();
         Gdx.input.setCatchBackKey(true);
-        setScreen(new GameScreen(this));
+        setScreen(new MainMenuScreen(this));
     }
 
     @Override
