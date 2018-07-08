@@ -4,9 +4,11 @@ import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
+import com.badlogic.gdx.math.collision.Ray;
 
 public class ModelComponent implements Component {
 
@@ -35,6 +37,12 @@ public class ModelComponent implements Component {
         instance.transform.getTranslation(position);
         position.add(center);
         return cam.frustum.boundsInFrustum(bounds);
+    }
+
+    public boolean intersects(Ray ray) {
+        Vector3 position = new Vector3();
+        instance.transform.getTranslation(position).add(center);
+        return Intersector.intersectRayBounds(ray, bounds, null);
     }
 
     public Model getModel() {

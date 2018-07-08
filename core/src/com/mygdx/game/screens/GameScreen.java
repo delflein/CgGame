@@ -19,15 +19,15 @@ import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight;
 import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
-import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.Ray;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.components.ModelComponent;
 import com.mygdx.game.components.SelectableComponent;
+import com.mygdx.game.components.Street;
 import com.mygdx.game.controller.GameInput;
+import com.mygdx.game.systems.PlayerSystem;
 import com.mygdx.game.systems.RenderSystem;
 import com.mygdx.game.utils.EntityFactory;
 import com.mygdx.game.utils.ModelFactory;
@@ -54,6 +54,7 @@ public class GameScreen implements Screen {
         selectionMaterial = new Material();
         selectionMaterial.set(ColorAttribute.createDiffuse(Color.ORANGE));
         originalMaterial = new Material();
+        Street.init();
         initGui();
         initCam();
         initInput();
@@ -79,7 +80,7 @@ public class GameScreen implements Screen {
     }
 
     private void initCam() {
-        cam = new PerspectiveCamera(90, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        cam = new PerspectiveCamera(67, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         cam.position.set(100f, 100f, 100f);
         cam.lookAt(0, 0, 0);
         cam.near = 1f;
@@ -105,13 +106,14 @@ public class GameScreen implements Screen {
     private void initEngine() {
         engine = new Engine();
         engine.addSystem(new RenderSystem(batch, environment, cam));
+        engine.addSystem(new PlayerSystem());
 
         //Add Entities
         engine.addEntity(EntityFactory.createGameBoard(0, 0, 0));
-        engine.addEntity(EntityFactory.createBox(10, 5, 0, 10, 10, 10, Color.GREEN));
-        engine.addEntity(EntityFactory.createBox(0, 5, 10, 10, 10, 10, Color.YELLOW));
-        engine.addEntity(EntityFactory.createBox(0, 5, 0, 10, 10, 10, Color.RED));
-        engine.addEntity(EntityFactory.createBox(10, 5, 10, 10, 10, 10, Color.BLUE));
+        engine.addEntity(EntityFactory.createPlayer(2, 10, 2, Color.GREEN));
+        engine.addEntity(EntityFactory.createPlayer(2, 10, 2, Color.YELLOW));
+        engine.addEntity(EntityFactory.createPlayer(2, 10, 2, Color.RED));
+        engine.addEntity(EntityFactory.createPlayer(2, 10, 2, Color.BLUE));
     }
 
     @Override
@@ -132,22 +134,21 @@ public class GameScreen implements Screen {
         stage.draw();
     }
 
-    public int selected = -1, selecting = -1;
+    public Entity selected = null, selecting = null;
     private Material selectionMaterial;
     private Material originalMaterial;
 
-    public void setSelected(int value) {
-        ImmutableArray<Entity> entities = engine.getSystem(RenderSystem.class).getEntities();
-        if (selected == value) return;
-        if (selected >= 0) {
-            ModelInstance instance = entities.get(selected).getComponent(ModelComponent.class).getInstance();
+    public void setSelected(Entity entity) {
+        if (selected == entity) return;
+        if (selected != null) {
+            ModelInstance instance = selected.getComponent(ModelComponent.class).getInstance();
             Material mat = instance.materials.get(0);
             mat.clear();
             mat.set(originalMaterial);
         }
-        selected = value;
-        if (selected >= 0) {
-            ModelInstance instance = entities.get(selected).getComponent(ModelComponent.class).getInstance();
+        selected = entity;
+        if (selected != null) {
+            ModelInstance instance = entity.getComponent(ModelComponent.class).getInstance();
             Material mat = instance.materials.get(0);
             originalMaterial.clear();
             originalMaterial.set(mat);
@@ -156,14 +157,14 @@ public class GameScreen implements Screen {
         }
     }
 
-    public int getObject(int screenX, int screenY) {
-        ImmutableArray<Entity> entities = engine.getSystem(RenderSystem.class).getEntities();
+    public Entity getObject(int screenX, int screenY) {
         Ray ray = cam.getPickRay(screenX, screenY);
-        int result = -1;
+        ImmutableArray<Entity> entities = engine.getSystem(RenderSystem.class).getEntities();
+        Entity result = null;
         float distance = -1;
 
-        for (int i = 0; i < entities.size(); ++i) {
-            SelectableComponent sel = entities.get(i).getComponent(SelectableComponent.class);
+        for (Entity entity : entities) {
+            SelectableComponent sel = entity.getComponent(SelectableComponent.class);
             if (sel != null) {
                 final ModelComponent mod = sel.getModelComponent();
                 Vector3 position = new Vector3();
@@ -174,8 +175,8 @@ public class GameScreen implements Screen {
                 if (distance >= 0f && dist2 > distance)
                     continue;
 
-                if (Intersector.intersectRayBounds(ray, mod.bounds, null)) {
-                    result = i;
+                if (sel.getModelComponent().intersects(ray)) {
+                    result = entity;
                     distance = dist2;
                 }
             }
@@ -189,7 +190,7 @@ public class GameScreen implements Screen {
     }
 
     public Engine getEngine() {
-        return this.engine;
+        return engine;
     }
 
     @Override

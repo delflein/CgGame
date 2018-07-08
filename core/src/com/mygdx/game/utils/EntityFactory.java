@@ -3,8 +3,10 @@ package com.mygdx.game.utils;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g3d.Model;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
 import com.mygdx.game.components.ModelComponent;
+import com.mygdx.game.components.PlayerComponent;
 import com.mygdx.game.components.SelectableComponent;
 
 public class EntityFactory {
@@ -21,6 +23,19 @@ public class EntityFactory {
         Entity entity = new Entity();
         ModelComponent modelComponent = new ModelComponent(board, x, y, z);
         entity.add(modelComponent);
+
+        return entity;
+    }
+
+    public static Entity createPlayer(float width, float height, float depth, Color color) {
+        PlayerComponent player = new PlayerComponent();
+        Vector3 curr_pos = player.getCurrentStreet().getPosition(player);
+
+        Entity entity = createBox(curr_pos.x, curr_pos.y, curr_pos.z, width, height, depth, color);
+        if (entity == null) {
+            return null;
+        }
+        entity.add(player);
 
         return entity;
     }

@@ -1,13 +1,15 @@
 package com.mygdx.game.controller;
 
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.ashley.utils.ImmutableArray;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.Ray;
 import com.mygdx.game.components.ModelComponent;
+import com.mygdx.game.components.PlayerComponent;
+import com.mygdx.game.components.Street;
 import com.mygdx.game.screens.GameScreen;
-import com.mygdx.game.systems.RenderSystem;
+import com.mygdx.game.systems.PlayerSystem;
 
 public class GameInput implements InputProcessor {
 
@@ -19,6 +21,35 @@ public class GameInput implements InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
+        if (keycode == Input.Keys.ESCAPE) {
+            System.exit(0);
+        }
+        if (keycode == Input.Keys.G) {
+            for (Entity playerEntity : gameScreen.getEngine().getSystem(PlayerSystem.class).getEntities()) {
+                final ModelComponent mod = playerEntity.getComponent(ModelComponent.class);
+                Vector3 position = new Vector3();
+                mod.getInstance().transform.getTranslation(position);
+
+                PlayerComponent player = playerEntity.getComponent(PlayerComponent.class);
+                System.out.println("Spieler " + player.getId() + ": " + position.toString());
+            }
+        }
+
+        if (keycode == Input.Keys.J) {
+            Entity p1 = gameScreen.selected;
+            if (p1 != null) {
+                PlayerComponent playerComponent = p1.getComponent(PlayerComponent.class);
+                Street current = playerComponent.getCurrentStreet();
+
+                // Fake 1 Roll
+                Vector3 newPositon = playerComponent.move(1);
+
+                final ModelComponent mod = p1.getComponent(ModelComponent.class);
+                mod.getInstance().transform.setToTranslation(newPositon);
+                mod.getInstance().calculateBoundingBox(mod.bounds);
+                mod.bounds.mul(mod.getInstance().transform);
+            }
+        }
         return false;
     }
 
@@ -35,19 +66,19 @@ public class GameInput implements InputProcessor {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         gameScreen.selecting = gameScreen.getObject(screenX, screenY);
-        return gameScreen.selecting >= 0;
+        return gameScreen.selecting != null;
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        int temp = gameScreen.getObject(screenX, screenY);
-        if (temp == -1) {
-            gameScreen.setSelected(temp);
+        Entity entity = gameScreen.getObject(screenX, screenY);
+        if (entity == null) {
+            gameScreen.setSelected(null);
         }
-        if (gameScreen.selecting >= 0) {
-            if (gameScreen.selecting == temp)
+        if (gameScreen.selecting != null) {
+            if (gameScreen.selecting == entity)
                 gameScreen.setSelected(gameScreen.selecting);
-            gameScreen.selecting = -1;
+            gameScreen.selecting = null;
             return true;
         }
         return false;
@@ -55,15 +86,14 @@ public class GameInput implements InputProcessor {
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-        if (gameScreen.selecting < 0)
+        if (gameScreen.selecting == null)
             return false;
         if (gameScreen.selected == gameScreen.selecting) {
             Ray ray = gameScreen.getCam().getPickRay(screenX, screenY);
             final float distance = -ray.origin.y / ray.direction.y;
             Vector3 position = new Vector3();
             position.set(ray.direction).scl(distance).add(ray.origin);
-            ImmutableArray<Entity> entities = gameScreen.getEngine().getSystem(RenderSystem.class).getEntities();
-            ModelComponent mod = entities.get(gameScreen.selected).getComponent(ModelComponent.class);
+            ModelComponent mod = gameScreen.selected.getComponent(ModelComponent.class);
             Vector3 old_position = new Vector3();
             mod.getInstance().transform.getTranslation(old_position);
             // Keep Height over NN
