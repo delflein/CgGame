@@ -3,6 +3,7 @@ package com.mygdx.game.screens;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.utils.ImmutableArray;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
@@ -37,7 +38,7 @@ public class GameScreen implements Screen {
     private PerspectiveCamera cam;
     private Environment environment;
     private Engine engine;
-    private MyGdxGame game;
+    private Game game;
 
     // GUI
     private Stage stage;
@@ -47,7 +48,7 @@ public class GameScreen implements Screen {
     //Sound
     private Music music;
 
-    public GameScreen(MyGdxGame game) {
+    public GameScreen(Game game) {
         this.game = game;
         batch = new ModelBatch();
         selectionMaterial = new Material();

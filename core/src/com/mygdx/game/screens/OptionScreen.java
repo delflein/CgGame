@@ -1,10 +1,11 @@
 package com.mygdx.game.screens;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
 import com.mygdx.game.MyGdxGame;
 
 public class OptionScreen implements Screen {
-    public OptionScreen(MyGdxGame game) {
+    public OptionScreen(Game game) {
     }
 
     @Override
