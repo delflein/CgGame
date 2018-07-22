@@ -27,6 +27,8 @@ public class MyGdxGame extends Game {
         screen.resize(width, height);
     }
 
+    public Screen getScreen(){ return this.screen;}
+
     public void setScreen(Screen screen) {
         if (this.screen != null) {
             this.screen.hide();

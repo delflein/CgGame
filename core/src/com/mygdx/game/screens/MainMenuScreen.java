@@ -25,18 +25,18 @@ import com.mygdx.game.utils.ModelFactory;
 public class MainMenuScreen implements Screen {
 
     //Background
-   private MyGdxGame game;
-   private ModelBatch batch;
-   private Camera cam;
-   private Environment environment;
-   private Engine engine;
-   private ShapeRenderer shapeRenderer;
+    private MyGdxGame game;
+    private ModelBatch batch;
+    private Camera cam;
+    private Environment environment;
+    private Engine engine;
+    private ShapeRenderer shapeRenderer;
 
 
-   //UI
-   private Stage stage;
-   private Skin skin;
-   private Music music;
+    //UI
+    private Stage stage;
+    private Skin skin;
+    private Music music;
 
     public MainMenuScreen(final MyGdxGame game) {
         this.game = game;
@@ -76,7 +76,7 @@ public class MainMenuScreen implements Screen {
 
 
 
-}
+    }
 
     private void setBGM() {
         music = Gdx.audio.newMusic(Gdx.files.internal("BGM/main_menu.wav"));
@@ -148,6 +148,5 @@ public class MainMenuScreen implements Screen {
     @Override
     public void dispose() {
         batch.dispose();
-
     }
 }

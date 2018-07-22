@@ -23,10 +23,12 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.Ray;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.mygdx.game.components.GameSettings;
 import com.mygdx.game.components.ModelComponent;
 import com.mygdx.game.components.SelectableComponent;
 import com.mygdx.game.components.Street;
 import com.mygdx.game.controller.GameInput;
+import com.mygdx.game.stages.UI.GameUI;
 import com.mygdx.game.systems.PlayerSystem;
 import com.mygdx.game.systems.RenderSystem;
 import com.mygdx.game.utils.EntityFactory;
@@ -39,6 +41,7 @@ public class GameScreen implements Screen {
     private Environment environment;
     private Engine engine;
     private Game game;
+    private GameSettings settings;
 
     // GUI
     private Stage stage;
@@ -48,19 +51,20 @@ public class GameScreen implements Screen {
     //Sound
     private Music music;
 
-    public GameScreen(Game game) {
+    public GameScreen(Game game, GameSettings settings) {
         this.game = game;
+        this.settings = settings;
         batch = new ModelBatch();
         selectionMaterial = new Material();
         selectionMaterial.set(ColorAttribute.createDiffuse(Color.ORANGE));
         originalMaterial = new Material();
         Street.init();
-        initGui();
         initCam();
-        initInput();
         initEnvironment();
         ModelFactory.init();
         initEngine();
+        initGui();
+        initInput();
         startBGM();
         //Gdx.input.setCursorCatched(true);
     }
@@ -72,7 +76,7 @@ public class GameScreen implements Screen {
     }
 
     private void initGui() {
-        stage = new Stage();
+        setStage(new GameUI(this.game,this.engine));
         BitmapFont font = new BitmapFont();
         label = new Label(" ", new Label.LabelStyle(font, Color.WHITE));
         stage.addActor(label);
@@ -89,9 +93,16 @@ public class GameScreen implements Screen {
     }
 
     private void initInput() {
+        InputMultiplexer multi = new InputMultiplexer();
+
         GameInput gameInput = new GameInput(this);
         CameraInputController cameraInputController = new CameraInputController(cam);
-        Gdx.input.setInputProcessor(new InputMultiplexer(gameInput, cameraInputController));
+
+        multi.addProcessor(stage);
+        multi.addProcessor(gameInput);
+        multi.addProcessor(cameraInputController);
+
+        Gdx.input.setInputProcessor(multi);
     }
 
     private void initEnvironment() {
@@ -109,11 +120,12 @@ public class GameScreen implements Screen {
         engine.addSystem(new PlayerSystem());
 
         //Add Entities
+
+        Color[] colors = {Color.GREEN,Color.YELLOW,Color.RED,Color.BLUE};
         engine.addEntity(EntityFactory.createGameBoard(0, 0, 0));
-        engine.addEntity(EntityFactory.createPlayer(2, 10, 2, Color.GREEN));
-        engine.addEntity(EntityFactory.createPlayer(2, 10, 2, Color.YELLOW));
-        engine.addEntity(EntityFactory.createPlayer(2, 10, 2, Color.RED));
-        engine.addEntity(EntityFactory.createPlayer(2, 10, 2, Color.BLUE));
+        for (int i = 0; i < settings.players ; i++) {
+            engine.addEntity(EntityFactory.createPlayer(2, 10, 2, colors[i]));
+        }
     }
 
     @Override
@@ -131,6 +143,7 @@ public class GameScreen implements Screen {
         stringBuilder.append(" Visible: ").append(engine.getSystem(RenderSystem.class).getVisibleCount());
         stringBuilder.append(" Selected: ").append(selected);
         label.setText(stringBuilder);
+        stage.act();
         stage.draw();
     }
 
@@ -191,6 +204,10 @@ public class GameScreen implements Screen {
 
     public Engine getEngine() {
         return engine;
+    }
+
+    public void setStage(Stage stage){
+        this.stage = stage;
     }
 
     @Override
