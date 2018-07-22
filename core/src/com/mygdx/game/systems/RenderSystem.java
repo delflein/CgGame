@@ -6,10 +6,10 @@ import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.mygdx.game.components.ModelComponent;
+import com.mygdx.game.components.MovingComponent;
 
 public class RenderSystem extends EntitySystem {
 
@@ -33,11 +33,15 @@ public class RenderSystem extends EntitySystem {
 
     public void update(float delta) {
         visibleCount = 0;
-        for (int i = 0; i < entities.size(); i++) {
-            ModelComponent mod = entities.get(i).getComponent(ModelComponent.class);
+        for (Entity entity : entities) {
+            ModelComponent mod = entity.getComponent(ModelComponent.class);
             if (mod.isVisible(cam)) {
                 visibleCount++;
                 batch.render(mod.getInstance(), environment);
+            }
+            MovingComponent mov = entity.getComponent(MovingComponent.class);
+            if(mov != null) {
+                mov.update(delta);
             }
         }
     }
