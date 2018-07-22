@@ -9,7 +9,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Align;
-import com.mygdx.game.screens.GameScreen;
 import com.mygdx.game.screens.MainMenuScreen;
 
 public class MainMenuStage extends MenuStage {
@@ -47,10 +46,12 @@ public class MainMenuStage extends MenuStage {
         TextButton optionsButton = new TextButton("Options", skin);
         optionsButton.setWidth(Gdx.graphics.getWidth()/2);
         optionsButton.setPosition(Gdx.graphics.getWidth()/2-optionsButton.getWidth()/2,Gdx.graphics.getHeight()/10-optionsButton.getHeight()/2);
+
+        MainMenuStage stage = this;
         optionsButton.addListener(new InputListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-                screen.setStage(new OptionsMenuStage(game,skin,screen));
+                screen.setStage(new OptionsMenuStage(game, skin, screen, stage));
             }
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {

@@ -11,6 +11,8 @@ import com.mygdx.game.settings.PreferenceStrings;
 
 class GraphicsSettingsTable extends Table {
 
+    private TextButton tbCancel;
+
     /**
      * Options dialog to let the user choose their display resolution, whether
      * to run in fullscreen/windowed mode, and whether to enable vsync.
@@ -26,7 +28,7 @@ class GraphicsSettingsTable extends Table {
         final SelectBox<GraphicsSettings.CustomDisplayMode> sbResolution = new SelectBox<GraphicsSettings.CustomDisplayMode>(skin);
         final CheckBox cbFullscreen = new CheckBox("", skin);
         final CheckBox cbVSync = new CheckBox("", skin);
-        TextButton tbCancel = new TextButton("Cancel", skin);
+        tbCancel = new TextButton("Cancel", skin);
         TextButton tbAccept = new TextButton("Accept? (requires restart)", skin);
 
         add(new Label("GraphicsSettings", skin)).colspan(2).center();
@@ -55,13 +57,6 @@ class GraphicsSettingsTable extends Table {
         if (pref.getBoolean(PreferenceStrings.VSYNC)) {
             cbVSync.setChecked(true);
         }
-        tbCancel.addListener(new ChangeListener() {
-
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                setVisible(false);
-            }
-        });
 
         tbAccept.addListener(new ChangeListener() {
 
@@ -79,5 +74,9 @@ class GraphicsSettingsTable extends Table {
         pack();
         this.debug();
         this.setFillParent(true);
+    }
+
+    public TextButton getTbCancel() {
+        return tbCancel;
     }
 }
