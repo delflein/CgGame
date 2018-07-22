@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -57,7 +58,7 @@ public class MainMenuScreen implements Screen {
         environment = new Environment();
         environment.set(new
                 ColorAttribute(ColorAttribute.AmbientLight,
-                0.4f, 0.4f, 0.4f, 1f));
+                0.2f, 0.2f, 0.2f, 1f));
         environment.add(new DirectionalLight().set(0.8f, 0.8f, 0.8f, -
                 1f, -0.8f, -0.2f));
 
@@ -82,7 +83,7 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0f,0f,0f,1f);
+        Gdx.gl.glClearColor(0.7f,0.7f,0.7f,1f);
 
         Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(),
                 Gdx.graphics.getHeight());

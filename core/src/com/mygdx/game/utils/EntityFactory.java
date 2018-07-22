@@ -1,8 +1,12 @@
 package com.mygdx.game.utils;
 
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.VertexAttributes;
+import com.badlogic.gdx.graphics.g3d.Material;
 import com.badlogic.gdx.graphics.g3d.Model;
+import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
 import com.mygdx.game.components.ModelComponent;
@@ -12,7 +16,7 @@ import com.mygdx.game.components.SelectableComponent;
 public class EntityFactory {
 
     public static Entity createGameBoard(float x, float y, float z) {
-        Model board = ModelFactory.loadModel("Board/Board.g3db");
+        Model board = ModelFactory.loadModel(GameAssets.BOARD.filepath);
         if (board == null) {
             return null;
         }
@@ -41,7 +45,7 @@ public class EntityFactory {
     }
 
     public static Entity createBox(float x, float y, float z, float width, float height, float depth, Color color) {
-        Model box = ModelFactory.createBox(width, height, depth, color);
+        Model box = ModelFactory.loadModel(GameAssets.TOKEN_1.filepath);//ModelFactory.createBox(width, height, depth, color);
         if (box == null) {
             return null;
         }

@@ -31,7 +31,7 @@ public class Street {
 
     public static void init() {
         streets.add(new Street("Start", "neutral", 0, new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0)));
-        streets.add(new Street("Old Kent Road", "Brown", 0, new Vector3(49, 5, 69), new Vector3(49, 5, 75), new Vector3(55, 5, 69), new Vector3(55, 5, 75)));
+        streets.add(new Street("Old Kent Road", "Brown", 0, new Vector3(49, 0, 69), new Vector3(49, 0, 75), new Vector3(55, 0, 69), new Vector3(55, 0, 75)));
         streets.add(new Street("Community Chest", "neutral", 0, new Vector3(36, 5, 69), new Vector3(36, 5, 75), new Vector3(42, 5, 69), new Vector3(42, 5, 75)));
         streets.add(new Street("Whitechapel Road", "Brown", 0, new Vector3(23, 5, 69), new Vector3(23, 5, 75), new Vector3(29, 5, 69), new Vector3(29, 5, 75)));
         streets.add(new Street("Income Tax", "neutral", 0, new Vector3(10, 5, 69), new Vector3(10, 5, 75), new Vector3(16, 5, 69), new Vector3(16, 5, 75)));

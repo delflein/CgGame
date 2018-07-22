@@ -19,7 +19,8 @@ public class ModelFactory {
     private static ModelBuilder modelBuilder = new ModelBuilder();
 
     public static void init() {
-        assetManager.load("Board2/Board2_new.g3db", Model.class);
+        assetManager.load(GameAssets.BOARD.filepath, Model.class);
+        assetManager.load(GameAssets.TOKEN_1.filepath, Model.class);
         assetManager.finishLoading();
     }
 

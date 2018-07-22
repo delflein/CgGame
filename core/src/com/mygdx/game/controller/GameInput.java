@@ -11,6 +11,10 @@ import com.mygdx.game.components.Street;
 import com.mygdx.game.screens.GameScreen;
 import com.mygdx.game.systems.PlayerSystem;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class GameInput implements InputProcessor {
 
     private GameScreen gameScreen;
@@ -31,6 +35,12 @@ public class GameInput implements InputProcessor {
                 mod.getInstance().transform.getTranslation(position);
 
                 PlayerComponent player = playerEntity.getComponent(PlayerComponent.class);
+                try {
+                    FileWriter writer = new FileWriter(new File("FieldCoords"));
+                } catch (IOException ioe) {
+                    ioe.printStackTrace();
+                }
+
                 System.out.println("Spieler " + player.getId() + ": " + position.toString());
             }
         }
