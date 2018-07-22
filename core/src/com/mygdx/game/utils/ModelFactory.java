@@ -19,8 +19,9 @@ public class ModelFactory {
     private static ModelBuilder modelBuilder = new ModelBuilder();
 
     public static void init() {
-        assetManager.load(GameAssets.BOARD.filepath, Model.class);
-        assetManager.load(GameAssets.TOKEN_1.filepath, Model.class);
+        for(GameAssets asset : GameAssets.values()) {
+            assetManager.load(asset.filepath, Model.class);
+        }
         assetManager.finishLoading();
     }
 

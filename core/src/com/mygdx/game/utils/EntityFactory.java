@@ -28,21 +28,50 @@ public class EntityFactory {
         return entity;
     }
 
-    public static Entity createPlayer(float width, float height, float depth, Color color) {
+    public static Entity createPlayer() {
         PlayerComponent player = new PlayerComponent();
         Vector3 curr_pos = player.getCurrentStreet().getPosition(player);
 
-        Entity entity = createBox(curr_pos.x, curr_pos.y, curr_pos.z, width, height, depth, color);
-        if (entity == null) {
+        int id = player.getId();
+        GameAssets asset;
+        switch (id) {
+            case 0:
+                asset = GameAssets.TOKEN_1;
+                break;
+            case 1:
+                asset = GameAssets.TOKEN_2;
+                break;
+            case 2:
+                asset = GameAssets.TOKEN_3;
+                break;
+            case 3:
+                asset = GameAssets.TOKEN_4;
+                break;
+            default:
+                asset = GameAssets.TOKEN_1;
+        }
+        Model box = ModelFactory.loadModel(asset.filepath);//ModelFactory.createBox(width, height, depth, color);
+        if (box == null) {
             return null;
         }
+
+        final BoundingBox boundingBox = new BoundingBox();
+        box.calculateBoundingBox(boundingBox);
+
+        Entity entity = new Entity();
+        ModelComponent modelComponent = new ModelComponent(box, curr_pos.x, curr_pos.y, curr_pos.z);
+        SelectableComponent selectableComponent = new SelectableComponent(modelComponent);
+        MovingComponent movingComponent = new MovingComponent(modelComponent);
+        entity.add(modelComponent);
+        entity.add(selectableComponent);
+        entity.add(movingComponent);
         entity.add(player);
 
         return entity;
     }
 
     public static Entity createBox(float x, float y, float z, float width, float height, float depth, Color color) {
-        Model box = ModelFactory.loadModel(GameAssets.TOKEN_1.filepath);//ModelFactory.createBox(width, height, depth, color);
+        Model box = ModelFactory.createBox(width, height, depth, color);
         if (box == null) {
             return null;
         }

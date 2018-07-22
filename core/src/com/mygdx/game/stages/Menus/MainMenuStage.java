@@ -36,7 +36,7 @@ public class MainMenuStage extends MenuStage {
         playButton.addListener(new InputListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-                new GameConfigStage(game, screen, skin);
+                screen.setStage(new GameConfigStage(game, screen, skin));
             }
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {

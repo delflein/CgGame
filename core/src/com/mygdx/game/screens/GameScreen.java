@@ -125,11 +125,9 @@ public class GameScreen implements Screen {
         engine.addSystem(new PlayerSystem());
 
         //Add Entities
-
-        Color[] colors = {Color.GREEN,Color.YELLOW,Color.RED,Color.BLUE};
         engine.addEntity(EntityFactory.createGameBoard(0, 0, 0));
         for (int i = 0; i < settings.players ; i++) {
-            engine.addEntity(EntityFactory.createPlayer(2, 10, 2, colors[i]));
+            engine.addEntity(EntityFactory.createPlayer());
         }
     }
 

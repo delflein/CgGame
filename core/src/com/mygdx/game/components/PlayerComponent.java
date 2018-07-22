@@ -31,6 +31,7 @@ public class PlayerComponent implements Component {
 
     public Vector3 move(int numOfFields) {
         currentStreet = currentStreet.move(numOfFields);
+        currentStreet.effect(this);
         return currentStreet.getPosition(this);
     }
 
