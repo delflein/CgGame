@@ -74,8 +74,6 @@ public class MainMenuScreen implements Screen {
         engine.addEntity(EntityFactory.createGameBoard(0, 50, 0));
         engine.addSystem(new RenderSystem(batch, environment, cam));
 
-
-
     }
 
     private void setBGM() {
