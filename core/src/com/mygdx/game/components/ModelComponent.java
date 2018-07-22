@@ -45,6 +45,16 @@ public class ModelComponent implements Component {
         return Intersector.intersectRayBounds(ray, bounds, null);
     }
 
+    public void tra(float x, float y, float z) {
+        tra(new Vector3(x, y, z));
+    }
+
+    public void tra(Vector3 tra) {
+        instance.transform.translate(tra);
+        instance.calculateBoundingBox(bounds);
+        this.bounds.mul(instance.transform);
+    }
+
     public void move(Vector3 newPosition) {
         instance.transform.setToTranslation(newPosition);
         instance.calculateBoundingBox(bounds);

@@ -30,48 +30,58 @@ public class Street {
     }
 
     public static void init() {
-        streets.add(new Street("Start", "neutral", 0, new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0)));
-        streets.add(new Street("Old Kent Road", "Brown", 0, new Vector3(49, 0, 69), new Vector3(49, 0, 75), new Vector3(55, 0, 69), new Vector3(55, 0, 75)));
-        streets.add(new Street("Community Chest", "neutral", 0, new Vector3(36, 5, 69), new Vector3(36, 5, 75), new Vector3(42, 5, 69), new Vector3(42, 5, 75)));
-        streets.add(new Street("Whitechapel Road", "Brown", 0, new Vector3(23, 5, 69), new Vector3(23, 5, 75), new Vector3(29, 5, 69), new Vector3(29, 5, 75)));
-        streets.add(new Street("Income Tax", "neutral", 0, new Vector3(10, 5, 69), new Vector3(10, 5, 75), new Vector3(16, 5, 69), new Vector3(16, 5, 75)));
-        streets.add(new Street("Kings Cross Station", "neutral", 0, new Vector3(-3, 5, 69), new Vector3(-3, 5, 75), new Vector3(3, 5, 69), new Vector3(3, 5, 75)));
-        streets.add(new Street("The Angel Islington", "LightBlue", 0, new Vector3(-16, 5, 69), new Vector3(-16, 5, 75), new Vector3(-10, 5, 69), new Vector3(-10, 5, 75)));
-        streets.add(new Street("Chance", "neutral", 0, new Vector3(-29, 5, 69), new Vector3(-29, 5, 75), new Vector3(-23, 5, 69), new Vector3(-23, 5, 75)));
-        streets.add(new Street("Euston Road", "LightBlue", 0, new Vector3(-42, 5, 69), new Vector3(-42, 5, 75), new Vector3(-36, 5, 69), new Vector3(-36, 5, 75)));
-        streets.add(new Street("Pentonville Road", "LightBlue", 0, new Vector3(-55, 5, 69), new Vector3(-55, 5, 75), new Vector3(-49, 5, 69), new Vector3(-49, 5, 75)));
-        streets.add(new Street("Jail", "neutral", 0, new Vector3(-68, 5, 69), new Vector3(-68, 5, 75), new Vector3(-62, 5, 69), new Vector3(-62, 5, 75)));
-        streets.add(new Street("Pall Mall", "Pink", 0, new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0)));
-        streets.add(new Street("Electric Company", "neutral", 0, new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0)));
-        streets.add(new Street("Whitehall", "Pink", 0, new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0)));
-        streets.add(new Street("Northumrl'd Avenuea", "Pink", 0, new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0)));
-        streets.add(new Street("Marylebone Station", "neutral", 0, new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0)));
-        streets.add(new Street("Bow Street", "Orange", 0, new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0)));
-        streets.add(new Street("Community Chest", "neutral", 0, new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0)));
-        streets.add(new Street("Marlborough Street", "Orange", 0, new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0)));
-        streets.add(new Street("Vine Street", "Orange", 0, new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0)));
-        streets.add(new Street("Free Parking", "neutral", 0, new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0)));
-        streets.add(new Street("Strand", "Red", 0, new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0)));
-        streets.add(new Street("Chance", "neutral", 0, new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0)));
-        streets.add(new Street("Fleet Street", "Red", 0, new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0)));
-        streets.add(new Street("Trafalgar Square", "Red", 0, new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0)));
-        streets.add(new Street("Fenchurch St. Station", "neutral", 0, new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0)));
-        streets.add(new Street("Leicester Square", "Yellow", 0, new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0)));
-        streets.add(new Street("Coventry Street", "Yellow", 0, new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0)));
-        streets.add(new Street("Water Works", "neutral", 0, new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0)));
-        streets.add(new Street("Piccadilly", "Yellow", 0, new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0)));
-        streets.add(new Street("Go to Jail", "neutral", 0, new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0)));
-        streets.add(new Street("Regent Street", "Green", 0, new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0)));
-        streets.add(new Street("Oxford Street", "Green", 0, new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0)));
-        streets.add(new Street("Community Chest", "neutral", 0, new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0)));
-        streets.add(new Street("Bond Street", "Green", 0, new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0)));
-        streets.add(new Street("Liverpool St. Station", "neutral", 0, new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0)));
-        streets.add(new Street("Chance", "neutral", 0, new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0)));
-        streets.add(new Street("Park Lane", "DarkBlue", 0, new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0)));
-        streets.add(new Street("Super Tax", "neutral", 0, new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0)));
-        streets.add(new Street("Mayfair", "DarkBlue", 0, new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0), new Vector3(0, 5, 0)));
+        streets.add(new Street("Start", "neutral", 0, new Vector3(66f, 0f, 66f), new Vector3(66f, 0f, 72f), new Vector3(72f, 0f, 66f), new Vector3(72f, 0f, 72f)));
+        streets.add(new Street("Mediterranean Avenue", "Brown", 0, new Vector3(50f, 0f, 69f), new Vector3(50f, 0f, 75f), new Vector3(56f, 0f, 69f), new Vector3(56f, 0f, 75f)));
+        streets.add(new Street("Community Chest", "neutral", 0, new Vector3(37f, 0f, 69f), new Vector3(37f, 0f, 75f), new Vector3(43f, 0f, 69f), new Vector3(43f, 0f, 75f)));
+        streets.add(new Street("Baltic Avenue", "Brown", 0, new Vector3(23f, 0f, 69f), new Vector3(23f, 0f, 75f), new Vector3(29f, 0f, 69f), new Vector3(29f, 0f, 75f)));
+        streets.add(new Street("Income Tax", "neutral", 0, new Vector3(10f, 0f, 69f), new Vector3(10f, 0f, 75f), new Vector3(16f, 0f, 69f), new Vector3(16f, 0f, 75f)));
+        streets.add(new Street("Reading Railroad", "neutral", 0, new Vector3(-3f, 0f, 69f), new Vector3(-3f, 0f, 75f), new Vector3(3f, 0f, 69f), new Vector3(3f, 0f, 75f)));
+        streets.add(new Street("Oriental Avenue", "LightBlue", 0, new Vector3(-16f, 0f, 69f), new Vector3(-16f, 0f, 75f), new Vector3(-10f, 0f, 69f), new Vector3(-10f, 0f, 75f)));
+        streets.add(new Street("Chance", "neutral", 0, new Vector3(-29f, 0f, 69f), new Vector3(-29f, 0f, 75f), new Vector3(-23f, 0f, 69f), new Vector3(-23f, 0f, 75f)));
+        streets.add(new Street("Vermont Avenue", "LightBlue", 0, new Vector3(-42f, 0f, 69f), new Vector3(-42f, 0f, 75f), new Vector3(-36f, 0f, 69f), new Vector3(-36f, 0f, 75f)));
+        streets.add(new Street("Connecticut Avenue", "LightBlue", 0, new Vector3(-55f, 0f, 69f), new Vector3(-55f, 0f, 75f), new Vector3(-49f, 0f, 69f), new Vector3(-49f, 0f, 75f)));
+        streets.add(new Street("Jail", "neutral", 0, new Vector3(-72f, 0f, 66f), new Vector3(-72f, 0f, 72f), new Vector3(-66f, 0f, 66f), new Vector3(-66f, 0f, 72f)));
+        streets.add(new Street("St. Charles Place", "Pink", 0, new Vector3(-75f, 0f, 49f), new Vector3(-75f, 0f, 55f), new Vector3(-69f, 0f, 49f), new Vector3(-69f, 0f, 55f)));
+        streets.add(new Street("Electric Company", "neutral", 0, new Vector3(-75f, 0f, 37f), new Vector3(-75f, 0f, 43f), new Vector3(-69f, 0f, 37f), new Vector3(-69f, 0f, 43f)));
+        streets.add(new Street("States Avenue", "Pink", 0, new Vector3(-75f, 0f, 23f), new Vector3(-75f, 0f, 29f), new Vector3(-69f, 0f, 23f), new Vector3(-69f, 0f, 29f)));
+        streets.add(new Street("Virginia Avenue", "Pink", 0, new Vector3(-75f, 0f, 10f), new Vector3(-75f, 0f, 16f), new Vector3(-69f, 0f, 10f), new Vector3(-69f, 0f, 16f)));
+        streets.add(new Street("Pennsylvania Railroad", "neutral", 0, new Vector3(-75f, 0f, -3f), new Vector3(-75f, 0f, 3f), new Vector3(-69f, 0f, -3f), new Vector3(-69f, 0f, 3f)));
+        streets.add(new Street("St. James Place", "Orange", 0, new Vector3(-75f, 0f, -16f), new Vector3(-75f, 0f, -10f), new Vector3(-69f, 0f, -16f), new Vector3(-69f, 0f, -10f)));
+        streets.add(new Street("Community Chest", "neutral", 0, new Vector3(-75f, 0f, -29f), new Vector3(-75f, 0f, -23f), new Vector3(-69f, 0f, -29f), new Vector3(-69f, 0f, -23f)));
+        streets.add(new Street("Tennessee Avenue", "Orange", 0, new Vector3(-75f, 0f, -43f), new Vector3(-75f, 0f, -37f), new Vector3(-69f, 0f, -43f), new Vector3(-69f, 0f, -37f)));
+        streets.add(new Street("New York Avenue", "Orange", 0, new Vector3(-75f, 0f, -55f), new Vector3(-75f, 0f, -49f), new Vector3(-69f, 0f, -55f), new Vector3(-69f, 0f, -49f)));
+        streets.add(new Street("Free Parking", "neutral", 0, new Vector3(-72f, 0f, -72f), new Vector3(-72f, 0f, -66f), new Vector3(-66f, 0f, -72f), new Vector3(-66f, 0f, -66f)));
+        streets.add(new Street("Kentucky Avenue", "Red", 0, new Vector3(-56f, 0f, -75f), new Vector3(-56f, 0f, -69f), new Vector3(-50f, 0f, -75f), new Vector3(-50f, 0f, -69f)));
+        streets.add(new Street("Chance", "neutral", 0, new Vector3(-43f, 0f, -75f), new Vector3(-43f, 0f, -69f), new Vector3(-37f, 0f, -75f), new Vector3(-37f, 0f, -69f)));
+        streets.add(new Street("Indiana Avenue", "Red", 0, new Vector3(-29f, 0f, -75f), new Vector3(-29f, 0f, -69f), new Vector3(-23f, 0f, -75f), new Vector3(-23f, 0f, -69f)));
+        streets.add(new Street("Illinois Avenue", "Red", 0, new Vector3(-16f, 0f, -75f), new Vector3(-16f, 0f, -69f), new Vector3(-10f, 0f, -75f), new Vector3(-10f, 0f, -69f)));
+        streets.add(new Street("B. & O. Railroad", "neutral", 0, new Vector3(-3f, 0f, -75f), new Vector3(-3f, 0f, -69f), new Vector3(3f, 0f, -75f), new Vector3(3f, 0f, -69f)));
+        streets.add(new Street("Atlantic Avenue", "Yellow", 0, new Vector3(10f, 0f, -75f), new Vector3(10f, 0f, -69f), new Vector3(16f, 0f, -75f), new Vector3(16f, 0f, -69f)));
+        streets.add(new Street("Ventnor Avenue", "Yellow", 0, new Vector3(23f, 0f, -75f), new Vector3(23f, 0f, -69f), new Vector3(29f, 0f, -75f), new Vector3(29f, 0f, -69f)));
+        streets.add(new Street("Water Works", "neutral", 0, new Vector3(36f, 0f, -75f), new Vector3(36f, 0f, -69f), new Vector3(42f, 0f, -75f), new Vector3(42f, 0f, -69f)));
+        streets.add(new Street("Marvin Gardens", "Yellow", 0, new Vector3(50f, 0f, -75f), new Vector3(50f, 0f, -69f), new Vector3(56f, 0f, -75f), new Vector3(56f, 0f, -69f)));
+        streets.add(new Street("Go to Jail", "neutral", 0, new Vector3(66f, 0f, -73f), new Vector3(66f, 0f, -67f), new Vector3(72f, 0f, -73f), new Vector3(72f, 0f, -67f)));
+        streets.add(new Street("Pacific Avenue", "Green", 0, new Vector3(69f, 0f, -56f), new Vector3(69f, 0f, -50f), new Vector3(75f, 0f, -56f), new Vector3(75f, 0f, -50f)));
+        streets.add(new Street("North Carolina Avenue", "Green", 0, new Vector3(69f, 0f, -43f), new Vector3(69f, 0f, -37f), new Vector3(75f, 0f, -43f), new Vector3(75f, 0f, -37f)));
+        streets.add(new Street("Community Chest", "neutral", 0, new Vector3(69f, 0f, -30f), new Vector3(69f, 0f, -24f), new Vector3(75f, 0f, -30f), new Vector3(75f, 0f, -24f)));
+        streets.add(new Street("Pennsylvania Avenue", "Green", 0, new Vector3(69f, 0f, -16f), new Vector3(69f, 0f, -10f), new Vector3(75f, 0f, -16f), new Vector3(75f, 0f, -10f)));
+        streets.add(new Street("Shortline", "neutral", 0, new Vector3(69f, 0f, -3f), new Vector3(69f, 0f, 3f), new Vector3(75f, 0f, -3f), new Vector3(75f, 0f, 3f)));
+        streets.add(new Street("Chance", "neutral", 0, new Vector3(69f, 0f, 10f), new Vector3(69f, 0f, 16f), new Vector3(75f, 0f, 10f), new Vector3(75f, 0f, 16f)));
+        streets.add(new Street("Park Place", "DarkBlue", 0, new Vector3(69f, 0f, 23f), new Vector3(69f, 0f, 29f), new Vector3(75f, 0f, 23f), new Vector3(75f, 0f, 29f)));
+        streets.add(new Street("Luxury Tax", "neutral", 0, new Vector3(69f, 0f, 37f), new Vector3(69f, 0f, 43f), new Vector3(75f, 0f, 37f), new Vector3(75f, 0f, 43f)));
+        streets.add(new Street("Boardwalk", "DarkBlue", 0, new Vector3(69f, 0f, 50f), new Vector3(69f, 0f, 56f), new Vector3(75f, 0f, 50f), new Vector3(75f, 0f, 56f)));
     }
 
+    public List<Vector3> getPath(int numberOfFields, PlayerComponent component) {
+        List<Vector3> path = new ArrayList<>();
+        Street toReturn = this;
+        while (numberOfFields > 0) {
+            toReturn = toReturn.getNext();
+            path.add(toReturn.getPosition(component));
+            numberOfFields--;
+        }
+        return path;
+    }
 
     public Street move(int numberOfFields) {
         Street toReturn = this;
