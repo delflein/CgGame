@@ -2,7 +2,6 @@ package com.mygdx.game.stages.Menus;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -11,21 +10,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Align;
 import com.mygdx.game.screens.GameScreen;
-import com.mygdx.game.screens.OptionScreen;
+import com.mygdx.game.screens.MainMenuScreen;
 
 public class MainMenuStage extends MenuStage {
 
-    private Music music;
-    private Game game;
-    private Skin skin;
-
-   public MainMenuStage(Music music, Game game, Skin skin){
-        super();
-        this.music= music;
-        this.game = game;
-        this.skin = skin;
+   public MainMenuStage(MainMenuScreen screen, Game game, Skin skin){
+        super(game,skin, screen);
         buildStage();
-
     }
 
     @Override
@@ -37,14 +28,13 @@ public class MainMenuStage extends MenuStage {
         title.setWidth(Gdx.graphics.getWidth());
         this.addActor(title);
 
-        TextButton playButton = new TextButton("Play!", skin);
+        TextButton playButton = new TextButton("New Game!", skin);
         playButton.setWidth(Gdx.graphics.getWidth()/2);
         playButton.setPosition(Gdx.graphics.getWidth()/2-playButton.getWidth()/2,Gdx.graphics.getHeight()/6-playButton.getHeight()/2);
         playButton.addListener(new InputListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-                music.stop();
-                game.setScreen(new GameScreen(game));
+                screen.setStage(new GameConfigStage(game,screen,skin));
 
             }
             @Override
@@ -60,7 +50,7 @@ public class MainMenuStage extends MenuStage {
         optionsButton.addListener(new InputListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-                game.setScreen(new OptionScreen(game));
+                screen.setStage(new OptionsMenuStage(game,skin,screen));
             }
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {

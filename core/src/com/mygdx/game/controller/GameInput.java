@@ -45,6 +45,13 @@ public class GameInput implements InputProcessor {
             }
         }
 
+        if (keycode == Input.Keys.M) {
+            Entity p1 = gameScreen.selected;
+            final PlayerComponent mod = p1.getComponent(PlayerComponent.class);
+            mod.setMoney(mod.getMoney()-1000);
+            System.out.println(mod.getMoney());
+        }
+
         if (keycode == Input.Keys.J) {
             Entity p1 = gameScreen.selected;
             if (p1 != null) {
