@@ -15,6 +15,10 @@ public class MovingComponent implements Component {
 
     private final static float speedMul = 10;
 
+    public boolean isMoving() {
+        return nextTarget != null;
+    }
+
     public MovingComponent(ModelComponent model) {
         this.path = new ArrayList<>();
         this.model = model;

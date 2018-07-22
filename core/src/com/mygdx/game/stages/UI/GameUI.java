@@ -3,7 +3,6 @@ package com.mygdx.game.stages.UI;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.utils.ImmutableArray;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -16,13 +15,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameUI extends Stage {
-    Game game;
     Engine engine;
     GameScreen screen;
     Skin skin;
 
     List<PlayerStatus> playerStatus;
     Dice dice;
+    TurnButton turnBtn;
     //Actor slideMenu;
 
     public GameUI(GameScreen gameScreen, Engine engine){
@@ -31,6 +30,7 @@ public class GameUI extends Stage {
         this.skin = new Skin(Gdx.files.internal("Skins/default/uiskin.json"));
         this.dice = new Dice(this.screen).create();
         this.playerStatus = new ArrayList<PlayerStatus>();
+        this.turnBtn = new TurnButton("End Turn!", skin, screen);
         initUI();
 
     }
@@ -38,6 +38,8 @@ public class GameUI extends Stage {
     private void initUI(){
         dice.setPosition(Gdx.graphics.getWidth()-dice.getWidth(),0);
         this.addActor(dice);
+
+        this.addActor(turnBtn.create());
 
         Table rootPlayerTabel = new Table();
         rootPlayerTabel.setFillParent(true);
