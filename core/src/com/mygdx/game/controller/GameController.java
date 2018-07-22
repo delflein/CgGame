@@ -22,7 +22,8 @@ public class GameController implements Telegraph {
     private StateMachine<GameController, GameStates> gameStateMachine;
 
 
-    private int current_player = 0;
+    private int playerId = 0;
+    private Entity currentPlayer;
     private boolean moved;
     private ImmutableArray<Entity> players;
 
@@ -31,13 +32,19 @@ public class GameController implements Telegraph {
         this.engine = engine;
         this.settings = settings;
         gameStateMachine = new DefaultStateMachine<GameController, GameStates>(this, GameStates.IDLE);
+        this.players = engine.getEntitiesFor(Family.all(PlayerComponent.class).get());
+        this.currentPlayer = players.get(0);
+    }
+
+    public Entity getCurrentPlayer() {
+        return currentPlayer;
     }
 
     public void movePlayer(int roll_a, int roll_b) {
         ImmutableArray<Entity> entities = engine.getEntitiesFor(Family.all(PlayerComponent.class).get());
         for (Entity entity : entities) {
             PlayerComponent player = entity.getComponent(PlayerComponent.class);
-            if(player.getId() == current_player) {
+            if (player.getId() == playerId) {
                 if(player.isInJail()){
                     if(roll_a == roll_b) {
                         player.freeFromJail();
@@ -55,15 +62,12 @@ public class GameController implements Telegraph {
     }
 
     public void nextPlayer() {
-
-        if (players == null) {
-            players = engine.getEntitiesFor(Family.all(PlayerComponent.class).get());
+        playerId++;
+        if (playerId == players.size()) {
+            playerId = 0;
         }
-        current_player++;
-        if (current_player == players.size()) {
-            current_player = 0;
-        }
-        PlayerComponent player = players.get(current_player).getComponent(PlayerComponent.class);
+        currentPlayer = players.get(playerId);
+        PlayerComponent player = currentPlayer.getComponent(PlayerComponent.class);
         if (player.isInJail()) {
             gameStateMachine.changeState(GameStates.JAIL);
 

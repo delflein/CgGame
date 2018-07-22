@@ -140,7 +140,7 @@ public class GameScreen implements Screen {
         batch.begin(cam);
         engine.update(delta);
         batch.end();
-
+        gameController.update(delta);
         stringBuilder.setLength(0);
         stringBuilder.append(" FPS: ").append(Gdx.graphics.getFramesPerSecond());
         stringBuilder.append(" Visible: ").append(engine.getSystem(RenderSystem.class).getVisibleCount());

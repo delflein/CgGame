@@ -5,10 +5,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.utils.Align;
+import com.mygdx.game.controller.GameStates;
 import com.mygdx.game.screens.GameScreen;
 
 import java.util.concurrent.ThreadLocalRandom;
@@ -18,7 +20,7 @@ public class Dice extends Group implements GameUiElement {
     private Image diceA, diceB;
     private SpriteDrawable[] faces = new SpriteDrawable[6];
 
-    private int roll_a, roll_b;
+    private static int roll_a, roll_b;
     private int rolls_left = 0;
 
     GameScreen screen;
@@ -48,16 +50,8 @@ public class Dice extends Group implements GameUiElement {
         return this;
     }
 
-    @Override
-    public void act(float delta) {
-        super.act(delta);
-        if(rolls_left > 0) {
-            rollDice();
-            rolls_left--;
-            if (rolls_left == 0) {
-                screen.getGameController().movePlayer(roll_a, roll_b);
-            }
-        }
+    public static int[] getRoll() {
+        return new int[]{roll_a, roll_b};
     }
 
     private void fillImageArray() {
@@ -92,5 +86,22 @@ public class Dice extends Group implements GameUiElement {
         this.setVisible(!this.isVisible());
     }
 
+    @Override
+    public void act(float delta) {
+        super.act(delta);
+        GameStates currState = screen.getGameController().getGameStateMachine().getCurrentState();
+        if (currState == GameStates.IDLE) {
+            this.setTouchable(Touchable.enabled);
+        } else {
+            this.setTouchable(Touchable.disabled);
+        }
+        if (rolls_left > 0) {
+            rollDice();
+            rolls_left--;
+            if (rolls_left == 0) {
+                screen.getGameController().getGameStateMachine().changeState(GameStates.DICE);
 
+            }
+        }
+    }
 }
