@@ -18,6 +18,9 @@ public class PlayerComponent implements Component {
     private int money;
     private List<Street> owned_streets;
 
+    // Jail Stats
+    private int jail_counter = 0;
+
     public PlayerComponent() {
         this.id = numOfPlayers++;
         this.currentStreet = Street.getStreets().get(1);
@@ -29,6 +32,18 @@ public class PlayerComponent implements Component {
     public Vector3 move(int numOfFields) {
         currentStreet = currentStreet.move(numOfFields);
         return currentStreet.getPosition(this);
+    }
+
+    public boolean isInJail() {
+        return jail_counter > 0;
+    }
+
+    public void lowerJailCount() {
+        jail_counter--;
+    }
+
+    public void freeFromJail() {
+        jail_counter = 0;
     }
 
     public int getId() {

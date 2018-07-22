@@ -10,6 +10,8 @@ import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.game.components.PlayerComponent;
+import com.mygdx.game.controller.GameController;
+import com.mygdx.game.screens.GameScreen;
 import com.mygdx.game.systems.PlayerSystem;
 
 import java.util.ArrayList;
@@ -19,28 +21,26 @@ import java.util.Map;
 public class GameUI extends Stage {
     Game game;
     Engine engine;
-    Screen screen;
+    GameScreen screen;
     Skin skin;
 
     List<PlayerStatus> playerStatus;
     Dice dice;
     //Actor slideMenu;
 
-    public GameUI(Game game, Engine engine){
-        this.game = game;
+    public GameUI(GameScreen gameScreen, Engine engine){
         this.engine=engine;
-        this.screen = game.getScreen();
+        this.screen = gameScreen;
         this.skin = new Skin(Gdx.files.internal("Skins/default/uiskin.json"));
-        this.dice = new Dice();
+        this.dice = new Dice(this.screen).create();
         this.playerStatus = new ArrayList<PlayerStatus>();
         initUI();
 
     }
 
     private void initUI(){
-        Group dicegroup = dice.create();
-        dicegroup.setPosition(Gdx.graphics.getWidth()-dicegroup.getWidth(),0);
-        this.addActor(dicegroup);
+        dice.setPosition(Gdx.graphics.getWidth()-dice.getWidth(),0);
+        this.addActor(dice);
 
         Table rootPlayerTabel = new Table();
         rootPlayerTabel.setFillParent(true);
@@ -54,10 +54,6 @@ public class GameUI extends Stage {
             rootPlayerTabel.add(ps).expandX();
         }
         this.addActor(rootPlayerTabel);
-
-
-
-
     }
 
 }

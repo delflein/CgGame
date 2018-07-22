@@ -62,9 +62,7 @@ public class GameInput implements InputProcessor {
                 Vector3 newPositon = playerComponent.move(1);
 
                 final ModelComponent mod = p1.getComponent(ModelComponent.class);
-                mod.getInstance().transform.setToTranslation(newPositon);
-                mod.getInstance().calculateBoundingBox(mod.bounds);
-                mod.bounds.mul(mod.getInstance().transform);
+                mod.move(newPositon);
             }
         }
         return false;

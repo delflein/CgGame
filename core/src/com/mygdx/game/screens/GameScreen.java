@@ -27,6 +27,7 @@ import com.mygdx.game.components.GameSettings;
 import com.mygdx.game.components.ModelComponent;
 import com.mygdx.game.components.SelectableComponent;
 import com.mygdx.game.components.Street;
+import com.mygdx.game.controller.GameController;
 import com.mygdx.game.controller.GameInput;
 import com.mygdx.game.stages.UI.GameUI;
 import com.mygdx.game.systems.PlayerSystem;
@@ -51,6 +52,9 @@ public class GameScreen implements Screen {
     //Sound
     private Music music;
 
+    //GameController
+    private GameController gameController;
+
     public GameScreen(Game game, GameSettings settings) {
         this.game = game;
         this.settings = settings;
@@ -63,6 +67,7 @@ public class GameScreen implements Screen {
         initEnvironment();
         ModelFactory.init();
         initEngine();
+        this.gameController = new GameController(engine,  settings);
         initGui();
         initInput();
         startBGM();
@@ -76,7 +81,7 @@ public class GameScreen implements Screen {
     }
 
     private void initGui() {
-        setStage(new GameUI(this.game,this.engine));
+        setStage(new GameUI(this,this.engine));
         BitmapFont font = new BitmapFont();
         label = new Label(" ", new Label.LabelStyle(font, Color.WHITE));
         stage.addActor(label);
@@ -205,6 +210,8 @@ public class GameScreen implements Screen {
     public Engine getEngine() {
         return engine;
     }
+
+    public GameController getGameController() { return gameController; }
 
     public void setStage(Stage stage){
         this.stage = stage;

@@ -84,10 +84,11 @@ public class Street {
 
     private Street getNext() {
         int id = streets.indexOf(this);
-        if (id + 1 > streets.size()) {
+        id++;
+        if (id == streets.size()) {
             return streets.get(0);
         } else {
-            return streets.get(id + 1);
+            return streets.get(id);
         }
     }
 
