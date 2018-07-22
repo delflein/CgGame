@@ -11,9 +11,8 @@ import com.mygdx.game.components.Street;
 import com.mygdx.game.screens.GameScreen;
 import com.mygdx.game.systems.PlayerSystem;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameInput implements InputProcessor {
 
@@ -29,20 +28,45 @@ public class GameInput implements InputProcessor {
             System.exit(0);
         }
         if (keycode == Input.Keys.G) {
+            List<Vector3> positions = new ArrayList<>();
             for (Entity playerEntity : gameScreen.getEngine().getSystem(PlayerSystem.class).getEntities()) {
                 final ModelComponent mod = playerEntity.getComponent(ModelComponent.class);
                 Vector3 position = new Vector3();
                 mod.getInstance().transform.getTranslation(position);
-
-                PlayerComponent player = playerEntity.getComponent(PlayerComponent.class);
-                try {
-                    FileWriter writer = new FileWriter(new File("FieldCoords"));
-                } catch (IOException ioe) {
-                    ioe.printStackTrace();
-                }
-
-                System.out.println("Spieler " + player.getId() + ": " + position.toString());
+                positions.add(position);
             }
+            if(positions.size() == 4) {
+                System.out.printf("new Vector3(%f, %f, %f), new Vector3(%f, %f, %f), new Vector3(%f, %f, %f), new Vector3(%f, %f, %f)", positions.get(0).x,positions.get(0).y,positions.get(0).z, positions.get(1).x,positions.get(1).y,positions.get(1).z,positions.get(2).x,positions.get(2).y,positions.get(2).z,positions.get(3).x,positions.get(3).y,positions.get(3).z);
+            }
+        }
+
+        if(keycode == Input.Keys.LEFT) {
+            for (Entity playerEntity : gameScreen.getEngine().getSystem(PlayerSystem.class).getEntities()) {
+                final ModelComponent mod = playerEntity.getComponent(ModelComponent.class);
+                mod.tra(-1,0,0);
+            }
+            return false;
+        }
+        if(keycode == Input.Keys.UP) {
+            for (Entity playerEntity : gameScreen.getEngine().getSystem(PlayerSystem.class).getEntities()) {
+                final ModelComponent mod = playerEntity.getComponent(ModelComponent.class);
+                mod.tra(0,0,-1);
+            }
+            return false;
+        }
+        if(keycode == Input.Keys.RIGHT) {
+            for (Entity playerEntity : gameScreen.getEngine().getSystem(PlayerSystem.class).getEntities()) {
+                final ModelComponent mod = playerEntity.getComponent(ModelComponent.class);
+                mod.tra(1,0,0);
+            }
+            return false;
+        }
+        if(keycode == Input.Keys.DOWN) {
+            for (Entity playerEntity : gameScreen.getEngine().getSystem(PlayerSystem.class).getEntities()) {
+                final ModelComponent mod = playerEntity.getComponent(ModelComponent.class);
+                mod.tra(0,0,1);
+            }
+            return false;
         }
 
         if (keycode == Input.Keys.M) {

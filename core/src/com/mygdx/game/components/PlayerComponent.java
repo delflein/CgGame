@@ -23,7 +23,7 @@ public class PlayerComponent implements Component {
 
     public PlayerComponent() {
         this.id = numOfPlayers++;
-        this.currentStreet = Street.getStreets().get(1);
+        this.currentStreet = Street.getStreets().get(0);
 
         this.money = 10000;
         this.owned_streets = new ArrayList<Street>();
@@ -32,6 +32,12 @@ public class PlayerComponent implements Component {
     public Vector3 move(int numOfFields) {
         currentStreet = currentStreet.move(numOfFields);
         return currentStreet.getPosition(this);
+    }
+
+    public List<Vector3> moveSmooth(int numOfFields) {
+        List<Vector3> path = currentStreet.getPath(numOfFields, this);
+        currentStreet = currentStreet.move(numOfFields);
+        return path;
     }
 
     public boolean isInJail() {

@@ -6,10 +6,10 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.components.GameSettings;
-import com.mygdx.game.components.ModelComponent;
+import com.mygdx.game.components.MovingComponent;
 import com.mygdx.game.components.PlayerComponent;
-import com.mygdx.game.screens.GameScreen;
-import com.mygdx.game.stages.UI.GameUI;
+
+import java.util.List;
 
 public class GameController {
 
@@ -34,9 +34,9 @@ public class GameController {
                     }
                 }
                 int numOfFields = roll_a + roll_b;
-                Vector3 newPosition = player.move(numOfFields);
-                ModelComponent mod = entity.getComponent(ModelComponent.class);
-                mod.move(newPosition);
+                List<Vector3> path = player.moveSmooth(numOfFields);
+                MovingComponent mov = entity.getComponent(MovingComponent.class);
+                mov.setPath(path);
             }
         }
         nextPlayer();

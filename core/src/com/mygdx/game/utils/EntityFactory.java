@@ -1,15 +1,12 @@
 package com.mygdx.game.utils;
 
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.VertexAttributes;
-import com.badlogic.gdx.graphics.g3d.Material;
 import com.badlogic.gdx.graphics.g3d.Model;
-import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
 import com.mygdx.game.components.ModelComponent;
+import com.mygdx.game.components.MovingComponent;
 import com.mygdx.game.components.PlayerComponent;
 import com.mygdx.game.components.SelectableComponent;
 
@@ -56,8 +53,10 @@ public class EntityFactory {
         Entity entity = new Entity();
         ModelComponent modelComponent = new ModelComponent(box, x, y, z);
         SelectableComponent selectableComponent = new SelectableComponent(modelComponent);
+        MovingComponent movingComponent = new MovingComponent(modelComponent);
         entity.add(modelComponent);
         entity.add(selectableComponent);
+        entity.add(movingComponent);
 
         return entity;
     }
