@@ -1,20 +1,15 @@
 package com.mygdx.game.stages.UI;
 
-import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.utils.Align;
-import com.mygdx.game.components.PlayerComponent;
 import com.mygdx.game.screens.GameScreen;
-import javafx.application.Platform;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -46,7 +41,7 @@ public class Dice extends Group implements GameUiElement {
         this.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                rolls_left+=50;
+                rolls_left = 50;
             }
         });
 
@@ -91,6 +86,10 @@ public class Dice extends Group implements GameUiElement {
         diceA.setDrawable(faces[randomNumA]);
         diceB.setDrawable(faces[randomNumB]);
 
+    }
+
+    public void toggleDice() {
+        this.setVisible(!this.isVisible());
     }
 
 

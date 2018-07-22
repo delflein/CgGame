@@ -1,8 +1,6 @@
 package com.mygdx.game.stages.UI;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.scenes.scene2d.Action;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -13,7 +11,7 @@ public class PlayerStatus extends Table implements GameUiElement {
     PlayerComponent player;
     Label nameLabel,moneyLabel;
     CardViewer cardViewer;
-
+    Label streetLabel;
 
     PlayerStatus(PlayerComponent player){
         this.player =player;
@@ -26,12 +24,16 @@ public class PlayerStatus extends Table implements GameUiElement {
 
         nameLabel = new Label("Player " + (player.getId()+1), skin);
         moneyLabel = new Label( player.getMoney()+ " M",skin);
+        streetLabel = new Label(player.getCurrentStreet().getName(), skin);
+
 
         this.add(nameLabel);
         this.row();
         this.add(moneyLabel);
         this.row();
         this.add(cardViewer);
+        this.row();
+        this.add(streetLabel);
 
 
 
@@ -42,6 +44,7 @@ public class PlayerStatus extends Table implements GameUiElement {
     public void act(float delta) {
         super.act(delta);
         this.moneyLabel.setText(player.getMoney()+" M");
+        this.streetLabel.setText(player.getCurrentStreet().getName());
     }
 
 }

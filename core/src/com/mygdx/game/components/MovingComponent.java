@@ -40,7 +40,7 @@ public class MovingComponent implements Component {
         model.tra(speed);
         Vector3 newPosition = new Vector3();
         model.getInstance().transform.getTranslation(newPosition);
-        if(nextTarget.dst(newPosition) < 5){
+        if (nextTarget.dst(newPosition) < 1) {
             next();
         }
     }

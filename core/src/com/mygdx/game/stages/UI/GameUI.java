@@ -5,18 +5,15 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.scenes.scene2d.*;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.game.components.PlayerComponent;
-import com.mygdx.game.controller.GameController;
 import com.mygdx.game.screens.GameScreen;
 import com.mygdx.game.systems.PlayerSystem;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class GameUI extends Stage {
     Game game;
@@ -54,6 +51,8 @@ public class GameUI extends Stage {
             rootPlayerTabel.add(ps).expandX();
         }
         this.addActor(rootPlayerTabel);
+
+        new Table().setWidth(400);
     }
 
 }
