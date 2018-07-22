@@ -4,16 +4,25 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.mygdx.game.screens.MainMenuScreen;
+import com.mygdx.game.settings.GraphicsSettings;
 import com.mygdx.game.utils.ModelFactory;
 
 public class MyGdxGame extends Game {
 
+    private static Runnable rebootHook;
 
-    @Override
-    public void create() {
-        ModelFactory.init();
-        Gdx.input.setCatchBackKey(true);
-        setScreen(new MainMenuScreen(this));
+    /**
+     * @param rebootHook game restart hook
+     */
+    public MyGdxGame(final Runnable rebootHook) {
+        MyGdxGame.rebootHook = rebootHook;
+    }
+
+    /**
+     * Restarts game client
+     */
+    public static void restart() {
+        Gdx.app.postRunnable(MyGdxGame.rebootHook);
     }
 
     @Override
@@ -46,5 +55,13 @@ public class MyGdxGame extends Game {
         if (screen != null) {
             screen.dispose();
         }
+    }
+
+    @Override
+    public void create() {
+        ModelFactory.init();
+        GraphicsSettings.setGraphics();
+        Gdx.input.setCatchBackKey(true);
+        setScreen(new MainMenuScreen(this));
     }
 }
