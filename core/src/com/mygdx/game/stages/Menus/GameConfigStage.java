@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
+import com.mygdx.game.components.GameSettings;
 import com.mygdx.game.screens.GameScreen;
 import com.mygdx.game.screens.MainMenuScreen;
 
@@ -79,7 +80,8 @@ public class GameConfigStage extends MenuStage {
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                 screen.stopBGM();
-                game.setScreen(new GameScreen(game));
+                GameSettings settings = new GameSettings(players,startCash,directGoDoubled,cashOverGo);
+                game.setScreen(new GameScreen(game,settings));
 
             }
             @Override
