@@ -9,9 +9,9 @@ import com.badlogic.gdx.ai.fsm.StateMachine;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.math.Vector3;
-import com.mygdx.game.components.GameSettings;
 import com.mygdx.game.components.MovingComponent;
 import com.mygdx.game.components.PlayerComponent;
+import com.mygdx.game.settings.GameSettings;
 
 import java.util.List;
 
