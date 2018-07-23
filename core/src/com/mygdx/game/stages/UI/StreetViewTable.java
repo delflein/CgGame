@@ -1,6 +1,5 @@
 package com.mygdx.game.stages.UI;
 
-import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -15,9 +14,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
-import com.mygdx.game.components.PlayerComponent;
 import com.mygdx.game.components.Street;
 import com.mygdx.game.components.Street.StreetType;
+import com.mygdx.game.controller.GameController;
 import com.mygdx.game.controller.GameStates;
 import com.mygdx.game.screens.GameScreen;
 
@@ -28,6 +27,9 @@ public class StreetViewTable extends Dialog implements GameUiElement {
     TextButton buyBtn, auctBtn;
 
     private SpriteDrawable[] icons = new SpriteDrawable[5];
+
+    private static boolean visible = false;
+    private static boolean buyable = false;
 
     public StreetViewTable(Skin skin, GameScreen screen) {
         super("Buy Street ?", skin);
@@ -68,10 +70,18 @@ public class StreetViewTable extends Dialog implements GameUiElement {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                screen.getGameController().getGameStateMachine().changeState(GameStates.BUY);
+                GameController.getGameStateMachine().changeState(GameStates.BUY);
+                makeInvisible();
             }
         });
         auctBtn = new TextButton("Auction!", getSkin());
+        auctBtn.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                makeInvisible();
+            }
+        });
         this.getButtonTable().add(buyBtn);
         this.getButtonTable().add(auctBtn);
         this.getContentTable().add(rt);
@@ -79,24 +89,40 @@ public class StreetViewTable extends Dialog implements GameUiElement {
         return this;
     }
 
+    private void showRentTable(Street street) {
+        if (street.getType() == StreetType.PROPERTY) {
+            this.getContentTable().clearChildren();
+            rt = new RentTableBuilder(street, icons).createPropertyTable();
+            this.getContentTable().add(rt);
+            this.pack();
+        }
+        setVisible(true);
+    }
+
+    public static void makeVisible(boolean isBuyable) {
+        visible = true;
+        buyable = isBuyable;
+    }
+
+    public static void makeInvisible() {
+        visible = false;
+    }
+
     @Override
     public void act(float delta) {
         super.act(delta);
-        this.setVisible(screen.getGameController().getGameStateMachine().getCurrentState() == GameStates.FIELD);
-        if (screen.getGameController().getGameStateMachine().getCurrentState() == GameStates.FIELD) {
-            Entity entity = screen.getGameController().getCurrentPlayer();
-            PlayerComponent player = entity.getComponent(PlayerComponent.class);
-            Street street = player.getCurrentStreet();
-            if (street.getCost() > player.getMoney()) {
+        if(visible) {
+            if(!buyable) {
                 buyBtn.setTouchable(Touchable.disabled);
                 buyBtn.setText("Funds insufficient");
+            }else {
+                buyBtn.setTouchable(Touchable.enabled);
+                buyBtn.setText("Buy!");
             }
-            if (street.getType() == StreetType.PROPERTY) {
-                this.getContentTable().clearChildren();
-                rt = new RentTableBuilder(street, icons).createPropertyTable();
-                this.getContentTable().add(rt);
-                this.pack();
-            }
+
+            showRentTable(GameController.getCurrentPlayerComponent().getCurrentStreet());
+        }else {
+            setVisible(false);
         }
     }
 }

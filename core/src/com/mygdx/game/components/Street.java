@@ -1,6 +1,7 @@
 package com.mygdx.game.components;
 
 import com.badlogic.gdx.math.Vector3;
+import com.mygdx.game.stages.UI.StreetViewTable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,12 +62,12 @@ public class Street {
         streets.add(new Street("St. Charles Place", "Pink", StreetType.PROPERTY, 140, 100, 100, 10, new int[] {50,150,450,625,750}, 70, new Vector3(-75f, 0f, 49f), new Vector3(-75f, 0f, 55f), new Vector3(-69f, 0f, 49f), new Vector3(-69f, 0f, 55f)));
         streets.add(new Street("Electric Company", "neutral", StreetType.FACILITY, 0, 0, 0, 0, new int[] {0,0,0,0,0}, 75, new Vector3(-75f, 0f, 37f), new Vector3(-75f, 0f, 43f), new Vector3(-69f, 0f, 37f), new Vector3(-69f, 0f, 43f)));
         streets.add(new Street("States Avenue", "Pink", StreetType.PROPERTY, 140, 100, 100, 10, new int[] {50,150,450,625,750}, 70, new Vector3(-75f, 0f, 23f), new Vector3(-75f, 0f, 29f), new Vector3(-69f, 0f, 23f), new Vector3(-69f, 0f, 29f)));
-        streets.add(new Street("Virginia Avenue", "Pink", StreetType.PROPERTY, 0, 0, 0, 0, new int[] {0,0,0,0,0}, 0, new Vector3(-75f, 0f, 10f), new Vector3(-75f, 0f, 16f), new Vector3(-69f, 0f, 10f), new Vector3(-69f, 0f, 16f)));
+        streets.add(new Street("Virginia Avenue", "Pink", StreetType.PROPERTY, 160, 100, 100, 12, new int[] {60,180,500,700,900}, 80, new Vector3(-75f, 0f, 10f), new Vector3(-75f, 0f, 16f), new Vector3(-69f, 0f, 10f), new Vector3(-69f, 0f, 16f)));
         streets.add(new Street("Pennsylvania Railroad", "neutral", StreetType.STATION, 200, 0, 0, 25, new int[] {0,0,0,0,0}, 100, new Vector3(-75f, 0f, -3f), new Vector3(-75f, 0f, 3f), new Vector3(-69f, 0f, -3f), new Vector3(-69f, 0f, 3f)));
-        streets.add(new Street("St. James Place", "Orange", StreetType.PROPERTY, 0, 0, 0, 0, new int[] {0,0,0,0,0}, 0, new Vector3(-75f, 0f, -16f), new Vector3(-75f, 0f, -10f), new Vector3(-69f, 0f, -16f), new Vector3(-69f, 0f, -10f)));
+        streets.add(new Street("St. James Place", "Orange", StreetType.PROPERTY, 180, 100, 100, 14, new int[] {70,200,550,750,950}, 90, new Vector3(-75f, 0f, -16f), new Vector3(-75f, 0f, -10f), new Vector3(-69f, 0f, -16f), new Vector3(-69f, 0f, -10f)));
         streets.add(new Street("Community Chest", "neutral", StreetType.COMMUNITY_CHEST, 0, 0, 0, 0, new int[] {0,0,0,0,0}, 0, new Vector3(-75f, 0f, -29f), new Vector3(-75f, 0f, -23f), new Vector3(-69f, 0f, -29f), new Vector3(-69f, 0f, -23f)));
-        streets.add(new Street("Tennessee Avenue", "Orange", StreetType.PROPERTY, 0, 0, 0, 0, new int[] {0,0,0,0,0}, 0, new Vector3(-75f, 0f, -43f), new Vector3(-75f, 0f, -37f), new Vector3(-69f, 0f, -43f), new Vector3(-69f, 0f, -37f)));
-        streets.add(new Street("New York Avenue", "Orange", StreetType.PROPERTY, 0, 0, 0, 0, new int[] {0,0,0,0,0}, 0, new Vector3(-75f, 0f, -55f), new Vector3(-75f, 0f, -49f), new Vector3(-69f, 0f, -55f), new Vector3(-69f, 0f, -49f)));
+        streets.add(new Street("Tennessee Avenue", "Orange", StreetType.PROPERTY, 180, 100, 100, 14, new int[] {70,200,550,750,950}, 90, new Vector3(-75f, 0f, -43f), new Vector3(-75f, 0f, -37f), new Vector3(-69f, 0f, -43f), new Vector3(-69f, 0f, -37f)));
+        streets.add(new Street("New York Avenue", "Orange", StreetType.PROPERTY, 200, 100, 100, 16, new int[] {80,220,600,800,1000}, 100, new Vector3(-75f, 0f, -55f), new Vector3(-75f, 0f, -49f), new Vector3(-69f, 0f, -55f), new Vector3(-69f, 0f, -49f)));
         streets.add(new Street("Free Parking", "neutral", StreetType.FREE_PARKING, 0, 0, 0, 0, new int[] {0,0,0,0,0}, 0, new Vector3(-72f, 0f, -72f), new Vector3(-72f, 0f, -66f), new Vector3(-66f, 0f, -72f), new Vector3(-66f, 0f, -66f)));
         streets.add(new Street("Kentucky Avenue", "Red", StreetType.PROPERTY, 0, 0, 0, 0, new int[] {0,0,0,0,0}, 0, new Vector3(-56f, 0f, -75f), new Vector3(-56f, 0f, -69f), new Vector3(-50f, 0f, -75f), new Vector3(-50f, 0f, -69f)));
         streets.add(new Street("Chance", "neutral", StreetType.CHANCE, 0, 0, 0, 0, new int[] {0,0,0,0,0}, 0, new Vector3(-43f, 0f, -75f), new Vector3(-43f, 0f, -69f), new Vector3(-37f, 0f, -75f), new Vector3(-37f, 0f, -69f)));
@@ -263,10 +264,7 @@ public class Street {
         PROPERTY() {
             @Override
             public void effect(PlayerComponent playerComponent) {
-                Street street = playerComponent.getCurrentStreet();
-                System.out.println("Name der Straße: " + street.name);
-                System.out.println("Kosten: " + street.name);
-                System.out.println("Name der Straße: " + street.name);
+                StreetViewTable.makeVisible(playerComponent.getCurrentStreet().getCost() < playerComponent.getMoney());
             }
         },
         CHANCE() {

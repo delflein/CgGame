@@ -38,7 +38,7 @@ public enum GameStates implements State<GameController> {
         @Override
         public void enter(GameController gc) {
             int[] rolls = Dice.getRoll();
-            Entity entity = gc.getCurrentPlayer();
+            Entity entity = GameController.getCurrentPlayer();
             PlayerComponent player = entity.getComponent(PlayerComponent.class);
 
             int numOfFields = rolls[0] + rolls[1];
@@ -49,10 +49,10 @@ public enum GameStates implements State<GameController> {
 
         @Override
         public void update(GameController gc) {
-            Entity entity = gc.getCurrentPlayer();
+            Entity entity = GameController.getCurrentPlayer();
             MovingComponent mov = entity.getComponent(MovingComponent.class);
             if (!mov.isMoving()) {
-                gc.getGameStateMachine().changeState(GameStates.FIELD);
+                GameController.getGameStateMachine().changeState(GameStates.FIELD);
             }
         }
 
@@ -72,7 +72,7 @@ public enum GameStates implements State<GameController> {
         public void enter(GameController pc) {
             PlayerComponent player = pc.getCurrentPlayer().getComponent(PlayerComponent.class);
             //TODO Buy Feature
-            player.getCurrentStreet().buy();
+            //player.getCurrentStreet().buy();
         }
 
         @Override
@@ -94,10 +94,10 @@ public enum GameStates implements State<GameController> {
     FIELD() {
         @Override
         public void enter(GameController gc) {
-            Entity entity = gc.getCurrentPlayer();
+            Entity entity = GameController.getCurrentPlayer();
             PlayerComponent player = entity.getComponent(PlayerComponent.class);
             player.getCurrentStreet().effect(player);
-            //gc.getGameStateMachine().changeState(GameStates.NEXT_PLAYER);
+            //GameController.getGameStateMachine().changeState(GameStates.NEXT_PLAYER);
         }
 
         @Override

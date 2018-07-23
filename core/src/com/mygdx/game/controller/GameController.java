@@ -19,11 +19,11 @@ public class GameController implements Telegraph {
 
     private Engine engine;
     private GameSettings settings;
-    private StateMachine<GameController, GameStates> gameStateMachine;
+    private static StateMachine<GameController, GameStates> gameStateMachine;
 
+    private static Entity currentPlayer;
 
     private int playerId = 0;
-    private Entity currentPlayer;
     private boolean moved;
     private ImmutableArray<Entity> players;
 
@@ -33,11 +33,15 @@ public class GameController implements Telegraph {
         this.settings = settings;
         gameStateMachine = new DefaultStateMachine<GameController, GameStates>(this, GameStates.IDLE);
         this.players = engine.getEntitiesFor(Family.all(PlayerComponent.class).get());
-        this.currentPlayer = players.get(0);
+        currentPlayer = players.get(0);
     }
 
-    public Entity getCurrentPlayer() {
+    public static Entity getCurrentPlayer() {
         return currentPlayer;
+    }
+
+    public static PlayerComponent getCurrentPlayerComponent() {
+        return currentPlayer.getComponent(PlayerComponent.class);
     }
 
     public void movePlayer(int roll_a, int roll_b) {
@@ -87,7 +91,7 @@ public class GameController implements Telegraph {
         return false;
     }
 
-    public StateMachine<GameController, GameStates> getGameStateMachine() {
+    public static StateMachine<GameController, GameStates> getGameStateMachine() {
         return gameStateMachine;
     }
 
