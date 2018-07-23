@@ -8,61 +8,55 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.mygdx.game.components.Street;
 
-public class RentTable extends Table {
 
-
-    RentTable() {
-    }
-
-    public static class RentTableBuilder {
+public class RentTableBuilder {
         Street street;
         RentTable rt;
-        Label firstCell, secondCell;
-        Image image;
 
         private Skin skin = new Skin(Gdx.files.internal("Skins/default/uiskin.json"));
         private SpriteDrawable[] icons;
 
         public RentTableBuilder(Street street, SpriteDrawable[] icons) {
             this.street = street;
-            rt = new RentTable();
             this.icons = icons;
+            this.rt = new RentTable();
         }
 
         private RentTableBuilder createRentRow() {
             rt.row().padBottom(5).expandX();
-            firstCell = new Label("Rent", skin);
-            secondCell = new Label(street.getBaseRent() + "M", skin);
+            Label firstCell = new Label("Rent", skin);
+            Label secondCell = new Label(street.getBaseRent() + "M", skin);
             rt.add(firstCell).colspan(2).left();
-            rt.add(secondCell);
+            rt.add(secondCell).right();
             return this;
         }
 
         private RentTableBuilder createFullGroupRow() {
             rt.row().padBottom(5).expandX();
-            firstCell = new Label("Rent with all streets", skin);
-            secondCell = new Label((street.getBaseRent() * 2) + "M", skin);
-            rt.add(firstCell).colspan(2);
-            rt.add(secondCell);
+            Label firstCell = new Label("Rent with whole group", skin);
+            Label secondCell = new Label((street.getBaseRent() * 2) + "M", skin);
+            rt.add(firstCell).colspan(2).left();
+            rt.add(secondCell).right();
             return this;
         }
 
         private RentTableBuilder createHouseRow(int icon) {
-            rt.row().padBottom(5).expandX();
-            firstCell = new Label("Rent with", skin);
-            secondCell = new Label(street.getRents()[icon - 1] + "M", skin);
-            secondCell.setText("M");
-            //TODO Set correct Texture
-            image = new Image();
-            image.setDrawable(icons[icon]);
-            rt.add(firstCell);
-            rt.add(image);
-            rt.add(secondCell);
+            rt.row().padBottom(10).expandX();
+            Label firstCell = new Label("Rent with", skin);
+            Label secondCell = new Label(street.getRents()[icon - 1] + "M", skin);
+            Image image = new Image();
+            image.setDrawable(icons[icon - 1]);
+            rt.add(firstCell).left();
+            rt.add(image).center();
+            rt.add(secondCell).right();
 
             return this;
         }
 
         public RentTable createPropertyTable() {
+            rt.row().fill().colspan(3).center();
+            rt.add(new Label(street.getName(), skin));
+            rt.row();
             return this.createRentRow().
                     createFullGroupRow().
                     createHouseRow(1).
@@ -74,7 +68,9 @@ public class RentTable extends Table {
         private RentTable buildTable() {
             return rt;
         }
+
+    protected class RentTable extends Table {
+
     }
-
-
 }
+

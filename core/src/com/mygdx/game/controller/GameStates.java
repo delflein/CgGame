@@ -67,6 +67,30 @@ public enum GameStates implements State<GameController> {
         }
     },
 
+    BUY() {
+        @Override
+        public void enter(GameController pc) {
+            PlayerComponent player = pc.getCurrentPlayer().getComponent(PlayerComponent.class);
+            //TODO Buy Feature
+            player.getCurrentStreet().buy();
+        }
+
+        @Override
+        public void update(GameController entity) {
+
+        }
+
+        @Override
+        public void exit(GameController entity) {
+
+        }
+
+        @Override
+        public boolean onMessage(GameController entity, Telegram telegram) {
+            return false;
+        }
+    },
+
     FIELD() {
         @Override
         public void enter(GameController gc) {

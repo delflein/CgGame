@@ -8,10 +8,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.mygdx.game.components.PlayerComponent;
@@ -20,19 +21,17 @@ import com.mygdx.game.components.Street.StreetType;
 import com.mygdx.game.controller.GameStates;
 import com.mygdx.game.screens.GameScreen;
 
-public class StreetViewTable extends Table implements GameUiElement {
+public class StreetViewTable extends Dialog implements GameUiElement {
 
     GameScreen screen;
-    Skin skin;
-    Label streetNameLabel;
-    RentTable rt;
+    RentTableBuilder.RentTable rt;
+    TextButton buyBtn, auctBtn;
+
     private SpriteDrawable[] icons = new SpriteDrawable[5];
 
-    public StreetViewTable(GameScreen screen, Skin skin) {
+    public StreetViewTable(Skin skin, GameScreen screen) {
+        super("Buy Street ?", skin);
         this.screen = screen;
-        this.skin = skin;
-        this.streetNameLabel = new Label(null, skin);
-        ;
     }
 
     private void initIcons() {
@@ -49,47 +48,55 @@ public class StreetViewTable extends Table implements GameUiElement {
     public StreetViewTable create() {
         this.initIcons();
         Pixmap backgroundColor = new Pixmap(300, 400, Pixmap.Format.RGB888);
-        backgroundColor.setColor(Color.LIGHT_GRAY);
+        backgroundColor.setColor(Color.WHITE);
         backgroundColor.fill();
         this.setBackground(new Image(new Texture(backgroundColor)).getDrawable());
         this.setFillParent(false);
         this.setPosition(400, 400);
+        this.setSize(300, 400);
         this.setVisible(true);
         this.setTouchable(Touchable.enabled);
-        this.top();
-        Table current = this;
+        Dialog current = this;
         current.addListener(new DragListener() {
             public void drag(InputEvent event, float x, float y, int pointer) {
                 current.moveBy(x - current.getWidth() / 2, y - current.getHeight() / 2);
             }
         });
 
+        buyBtn = new TextButton("Buy!", getSkin());
+        buyBtn.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                screen.getGameController().getGameStateMachine().changeState(GameStates.BUY);
+            }
+        });
+        auctBtn = new TextButton("Auction!", getSkin());
+        this.getButtonTable().add(buyBtn);
+        this.getButtonTable().add(auctBtn);
+        this.getContentTable().add(rt);
 
-        this.row();
-        this.add(rt).fill();
         return this;
     }
 
     @Override
     public void act(float delta) {
         super.act(delta);
-        //this.setVisible(screen.getGameController().getGameStateMachine().getCurrentState() == GameStates.FIELD);
+        this.setVisible(screen.getGameController().getGameStateMachine().getCurrentState() == GameStates.FIELD);
         if (screen.getGameController().getGameStateMachine().getCurrentState() == GameStates.FIELD) {
-            this.removeActor(rt);
-
             Entity entity = screen.getGameController().getCurrentPlayer();
             PlayerComponent player = entity.getComponent(PlayerComponent.class);
             Street street = player.getCurrentStreet();
+            if (street.getCost() > player.getMoney()) {
+                buyBtn.setTouchable(Touchable.disabled);
+                buyBtn.setText("Funds insufficient");
+            }
             if (street.getType() == StreetType.PROPERTY) {
-                rt = new RentTable.RentTableBuilder(street, icons).createPropertyTable();
-                this.add(rt);
+                this.getContentTable().clearChildren();
+                rt = new RentTableBuilder(street, icons).createPropertyTable();
+                this.getContentTable().add(rt);
                 this.pack();
             }
-
-
-            // }
-
-
         }
     }
 }
