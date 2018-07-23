@@ -7,75 +7,8 @@ import java.util.List;
 
 public class Street {
 
-    enum StreetType implements Effect{
-        GO() {
-            @Override
-            public void effect(PlayerComponent playerComponent) {
-                
-            }
-        },
-        PROPERTY() {
-            @Override
-            public void effect(PlayerComponent playerComponent) {
-                Street street = playerComponent.getCurrentStreet();
-                System.out.println("Name der Straße: " + street.name);
-                System.out.println("Kosen: " + street.name);
-                System.out.println("Name der Straße: " + street.name);
-            }
-        },
-        CHANCE() {
-            @Override
-            public void effect(PlayerComponent playerComponent) {
-                //playerComponent.drawChanceCard();
-            }
-        },
-        COMMUNITY_CHEST() {
-            @Override
-            public void effect(PlayerComponent playerComponent) {
-
-            }
-        },
-        TAX() {
-            @Override
-            public void effect(PlayerComponent playerComponent) {
-
-            }
-        },
-        SUPER_TAX() {
-            @Override
-            public void effect(PlayerComponent playerComponent) {
-
-            }
-        },
-        STATION() {
-            @Override
-            public void effect(PlayerComponent playerComponent) {
-
-            }
-        },
-        FACILITY() {
-            @Override
-            public void effect(PlayerComponent playerComponent) {
-
-            }
-        },
-        JAIL() {
-            @Override
-            public void effect(PlayerComponent playerComponent) {
-
-            }
-        },
-        FREE_PARKING() {
-            @Override
-            public void effect(PlayerComponent playerComponent) {
-
-            }
-        },
-        GOTOJAIL()  {
-            @Override
-            public void effect(PlayerComponent playerComponent) {
-            }
-        }
+    public int getCost() {
+        return cost;
     }
 
     private static List<Street> streets = new ArrayList<Street>();
@@ -234,5 +167,160 @@ public class Street {
 
     public void setBaseRent(int base_rent) {
         this.base_rent = base_rent;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
+    }
+
+    public int getCost_house() {
+        return cost_house;
+    }
+
+    public void setCost_house(int cost_house) {
+        this.cost_house = cost_house;
+    }
+
+    public int getCost_hotel() {
+        return cost_hotel;
+    }
+
+    public void setCost_hotel(int cost_hotel) {
+        this.cost_hotel = cost_hotel;
+    }
+
+    public int getBase_rent() {
+        return base_rent;
+    }
+
+    public void setBase_rent(int base_rent) {
+        this.base_rent = base_rent;
+    }
+
+    public int[] getRents() {
+        return rents;
+    }
+
+    public void setRents(int[] rents) {
+        this.rents = rents;
+    }
+
+    public int getHypothek() {
+        return hypothek;
+    }
+
+    public void setHypothek(int hypothek) {
+        this.hypothek = hypothek;
+    }
+
+    public Vector3 getP1_position() {
+        return p1_position;
+    }
+
+    public void setP1_position(Vector3 p1_position) {
+        this.p1_position = p1_position;
+    }
+
+    public Vector3 getP2_position() {
+        return p2_position;
+    }
+
+    public void setP2_position(Vector3 p2_position) {
+        this.p2_position = p2_position;
+    }
+
+    public Vector3 getP3_position() {
+        return p3_position;
+    }
+
+    public void setP3_position(Vector3 p3_position) {
+        this.p3_position = p3_position;
+    }
+
+    public Vector3 getP4_position() {
+        return p4_position;
+    }
+
+    public void setP4_position(Vector3 p4_position) {
+        this.p4_position = p4_position;
+    }
+
+    public StreetType getType() {
+        return type;
+    }
+
+    public void setType(StreetType type) {
+        this.type = type;
+    }
+
+    public enum StreetType implements Effect {
+        GO() {
+            @Override
+            public void effect(PlayerComponent playerComponent) {
+
+            }
+        },
+        PROPERTY() {
+            @Override
+            public void effect(PlayerComponent playerComponent) {
+                Street street = playerComponent.getCurrentStreet();
+                System.out.println("Name der Straße: " + street.name);
+                System.out.println("Kosten: " + street.name);
+                System.out.println("Name der Straße: " + street.name);
+            }
+        },
+        CHANCE() {
+            @Override
+            public void effect(PlayerComponent playerComponent) {
+                //playerComponent.drawChanceCard();
+            }
+        },
+        COMMUNITY_CHEST() {
+            @Override
+            public void effect(PlayerComponent playerComponent) {
+
+            }
+        },
+        TAX() {
+            @Override
+            public void effect(PlayerComponent playerComponent) {
+
+            }
+        },
+        SUPER_TAX() {
+            @Override
+            public void effect(PlayerComponent playerComponent) {
+
+            }
+        },
+        STATION() {
+            @Override
+            public void effect(PlayerComponent playerComponent) {
+
+            }
+        },
+        FACILITY() {
+            @Override
+            public void effect(PlayerComponent playerComponent) {
+
+            }
+        },
+        JAIL() {
+            @Override
+            public void effect(PlayerComponent playerComponent) {
+
+            }
+        },
+        FREE_PARKING() {
+            @Override
+            public void effect(PlayerComponent playerComponent) {
+
+            }
+        },
+        GOTOJAIL() {
+            @Override
+            public void effect(PlayerComponent playerComponent) {
+            }
+        }
     }
 }

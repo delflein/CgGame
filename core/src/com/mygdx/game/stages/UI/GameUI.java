@@ -22,7 +22,9 @@ public class GameUI extends Stage {
     List<PlayerStatus> playerStatus;
     Dice dice;
     TurnButton turnBtn;
-    //Actor slideMenu;
+    StreetViewTable streetView;
+
+    //
 
     public GameUI(GameScreen gameScreen, Engine engine){
         this.engine=engine;
@@ -30,7 +32,8 @@ public class GameUI extends Stage {
         this.skin = new Skin(Gdx.files.internal("Skins/default/uiskin.json"));
         this.dice = new Dice(this.screen).create();
         this.playerStatus = new ArrayList<PlayerStatus>();
-        this.turnBtn = new TurnButton("End Turn!", skin, screen);
+        this.turnBtn = new TurnButton("End Turn!", skin, screen).create();
+        this.streetView = new StreetViewTable(screen, skin).create();
         initUI();
 
     }
@@ -38,8 +41,7 @@ public class GameUI extends Stage {
     private void initUI(){
         dice.setPosition(Gdx.graphics.getWidth()-dice.getWidth(),0);
         this.addActor(dice);
-
-        this.addActor(turnBtn.create());
+        this.addActor(turnBtn);
 
         Table rootPlayerTabel = new Table();
         rootPlayerTabel.setFillParent(true);
@@ -54,7 +56,10 @@ public class GameUI extends Stage {
         }
         this.addActor(rootPlayerTabel);
 
-        new Table().setWidth(400);
+        streetView.debug();
+        this.addActor(streetView);
+        streetView.pack();
     }
+
 
 }

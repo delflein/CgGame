@@ -5,14 +5,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.game.components.PlayerComponent;
 import com.mygdx.game.components.Rectangle;
 
-public class CardViewer extends Table implements GameUiElement {
+public class CardMatrix extends Table implements GameUiElement {
 
     private PlayerComponent player;
 
     private Rectangle cardMatrix[][];
 
     @Override
-    public CardViewer create() {
+    public CardMatrix create() {
         int rows = 4;
         int columns = 10;
 

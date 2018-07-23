@@ -45,8 +45,6 @@ public enum GameStates implements State<GameController> {
             List<Vector3> path = player.moveSmooth(numOfFields);
             MovingComponent mov = entity.getComponent(MovingComponent.class);
             mov.setPath(path);
-
-
         }
 
         @Override
@@ -54,13 +52,38 @@ public enum GameStates implements State<GameController> {
             Entity entity = gc.getCurrentPlayer();
             MovingComponent mov = entity.getComponent(MovingComponent.class);
             if (!mov.isMoving()) {
-                gc.getGameStateMachine().changeState(GameStates.BUILD);
+                gc.getGameStateMachine().changeState(GameStates.FIELD);
             }
         }
 
         @Override
         public void exit(GameController entity) {
             entity.setMoved(true);
+        }
+
+        @Override
+        public boolean onMessage(GameController entity, Telegram telegram) {
+            return false;
+        }
+    },
+
+    FIELD() {
+        @Override
+        public void enter(GameController gc) {
+            Entity entity = gc.getCurrentPlayer();
+            PlayerComponent player = entity.getComponent(PlayerComponent.class);
+            player.getCurrentStreet().effect(player);
+            //gc.getGameStateMachine().changeState(GameStates.NEXT_PLAYER);
+        }
+
+        @Override
+        public void update(GameController entity) {
+
+        }
+
+        @Override
+        public void exit(GameController entity) {
+
         }
 
         @Override

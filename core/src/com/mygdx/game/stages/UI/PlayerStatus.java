@@ -10,12 +10,12 @@ public class PlayerStatus extends Table implements GameUiElement {
 
     PlayerComponent player;
     Label nameLabel,moneyLabel;
-    CardViewer cardViewer;
+    CardMatrix cardMatrix;
     Label streetLabel;
 
     PlayerStatus(PlayerComponent player){
         this.player =player;
-        this.cardViewer = new CardViewer().create();
+        this.cardMatrix = new CardMatrix().create();
     }
 
     @Override
@@ -31,7 +31,7 @@ public class PlayerStatus extends Table implements GameUiElement {
         this.row();
         this.add(moneyLabel);
         this.row();
-        this.add(cardViewer);
+        this.add(cardMatrix);
         this.row();
         this.add(streetLabel);
 

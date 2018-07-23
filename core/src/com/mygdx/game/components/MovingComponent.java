@@ -13,7 +13,7 @@ public class MovingComponent implements Component {
     Vector3 nextTarget;
     ModelComponent model;
 
-    private final static float speedMul = 10;
+    private final static float speedMul = 20;
 
     public boolean isMoving() {
         return nextTarget != null;

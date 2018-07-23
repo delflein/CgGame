@@ -58,20 +58,26 @@ public class GameScreen implements Screen {
     public GameScreen(Game game, GameSettings settings) {
         this.game = game;
         this.settings = settings;
+
+
         batch = new ModelBatch();
         selectionMaterial = new Material();
         selectionMaterial.set(ColorAttribute.createDiffuse(Color.ORANGE));
         originalMaterial = new Material();
+
+
+        //Initializer, keep order in mind
         Street.init();
         initCam();
         initEnvironment();
         ModelFactory.init();
         initEngine();
-        this.gameController = new GameController(engine,  settings);
         initGui();
         initInput();
         startBGM();
         //Gdx.input.setCursorCatched(true);
+
+        this.gameController = new GameController(engine, settings);
     }
 
     private void startBGM() {
