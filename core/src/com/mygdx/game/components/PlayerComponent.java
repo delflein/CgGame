@@ -41,6 +41,16 @@ public class PlayerComponent implements Component {
         return path;
     }
 
+    public void buyStreet() {
+        if (money > currentStreet.getCost()) {
+            money -= currentStreet.getCost();
+            owned_streets.add(currentStreet);
+            currentStreet.setSold();
+        }
+    }
+
+
+
     public boolean isInJail() {
         return jail_counter > 0;
     }
@@ -83,5 +93,18 @@ public class PlayerComponent implements Component {
 
     public void setOwned_streets(List<Street> owned_streets) {
         this.owned_streets = owned_streets;
+    }
+
+    public void payRent() {
+        PlayerComponent enemy = currentStreet.getOwner();
+        if (currentStreet.getHouses() == 0) {
+            int multiplier = (enemy.hasOtherStreets()) ? 2 : 1;
+            int rent = getCurrentStreet().getBase_rent() * multiplier;
+        }
+    }
+
+    private boolean hasOtherStreets() {
+        //TODO
+        return false;
     }
 }

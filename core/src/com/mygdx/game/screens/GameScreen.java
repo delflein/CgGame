@@ -83,7 +83,7 @@ public class GameScreen implements Screen {
     private void startBGM() {
             music =  Gdx.audio.newMusic(Gdx.files.internal("BGM/game_theme.mp3"));
             music.setLooping(true);
-            music.play();
+        //music.play();
     }
 
     private void initGui() {

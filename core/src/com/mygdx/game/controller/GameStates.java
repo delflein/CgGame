@@ -66,13 +66,14 @@ public enum GameStates implements State<GameController> {
             return false;
         }
     },
-
-    BUY() {
+    FIELD() {
         @Override
-        public void enter(GameController pc) {
-            //PlayerComponent player = pc.getCurrentPlayer().getComponent(PlayerComponent.class);
-            //TODO Buy Feature
-            //player.getCurrentStreet().buy();
+        public void enter(GameController gc) {
+            Entity entity = GameController.getCurrentPlayer();
+            PlayerComponent player = entity.getComponent(PlayerComponent.class);
+            player.getCurrentStreet().effect(player);
+
+            //GameController.getGameStateMachine().changeState(GameStates.NEXT_PLAYER);
         }
 
         @Override
@@ -90,14 +91,11 @@ public enum GameStates implements State<GameController> {
             return false;
         }
     },
-
-    FIELD() {
+    BUY() {
         @Override
         public void enter(GameController gc) {
-            Entity entity = GameController.getCurrentPlayer();
-            PlayerComponent player = entity.getComponent(PlayerComponent.class);
-            player.getCurrentStreet().effect(player);
-            //GameController.getGameStateMachine().changeState(GameStates.NEXT_PLAYER);
+            GameController.getCurrentPlayerComponent().buyStreet();
+            GameController.getGameStateMachine().changeState(GameStates.BUILD);
         }
 
         @Override

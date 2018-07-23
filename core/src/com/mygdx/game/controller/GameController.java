@@ -25,7 +25,7 @@ public class GameController implements Telegraph {
 
     private int playerId = 0;
     private boolean moved;
-    private ImmutableArray<Entity> players;
+    private static ImmutableArray<Entity> players;
 
 
     public GameController(Engine engine, GameSettings gameSettings) {
@@ -42,6 +42,10 @@ public class GameController implements Telegraph {
 
     public static Entity getCurrentPlayer() {
         return currentPlayer;
+    }
+
+    public static ImmutableArray<Entity> getPlayers() {
+        return players;
     }
 
     public static PlayerComponent getCurrentPlayerComponent() {

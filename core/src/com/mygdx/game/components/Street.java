@@ -1,6 +1,8 @@
 package com.mygdx.game.components;
 
+import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.math.Vector3;
+import com.mygdx.game.controller.GameController;
 import com.mygdx.game.stages.UI.StreetViewTable;
 
 import java.util.ArrayList;
@@ -23,6 +25,7 @@ public class Street {
     private int base_rent;
     private int[] rents;
     private int hypothek;
+    int houses;
 
     private Vector3 p1_position;
     private Vector3 p2_position;
@@ -30,6 +33,10 @@ public class Street {
     private Vector3 p4_position;
 
     private StreetType type;
+    int sold;
+    boolean mortgaged;
+
+
 
     private Street(String name, String colorCode, StreetType type, int cost, int cost_house, int cost_hotel, int base_rent, int[] rents, int hypothek, Vector3 p1_position, Vector3 p2_position, Vector3 p3_position, Vector3 p4_position) {
         this.name = name;
@@ -45,6 +52,9 @@ public class Street {
         this.p2_position = p2_position;
         this.p3_position = p3_position;
         this.p4_position = p4_position;
+        this.sold = -1;
+        this.mortgaged = false;
+        this.houses = 0;
     }
 
     public static void init() {
@@ -82,7 +92,7 @@ public class Street {
         streets.add(new Street("Pacific Avenue", "Green", StreetType.PROPERTY, 300, 200, 200, 26, new int[] {130,390,900,1100,1275}, 150, new Vector3(69f, 0f, -56f), new Vector3(69f, 0f, -50f), new Vector3(75f, 0f, -56f), new Vector3(75f, 0f, -50f)));
         streets.add(new Street("North Carolina Avenue", "Green", StreetType.PROPERTY, 300, 200, 200, 26, new int[] {130,390,900,1100,1275}, 150, new Vector3(69f, 0f, -43f), new Vector3(69f, 0f, -37f), new Vector3(75f, 0f, -43f), new Vector3(75f, 0f, -37f)));
         streets.add(new Street("Community Chest", "neutral", StreetType.COMMUNITY_CHEST, 0, 0, 0, 0, new int[] {0,0,0,0,0}, 0, new Vector3(69f, 0f, -30f), new Vector3(69f, 0f, -24f), new Vector3(75f, 0f, -30f), new Vector3(75f, 0f, -24f)));
-        streets.add(new Street("Pennsylvania Avenue", "Green", StreetType.PROPERTY, 320, 200, 200, 28, new int[] {150,450,1000,1200,1400}, 60, new Vector3(69f, 0f, -16f), new Vector3(69f, 0f, -10f), new Vector3(75f, 0f, -16f), new Vector3(75f, 0f, -10f)));
+        streets.add(new Street("Pennsylvania Avenue", "Green", StreetType.PROPERTY, 0, 0, 0, 0, new int[]{0, 0, 0, 0, 0}, 0, new Vector3(69f, 0f, -16f), new Vector3(69f, 0f, -10f), new Vector3(75f, 0f, -16f), new Vector3(75f, 0f, -10f)));
         streets.add(new Street("Shortline", "neutral", StreetType.STATION, 200, 0, 0, 25, new int[] {0,0,0,0,0}, 100, new Vector3(69f, 0f, -3f), new Vector3(69f, 0f, 3f), new Vector3(75f, 0f, -3f), new Vector3(75f, 0f, 3f)));
         streets.add(new Street("Chance", "neutral", StreetType.CHANCE, 0, 0, 0, 0, new int[] {0,0,0,0,0}, 0, new Vector3(69f, 0f, 10f), new Vector3(69f, 0f, 16f), new Vector3(75f, 0f, 10f), new Vector3(75f, 0f, 16f)));
         streets.add(new Street("Park Place", "DarkBlue", StreetType.PROPERTY, 350, 200, 200, 35, new int[] {175,500,1100,1300,1500}, 175, new Vector3(69f, 0f, 23f), new Vector3(69f, 0f, 29f), new Vector3(75f, 0f, 23f), new Vector3(75f, 0f, 29f)));
@@ -150,108 +160,76 @@ public class Street {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getColorCode() {
         return colorCode;
-    }
-
-    public void setColorCode(String colorCode) {
-        this.colorCode = colorCode;
     }
 
     public int getBaseRent() {
         return base_rent;
     }
 
-    public void setBaseRent(int base_rent) {
-        this.base_rent = base_rent;
-    }
-
-    public void setCost(int cost) {
-        this.cost = cost;
-    }
-
     public int getCost_house() {
         return cost_house;
-    }
-
-    public void setCost_house(int cost_house) {
-        this.cost_house = cost_house;
     }
 
     public int getCost_hotel() {
         return cost_hotel;
     }
 
-    public void setCost_hotel(int cost_hotel) {
-        this.cost_hotel = cost_hotel;
-    }
-
     public int getBase_rent() {
         return base_rent;
-    }
-
-    public void setBase_rent(int base_rent) {
-        this.base_rent = base_rent;
     }
 
     public int[] getRents() {
         return rents;
     }
 
-    public void setRents(int[] rents) {
-        this.rents = rents;
-    }
-
     public int getHypothek() {
         return hypothek;
-    }
-
-    public void setHypothek(int hypothek) {
-        this.hypothek = hypothek;
-    }
-
-    public Vector3 getP1_position() {
-        return p1_position;
-    }
-
-    public void setP1_position(Vector3 p1_position) {
-        this.p1_position = p1_position;
-    }
-
-    public Vector3 getP2_position() {
-        return p2_position;
-    }
-
-    public void setP2_position(Vector3 p2_position) {
-        this.p2_position = p2_position;
-    }
-
-    public Vector3 getP3_position() {
-        return p3_position;
-    }
-
-    public void setP3_position(Vector3 p3_position) {
-        this.p3_position = p3_position;
-    }
-
-    public Vector3 getP4_position() {
-        return p4_position;
-    }
-
-    public void setP4_position(Vector3 p4_position) {
-        this.p4_position = p4_position;
     }
 
     public StreetType getType() {
         return type;
     }
 
-    public void setType(StreetType type) {
-        this.type = type;
+
+    public PlayerComponent getOwner() {
+        if (!isSold()) return null;
+        Street currentStreet = GameController.getCurrentPlayerComponent().getCurrentStreet();
+        for (Entity entity : GameController.getPlayers()) {
+            if (entity.getComponent(PlayerComponent.class).getOwned_streets().contains(currentStreet)) {
+                return entity.getComponent(PlayerComponent.class);
+            }
+        }
+        return null;
+    }
+
+    public boolean isSold() {
+        return this.sold != -1;
+    }
+
+    private boolean hasMortgage() {
+        return mortgaged;
+    }
+
+    public void buildHouse() {
+        int buildcost = (getHouses() == 4) ? getCost_hotel() : getCost_house();
+        PlayerComponent player = GameController.getCurrentPlayerComponent();
+        player.setMoney(player.getMoney() - buildcost);
+        this.houses++;
+    }
+
+    public int getHouses() {
+        return houses;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
+    public void setSold() {
+        this.sold = GameController.getCurrentPlayerComponent().getId();
     }
 
     public enum StreetType implements Effect {
@@ -267,7 +245,13 @@ public class Street {
                 // IF owned by other Player
                 //      Pay Rent to Other
                 // ELSE IF Not owned
-                StreetViewTable.makeVisible(playerComponent.getCurrentStreet().getCost() < playerComponent.getMoney());
+                if (!playerComponent.getCurrentStreet().isSold()) {
+                    StreetViewTable.makeVisible(playerComponent.getCurrentStreet().getCost() < playerComponent.getMoney());
+                } else {
+                    if (!playerComponent.getCurrentStreet().hasMortgage()) {
+                        playerComponent.payRent();
+                    }
+                }
             }
         },
         CHANCE() {
@@ -347,4 +331,6 @@ public class Street {
             }
         }
     }
+
+
 }

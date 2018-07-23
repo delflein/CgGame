@@ -32,7 +32,7 @@ public class StreetViewTable extends Dialog implements GameUiElement {
     private static boolean buyable = false;
 
     public StreetViewTable(Skin skin, GameScreen screen) {
-        super("Buy Street ?", skin);
+        super("", skin);
         this.screen = screen;
     }
 
@@ -66,6 +66,7 @@ public class StreetViewTable extends Dialog implements GameUiElement {
         });
 
         buyBtn = new TextButton("Buy!", getSkin());
+        buyBtn.setColor(Color.BLACK);
         buyBtn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -75,6 +76,7 @@ public class StreetViewTable extends Dialog implements GameUiElement {
             }
         });
         auctBtn = new TextButton("Auction!", getSkin());
+        auctBtn.setColor(Color.BLACK);
         auctBtn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
