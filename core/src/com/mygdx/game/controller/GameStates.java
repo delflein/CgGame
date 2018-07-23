@@ -70,7 +70,7 @@ public enum GameStates implements State<GameController> {
     BUY() {
         @Override
         public void enter(GameController pc) {
-            PlayerComponent player = pc.getCurrentPlayer().getComponent(PlayerComponent.class);
+            //PlayerComponent player = pc.getCurrentPlayer().getComponent(PlayerComponent.class);
             //TODO Buy Feature
             //player.getCurrentStreet().buy();
         }
