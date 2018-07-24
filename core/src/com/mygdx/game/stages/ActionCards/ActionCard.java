@@ -1,11 +1,13 @@
 package com.mygdx.game.stages.ActionCards;
 
+import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.game.components.Effect;
 import com.mygdx.game.components.PlayerComponent;
+import com.mygdx.game.controller.GameController;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,16 +20,16 @@ public class ActionCard extends Table implements Effect {
     ActionCardType type;
 
     public ActionCard(String text, ActionCardType type, Integer... amounts) {
-        this.text = new Label(text, skin);
-        this.text.setColor(Color.BLACK);
-        this.type = type;
+        this(text, type);
         this.amounts = Arrays.asList(amounts);
     }
 
     public ActionCard(String text, ActionCardType type) {
         this.text = new Label(text, skin);
         this.text.setColor(Color.BLACK);
+        this.add(text);
         this.type = type;
+
     }
 
 
@@ -40,15 +42,26 @@ public class ActionCard extends Table implements Effect {
                 playerComponent.setMoney(playerComponent.getMoney() - amounts.get(0));
             case JAIL:
                 //TODO Move to Jail
-                //playerComponent.dosomemagichere
+                //playerComponent.goDirectToJail()
             case VAMPIRE:
-                //TODO Suck money from other Players
+                int amount = amounts.get(0);
+                int otherPlayers = GameController.getPlayers().size() - 1;
+                for (Entity entity : GameController.getPlayers()) {
+                    PlayerComponent player = entity.getComponent(PlayerComponent.class);
+                    if (player.equals(playerComponent)) {
+                        continue;
+                    }
+                    player.setMoney(player.getMoney() + amount);
+                }
+                playerComponent.setMoney(playerComponent.getMoney() + (otherPlayers) * amount);
             case JAILFREE:
                 //TODO Get Jail Free Card
             case RENOVATE:
-                //TODO Get amount of Buildings and sub costs
+                int[] buildings = playerComponent.getBuildingsCount();
+                int cost = buildings[0] * amounts.get(0) + buildings[1] * amounts.get(1);
+                playerComponent.setMoney(playerComponent.getMoney() - cost);
             case TRAVEL:
-                //TODO go to Specific street
+                //
         }
     }
 
@@ -56,6 +69,9 @@ public class ActionCard extends Table implements Effect {
         GET, PAY, RENOVATE, JAILFREE, JAIL, VAMPIRE, GO, TRAVEL,
     }
 
+    public ActionCardType getType() {
+        return type;
+    }
 
 }
 

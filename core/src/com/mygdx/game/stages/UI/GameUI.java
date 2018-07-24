@@ -34,7 +34,6 @@ public class GameUI extends Stage {
         this.dice = new Dice(this.screen).create();
         this.playerStatus = new ArrayList<PlayerStatus>();
         this.turnBtn = new TurnButton("End Turn!", skin, screen).create();
-        //this.streetView = new StreetViewTable(skin, screen).create();
         initUI();
 
     }

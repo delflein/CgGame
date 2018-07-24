@@ -4,6 +4,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.controller.GameController;
+import com.mygdx.game.stages.UI.ActionCardView;
 import com.mygdx.game.stages.UI.Dice;
 import com.mygdx.game.stages.UI.StreetViewTable;
 
@@ -136,6 +137,7 @@ public class Street {
         int id = streets.indexOf(this);
         id++;
         if (id == streets.size()) {
+            GameController.getCurrentPlayerComponent().go();
             return streets.get(0);
         } else {
             return streets.get(id);
@@ -265,7 +267,9 @@ public class Street {
         GO() {
             @Override
             public void effect(PlayerComponent playerComponent) {
-                // Pay Double Money to Player
+                if (GameController.getGameSettings().doubleCash) {
+                    playerComponent.go();
+                }
             }
         },
         PROPERTY() {
@@ -290,19 +294,16 @@ public class Street {
         CHANCE() {
             @Override
             public void effect(PlayerComponent playerComponent) {
+                ActionCardView view = new ActionCardView(true, true).create();
+                GameController.getGameUi().addActor(view);
 
-                //CardViewTable.createAndMakeVisible(false);
             }
         },
         COMMUNITY_CHEST() {
             @Override
             public void effect(PlayerComponent playerComponent) {
-                // Draw Deed Card
-                // CardViewTable.makeVisible(true);
-                // IF Instant Effect
-                //      Do Effect
-                // ELSE
-                //      Give Player Card
+                ActionCardView view = new ActionCardView(true, true).create();
+                GameController.getGameUi().addActor(view);
             }
         },
         TAX() {
@@ -332,12 +333,9 @@ public class Street {
                     }
                     GameController.getGameUi().addActor(dialog);
                 } else {
-                    int amount = Dice.getRollSum();
-                    {
                         playerComponent.payRent();
                     }
                 }
-            }
         },
         FACILITY() {
             @Override
@@ -355,9 +353,7 @@ public class Street {
                     GameController.getGameUi().addActor(dialog);
                 } else {
                     int amount = Dice.getRollSum();
-                    {
-                        playerComponent.payRent();
-                    }
+                    playerComponent.payRent();
                 }
 
 

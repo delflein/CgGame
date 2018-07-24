@@ -132,4 +132,21 @@ public class PlayerComponent implements Component {
     }
 
 
+    public int[] getBuildingsCount() {
+        int house = 0;
+        int hotel = 0;
+        for (Street owned_street : owned_streets) {
+            if (owned_street.getHouses() == 4) {
+                hotel++;
+            }
+            if (owned_street.getHouses() > 0 && owned_street.getHouses() < 4) {
+                house += owned_street.getHouses();
+            }
+        }
+        return new int[]{house, hotel};
+    }
+
+    public void go() {
+        this.money += GameController.getGameSettings().gocash;
+    }
 }

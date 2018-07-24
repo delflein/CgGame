@@ -1,6 +1,8 @@
 package com.mygdx.game.stages.ActionCards;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class CommunityChestCard extends ActionCard {
@@ -12,7 +14,7 @@ public class CommunityChestCard extends ActionCard {
             new CommunityChestCard("From sale of stock you get $50", ActionCardType.GET, 50),
             new CommunityChestCard("Get Out of Jail Free - This card may be kept until needed or sold/traded)", ActionCardType.JAILFREE),
             new CommunityChestCard("Go to Jail – Go directly to jail – Do not pass Go – Do not collect $200", ActionCardType.JAIL),
-            new CommunityChestCard("Grand Opera Night – Collect $50 from every player for opening night seats", ActionCardType.VAMPIRE, 50),
+            new CommunityChestCard("Grand Opera Night – Collect $50 from every player for opening night seats", ActionCardType.VAMPIRE, +50),
             new CommunityChestCard("Holiday Fund matures - Receive $100", ActionCardType.GET, 100),
             new CommunityChestCard("Income tax refund – Collect $20", ActionCardType.GET, 20),
             new CommunityChestCard("Life insurance matures – Collect $100", ActionCardType.GET, 100),
@@ -31,5 +33,11 @@ public class CommunityChestCard extends ActionCard {
 
     public CommunityChestCard(String text, ActionCardType type) {
         super(text, type);
+    }
+
+    public static List<CommunityChestCard> getCards() {
+        List<CommunityChestCard> result = new ArrayList<>(chestCards);
+        Collections.shuffle(result);
+        return result;
     }
 }
