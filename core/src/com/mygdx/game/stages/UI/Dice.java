@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.utils.Align;
+import com.mygdx.game.controller.GameController;
 import com.mygdx.game.controller.GameStates;
 import com.mygdx.game.screens.GameScreen;
 
@@ -54,6 +55,11 @@ public class Dice extends Group implements GameUiElement {
         return new int[]{roll_a, roll_b};
     }
 
+    public static int getRollSum() {
+        return roll_a + roll_b;
+    }
+
+
     private void fillImageArray() {
         for (int i = 0; i < 6; i++) {
             Texture texture = new Texture(Gdx.files.internal("UI/dice/"+(i+1)+".png"));
@@ -89,7 +95,7 @@ public class Dice extends Group implements GameUiElement {
     @Override
     public void act(float delta) {
         super.act(delta);
-        GameStates currState = screen.getGameController().getGameStateMachine().getCurrentState();
+        GameStates currState = GameController.getGameStateMachine().getCurrentState();
         if (currState == GameStates.IDLE) {
             this.setTouchable(Touchable.enabled);
         } else {
@@ -99,7 +105,7 @@ public class Dice extends Group implements GameUiElement {
             rollDice();
             rolls_left--;
             if (rolls_left == 0) {
-                screen.getGameController().getGameStateMachine().changeState(GameStates.DICE);
+                GameController.getGameStateMachine().changeState(GameStates.DICE);
 
             }
         }

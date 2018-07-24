@@ -49,6 +49,25 @@ public class PlayerComponent implements Component {
         }
     }
 
+    public void payRent() {
+        PlayerComponent enemy = currentStreet.getOwner();
+        int rent = 0;
+        switch (currentStreet.getType()) {
+            case FACILITY:
+
+            case PROPERTY:
+                if (currentStreet.getHouses() < 1) {
+                    int multiplier = (currentStreet.ownsAllOfType(enemy)) ? 2 : 1;
+                    rent = getCurrentStreet().getBase_rent() * multiplier;
+                } else {
+                    rent = currentStreet.getRents()[currentStreet.getHouses() - 1];
+                }
+            case STATION:
+        }
+        this.money -= rent;
+        enemy.money += rent;
+    }
+
 
 
     public boolean isInJail() {
@@ -95,16 +114,5 @@ public class PlayerComponent implements Component {
         this.owned_streets = owned_streets;
     }
 
-    public void payRent() {
-        PlayerComponent enemy = currentStreet.getOwner();
-        if (currentStreet.getHouses() == 0) {
-            int multiplier = (enemy.hasOtherStreets()) ? 2 : 1;
-            int rent = getCurrentStreet().getBase_rent() * multiplier;
-        }
-    }
 
-    private boolean hasOtherStreets() {
-        //TODO
-        return false;
-    }
 }

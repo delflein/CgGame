@@ -3,10 +3,13 @@ package com.mygdx.game.components;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.controller.GameController;
+import com.mygdx.game.stages.UI.Dice;
 import com.mygdx.game.stages.UI.StreetViewTable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Street {
 
@@ -35,8 +38,6 @@ public class Street {
     private StreetType type;
     int sold;
     boolean mortgaged;
-
-
 
     private Street(String name, String colorCode, StreetType type, int cost, int cost_house, int cost_hotel, int base_rent, int[] rents, int hypothek, Vector3 p1_position, Vector3 p2_position, Vector3 p3_position, Vector3 p4_position) {
         this.name = name;
@@ -204,6 +205,15 @@ public class Street {
         return null;
     }
 
+    public boolean ownsAllOfType(PlayerComponent player) {
+        List<Street> owned = player.getOwned_streets();
+        List<Street> needed = streets.stream()
+                .filter(a -> Objects.equals(a.colorCode, this.colorCode))
+                .filter(a -> Objects.equals(a.type, this.type))
+                .collect(Collectors.toList());
+        return false;
+    }
+
     public boolean isSold() {
         return this.sold != -1;
     }
@@ -277,13 +287,13 @@ public class Street {
         TAX() {
             @Override
             public void effect(PlayerComponent playerComponent) {
-                // Pay Money x to Bank
+                playerComponent.setMoney(playerComponent.getMoney() - 100);
             }
         },
         SUPER_TAX() {
             @Override
             public void effect(PlayerComponent playerComponent) {
-                // Pay Money x to Bank
+                playerComponent.setMoney(playerComponent.getMoney() - 200);
             }
         },
         STATION() {
@@ -299,8 +309,20 @@ public class Street {
         FACILITY() {
             @Override
             public void effect(PlayerComponent playerComponent) {
-                // IF Owned by other Player
-                        int amount = 0;
+                if (playerComponent.getCurrentStreet().hasMortgage() || playerComponent.getOwned_streets().contains(playerComponent.getCurrentStreet())) {
+                    return;
+                }
+                if (!playerComponent.getCurrentStreet().isSold()) {
+                    StreetViewTable.makeVisible(playerComponent.getCurrentStreet().getCost() < playerComponent.getMoney());
+                } else {
+                    int amount = Dice.getRollSum();
+                    if (playerComponent.getCurrentStreet().ownsAllOfType(playerComponent)) {
+                        playerComponent.payRent();
+                    }
+                }
+
+
+
                 //      Count Eyes on Dice
                 //      if other Player has both Facilites
                 //          amount = eyes * 10

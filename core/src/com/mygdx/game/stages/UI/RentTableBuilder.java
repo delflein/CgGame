@@ -5,10 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.mygdx.game.components.Street;
 
@@ -24,7 +21,14 @@ public class RentTableBuilder {
             this.street = street;
             this.icons = icons;
             this.rt = new RentTable();
+
         }
+
+    public RentTableBuilder(Street street) {
+        this.street = street;
+        this.icons = null;
+        this.rt = new RentTable();
+    }
 
         private RentTableBuilder createRentRow() {
             rt.row().padBottom(5).expandX();
@@ -49,6 +53,9 @@ public class RentTableBuilder {
         }
 
         private RentTableBuilder createHouseRow(int icon) {
+            if (this.icons == null) {
+                return this;
+            }
             rt.row().padBottom(10).expandX();
             Label firstCell = new Label("Rent with", skin);
             firstCell.setColor(Color.BLACK);
@@ -66,7 +73,6 @@ public class RentTableBuilder {
         public RentTable createPropertyTable() {
             rt.row().fill().colspan(3).center();
             rt.add(createColorElement());
-            rt.add();
             rt.row();
             return this.createRentRow().
                     createFullGroupRow().
@@ -75,6 +81,29 @@ public class RentTableBuilder {
                     createHouseRow(3).
                     createHouseRow(4).buildTable();
         }
+
+    public RentTable createFacilityTable() {
+        //TODO Funzt nicht
+        Image background;
+        if (street.getName().equals("Electric Company")) {
+            background = new Image(new Texture(Gdx.files.internal("UI/electric.png")));
+        } else {
+            background = new Image(new Texture(Gdx.files.internal("UI/Waterworks.png")));
+        }
+        background.setSize(64, 64);
+        Label name = new Label(street.getName(), skin);
+        name.setColor(Color.BLACK);
+        rt.add(name);
+        rt.row();
+        TextArea text = createFacilityText();
+        rt.add(text);
+        return rt;
+    }
+
+    private TextArea createFacilityText() {
+        return new TextArea("Yalla", skin);
+    }
+
 
     private Actor createColorElement() {
         Table t = new Table();

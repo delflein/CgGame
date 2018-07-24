@@ -15,7 +15,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.mygdx.game.components.Street;
-import com.mygdx.game.components.Street.StreetType;
 import com.mygdx.game.controller.GameController;
 import com.mygdx.game.controller.GameStates;
 import com.mygdx.game.screens.GameScreen;
@@ -92,13 +91,19 @@ public class StreetViewTable extends Dialog implements GameUiElement {
     }
 
     private void showRentTable(Street street) {
-        if (street.getType() == StreetType.PROPERTY) {
-            this.getContentTable().clearChildren();
-            rt = new RentTableBuilder(street, icons).createPropertyTable();
-            this.getContentTable().add(rt);
-            this.pack();
+        this.getContentTable().clearChildren();
+        switch (street.getType()) {
+            case PROPERTY:
+                rt = new RentTableBuilder(street, icons).createPropertyTable();
+                this.getContentTable().add(rt);
+                break;
+            case FACILITY:
+                rt = new RentTableBuilder(street).createFacilityTable();
+                this.getContentTable().add(rt);
+                break;
         }
-        setVisible(true);
+        this.pack();
+        this.setVisible(true);
     }
 
     public static void makeVisible(boolean isBuyable) {
