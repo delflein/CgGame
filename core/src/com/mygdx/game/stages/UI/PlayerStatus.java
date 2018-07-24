@@ -15,7 +15,7 @@ public class PlayerStatus extends Table implements GameUiElement {
 
     PlayerStatus(PlayerComponent player){
         this.player =player;
-        this.cardMatrix = new CardMatrix().create();
+        this.cardMatrix = new CardMatrix(player).create();
     }
 
     @Override

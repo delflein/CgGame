@@ -4,12 +4,22 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.game.components.PlayerComponent;
 import com.mygdx.game.components.Rectangle;
+import com.mygdx.game.components.Street;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class CardMatrix extends Table implements GameUiElement {
 
     private PlayerComponent player;
 
     private Rectangle cardMatrix[][];
+    private Map<Street, Rectangle> mapping;
+
+    CardMatrix(PlayerComponent player) {
+        this.player = player;
+    }
 
     @Override
     public CardMatrix create() {
@@ -17,13 +27,24 @@ public class CardMatrix extends Table implements GameUiElement {
         int columns = 10;
 
         cardMatrix = new Rectangle[rows][columns];
+        mapping = new HashMap<>();
+
+        int counter = 0;
+        List<Street> streets = Street.getStreets();
 
         for (int x = 0; x < rows; x++) {
             this.row().pad(5f);
             for (int y = 0; y < columns; y++) {
-                Rectangle streetRectangle = new Rectangle(0, 0, 5, 10, Color.LIGHT_GRAY);
+                Street street = streets.get(counter);
+                Color color = street.getColorCode();
+                if(color == null) {
+                    color = Color.CLEAR;
+                }
+                Rectangle streetRectangle = new Rectangle(0, 0, 5, 10, color);
                 cardMatrix[x][y] = streetRectangle;
+                mapping.put(street, streetRectangle);
                 this.add(streetRectangle);
+                counter++;
             }
         }
 
@@ -34,6 +55,10 @@ public class CardMatrix extends Table implements GameUiElement {
     @Override
     public void act(float delta) {
         super.act(delta);
+        List<Street> owned_streets = player.getOwned_streets();
+        for (Street owned_street : owned_streets) {
+            //
+        }
     }
 
     private void cleanMatrix() {

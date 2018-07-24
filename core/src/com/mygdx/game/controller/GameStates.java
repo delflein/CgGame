@@ -3,12 +3,9 @@ package com.mygdx.game.controller;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.ai.fsm.State;
 import com.badlogic.gdx.ai.msg.Telegram;
-import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.components.MovingComponent;
 import com.mygdx.game.components.PlayerComponent;
 import com.mygdx.game.stages.UI.Dice;
-
-import java.util.List;
 
 public enum GameStates implements State<GameController> {
 
@@ -42,9 +39,7 @@ public enum GameStates implements State<GameController> {
             PlayerComponent player = entity.getComponent(PlayerComponent.class);
 
             int numOfFields = rolls[0] + rolls[1];
-            List<Vector3> path = player.moveSmooth(numOfFields);
-            MovingComponent mov = entity.getComponent(MovingComponent.class);
-            mov.setPath(path);
+            player.moveSmooth(numOfFields);
         }
 
         @Override

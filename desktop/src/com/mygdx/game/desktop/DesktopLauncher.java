@@ -14,7 +14,7 @@ import java.util.List;
 public class DesktopLauncher {
     public static void main(String[] arg) {
         final LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
-        cfg.title = "ChessGDX";
+        cfg.title = "Monopoly by CG - Superstars";
         cfg.width = 1920;
         cfg.height = 1080;
         cfg.backgroundFPS = 30;

@@ -2,6 +2,7 @@ package com.mygdx.game.components;
 
 import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.math.Vector3;
+import com.mygdx.game.controller.GameController;
 import com.mygdx.game.stages.UI.Dice;
 
 import java.util.ArrayList;
@@ -36,10 +37,11 @@ public class PlayerComponent implements Component {
         return currentStreet.getPosition(this);
     }
 
-    public List<Vector3> moveSmooth(int numOfFields) {
+    public void moveSmooth(int numOfFields) {
         List<Vector3> path = currentStreet.getPath(numOfFields, this);
         currentStreet = currentStreet.move(numOfFields);
-        return path;
+        MovingComponent mov = GameController.getCurrentPlayer().getComponent(MovingComponent.class);
+        mov.setPath(path);
     }
 
     public void buyStreet() {

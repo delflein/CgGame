@@ -1,8 +1,6 @@
 package com.mygdx.game.screens;
 
 import com.badlogic.ashley.core.Engine;
-import com.badlogic.ashley.core.Entity;
-import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
@@ -13,18 +11,12 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g3d.Environment;
-import com.badlogic.gdx.graphics.g3d.Material;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
-import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight;
 import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
-import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.math.collision.Ray;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.mygdx.game.components.ModelComponent;
-import com.mygdx.game.components.SelectableComponent;
 import com.mygdx.game.components.Street;
 import com.mygdx.game.controller.GameController;
 import com.mygdx.game.controller.GameInput;
@@ -61,10 +53,6 @@ public class GameScreen implements Screen {
 
 
         batch = new ModelBatch();
-        selectionMaterial = new Material();
-        selectionMaterial.set(ColorAttribute.createDiffuse(Color.ORANGE));
-        originalMaterial = new Material();
-
 
         //Initializer, keep order in mind
         Street.init();
@@ -106,7 +94,7 @@ public class GameScreen implements Screen {
     private void initInput() {
         InputMultiplexer multi = new InputMultiplexer();
 
-        GameInput gameInput = new GameInput(this);
+        GameInput gameInput = new GameInput();
         CameraInputController cameraInputController = new CameraInputController(cam);
 
         multi.addProcessor(stage);
@@ -150,15 +138,19 @@ public class GameScreen implements Screen {
         stringBuilder.setLength(0);
         stringBuilder.append(" FPS: ").append(Gdx.graphics.getFramesPerSecond());
         stringBuilder.append(" Visible: ").append(engine.getSystem(RenderSystem.class).getVisibleCount());
-        stringBuilder.append(" Selected: ").append(selected);
         label.setText(stringBuilder);
         stage.act();
         stage.draw();
     }
 
-    public Entity selected = null, selecting = null;
+    /*public Entity selected = null, selecting = null;
     private Material selectionMaterial;
     private Material originalMaterial;
+
+
+        selectionMaterial = new Material();
+        selectionMaterial.set(ColorAttribute.createDiffuse(Color.ORANGE));
+        originalMaterial = new Material();
 
     public void setSelected(Entity entity) {
         if (selected == entity) return;
@@ -205,7 +197,7 @@ public class GameScreen implements Screen {
         }
 
         return result;
-    }
+    }*/
 
     public PerspectiveCamera getCam() {
         return this.cam;

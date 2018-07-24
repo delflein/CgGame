@@ -8,12 +8,8 @@ import com.badlogic.gdx.ai.fsm.DefaultStateMachine;
 import com.badlogic.gdx.ai.fsm.StateMachine;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
-import com.badlogic.gdx.math.Vector3;
-import com.mygdx.game.components.MovingComponent;
 import com.mygdx.game.components.PlayerComponent;
 import com.mygdx.game.settings.GameSettings;
-
-import java.util.List;
 
 public class GameController implements Telegraph {
 
@@ -50,27 +46,6 @@ public class GameController implements Telegraph {
 
     public static PlayerComponent getCurrentPlayerComponent() {
         return currentPlayer.getComponent(PlayerComponent.class);
-    }
-
-    public void movePlayer(int roll_a, int roll_b) {
-        ImmutableArray<Entity> entities = engine.getEntitiesFor(Family.all(PlayerComponent.class).get());
-        for (Entity entity : entities) {
-            PlayerComponent player = entity.getComponent(PlayerComponent.class);
-            if (player.getId() == playerId) {
-                if(player.isInJail()){
-                    if(roll_a == roll_b) {
-                        player.freeFromJail();
-                    }
-                }
-                int numOfFields = roll_a + roll_b;
-                List<Vector3> path = player.moveSmooth(numOfFields);
-                MovingComponent mov = entity.getComponent(MovingComponent.class);
-                mov.setPath(path);
-            }
-        }
-        nextPlayer();
-
-
     }
 
     public void nextPlayer() {
