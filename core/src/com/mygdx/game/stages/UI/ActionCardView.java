@@ -27,13 +27,11 @@ public class ActionCardView extends Dialog implements GameUiElement {
     private static boolean visible = false;
     private boolean chance;
     private TextButton buyBtn;
-    ;
     private ActionCard currentCard;
     private boolean showButtons;
 
     public ActionCardView(boolean showButtons, boolean chance) {
         super("", ModelFactory.loadSkin(GameAssets.DEFAULT_UI_SKIN.filepath));
-        this.currentCard = null;
         this.showButtons = showButtons;
         this.chance = chance;
     }

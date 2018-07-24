@@ -61,6 +61,7 @@ public class PlayerComponent implements Component {
             case FACILITY:
                 multiplier = (hasAll) ? 10 : 4;
                 rent = multiplier * Dice.getRollSum();
+                break;
             case PROPERTY:
                 if (currentStreet.getHouses() < 1) {
                     multiplier = (hasAll) ? 2 : 1;
@@ -68,9 +69,10 @@ public class PlayerComponent implements Component {
                 } else {
                     rent = currentStreet.getRents()[currentStreet.getHouses() - 1];
                 }
+                break;
             case STATION:
                 rent = currentStreet.getRents()[getOwnedStations() - 1];
-
+                break;
         }
         this.money -= rent;
         enemy.money += rent;

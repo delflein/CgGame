@@ -3,11 +3,12 @@ package com.mygdx.game.stages.ActionCards;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.game.components.Effect;
 import com.mygdx.game.components.PlayerComponent;
 import com.mygdx.game.controller.GameController;
+import com.mygdx.game.utils.GameAssets;
+import com.mygdx.game.utils.ModelFactory;
 
 import java.util.Arrays;
 import java.util.List;
@@ -15,7 +16,6 @@ import java.util.List;
 public class ActionCard extends Table implements Effect {
 
     Label text;
-    Skin skin;
     List<Integer> amounts;
     ActionCardType type;
 
@@ -25,11 +25,12 @@ public class ActionCard extends Table implements Effect {
     }
 
     public ActionCard(String text, ActionCardType type) {
-        this.text = new Label(text, skin);
+        super(ModelFactory.loadSkin(GameAssets.DEFAULT_UI_SKIN.filepath));
+        this.text = new Label(text, getSkin());
         this.text.setColor(Color.BLACK);
+        this.text.setWrap(true);
         this.add(text);
         this.type = type;
-
     }
 
 
@@ -61,7 +62,7 @@ public class ActionCard extends Table implements Effect {
                 int cost = buildings[0] * amounts.get(0) + buildings[1] * amounts.get(1);
                 playerComponent.setMoney(playerComponent.getMoney() - cost);
             case TRAVEL:
-                //
+                //TODO
         }
     }
 
