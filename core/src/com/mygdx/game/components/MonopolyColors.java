@@ -11,7 +11,7 @@ public class MonopolyColors {
     public static final Color RED = new Color(237 / 255f,27 / 255f, 36 / 255f, 1);
     public static final Color YELLOW = new Color(254 / 255f,242 / 255f, 0 / 255f, 1);
     public static final Color GREEN = new Color(31 / 255f,178 / 255f, 90 / 255f, 1);
-    public static final Color DARK_BLUE = new Color(170 / 255f,224 / 255f, 250 / 255f, 1);
+    public static final Color DARK_BLUE = new Color(0 / 255f,114 / 255f, 187 / 255f, 1);
     public static final Color WHITE = Color.WHITE;
     public static final Color LIGHT_GRAY = Color.LIGHT_GRAY;
 

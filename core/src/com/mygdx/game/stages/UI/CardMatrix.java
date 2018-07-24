@@ -1,6 +1,7 @@
 package com.mygdx.game.stages.UI;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.game.components.MonopolyColors;
 import com.mygdx.game.components.PlayerComponent;
@@ -33,7 +34,6 @@ public class CardMatrix extends Table implements GameUiElement {
         cardMatrix = new Rectangle[rows][columns];
         mapping = new HashMap<>();
 
-        int counter = 0;
         List<Street> streets = Street.getStreets();
         Map<Color, List<Street>> streetByColor = new HashMap<>();
 
@@ -46,7 +46,6 @@ public class CardMatrix extends Table implements GameUiElement {
                 streetByColor.put(street.getColorCode(), tmp);
             }
         }
-
         streetByColor.remove(null);
 
         /*Street[][] test = new Street[columns][rows];
@@ -66,22 +65,26 @@ public class CardMatrix extends Table implements GameUiElement {
             for (int y = 0; y < columns; y++) {
                 List<Street> colorStreets = streetByColor.get(MonopolyColors.getColorByIndex(y));
 
-                Street street;
+                Street street = null;
                 if(colorStreets.size() > x ) {
                     street = colorStreets.get(x);
                 }
-                else{
-                    continue;
-                }
-                Color color = street.getColorCode();
-                if(color == null) {
+
+                Color color;
+                Touchable touchable;
+                if(street == null) {
                     color = Color.CLEAR;
+                    touchable = Touchable.disabled;
+                }else{
+                    color = street.getColorCode();
+                    touchable = Touchable.enabled;
                 }
+
                 Rectangle streetRectangle = new Rectangle(0, 0, 5, 10, color);
+                streetRectangle.setTouchable(touchable);
                 cardMatrix[x][y] = streetRectangle;
                 mapping.put(street, streetRectangle);
                 this.add(streetRectangle);
-                counter++;
             }
         }
 
