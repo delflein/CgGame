@@ -101,6 +101,9 @@ public class StreetViewTable extends Dialog implements GameUiElement {
                 rt = new RentTableBuilder(street).createFacilityTable();
                 this.getContentTable().add(rt);
                 break;
+            case STATION:
+                rt = new RentTableBuilder(street).createStationTable();
+                this.getContentTable().add(rt);
         }
         this.pack();
         this.setVisible(true);

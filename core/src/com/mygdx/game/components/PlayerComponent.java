@@ -69,12 +69,22 @@ public class PlayerComponent implements Component {
                     rent = currentStreet.getRents()[currentStreet.getHouses() - 1];
                 }
             case STATION:
+                rent = currentStreet.getRents()[getOwnedStations() - 1];
 
         }
         this.money -= rent;
         enemy.money += rent;
     }
 
+    private int getOwnedStations() {
+        int count = 0;
+        for (Street street : getOwned_streets()) {
+            if (street.getType() == Street.StreetType.STATION) {
+                count++;
+            }
+        }
+        return count;
+    }
 
 
     public boolean isInJail() {

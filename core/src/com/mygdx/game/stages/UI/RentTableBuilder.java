@@ -70,6 +70,18 @@ public class RentTableBuilder {
             return this;
         }
 
+    private RentTableBuilder createStationRow(int i) {
+        rt.row().spaceBottom(10).expandX();
+        Label firstCell = new Label("Rent with" + i + "stations", skin);
+        firstCell.setColor(Color.BLACK);
+        Label secondCell = new Label(street.getRents()[i - 1] + "M", skin);
+        secondCell.setColor(Color.BLACK);
+        rt.add(firstCell).left().colspan(2);
+        rt.add(secondCell).right();
+
+        return this;
+    }
+
         public RentTable createPropertyTable() {
             rt.row().fill().colspan(3).center();
             rt.add(createColorElement());
@@ -98,8 +110,26 @@ public class RentTableBuilder {
         rt.row();
         TextArea text = createFacilityText();
         rt.add(text);
-        return rt;
+        return this.buildTable();
     }
+
+
+    public RentTable createStationTable() {
+        Image background = new Image(new Texture(Gdx.files.internal("UI/station.png")));
+        background.setSize(rt.getWidth() * 0.3f, rt.getHeight() * 0.3f);
+        rt.add(background).center().colspan(3);
+        rt.row();
+        Label name = new Label(street.getName(), skin);
+        name.setColor(Color.BLACK);
+        rt.add(name).colspan(3).center();
+        return this.createStationRow(1).
+                createStationRow(2).
+                createStationRow(3).
+                createStationRow(4).buildTable();
+    }
+
+
+
 
     private TextArea createFacilityText() {
         return new TextArea("If ONE Utility is owned, rent is 4x the amount shown on the dice when the opponent rolled, but if BOTH Utilities are owned, rent is 10x the amount shown on the dice.", skin);
@@ -112,8 +142,7 @@ public class RentTableBuilder {
         name.setColor(Color.BLACK);
         t.add(name).center();
         Pixmap backgroundColor = new Pixmap(280, 70, Pixmap.Format.RGB888);
-        //TODO Set correct colour code
-        backgroundColor.setColor(Color.DARK_GRAY);
+        backgroundColor.setColor(street.getColorCode());
         backgroundColor.fill();
         t.setBackground(new Image(new Texture(backgroundColor)).getDrawable());
         return t;
@@ -123,7 +152,8 @@ public class RentTableBuilder {
             return rt;
         }
 
-    protected class RentTable extends Table {
+
+    class RentTable extends Table {
 
     }
 }
