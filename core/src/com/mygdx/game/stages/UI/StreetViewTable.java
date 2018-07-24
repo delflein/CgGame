@@ -26,7 +26,7 @@ public class StreetViewTable extends Dialog implements GameUiElement {
     Street street;
     boolean showButtons;
 
-    private SpriteDrawable[] icons = new SpriteDrawable[5];
+    private static SpriteDrawable[] icons = new SpriteDrawable[5];
 
     private static boolean visible = false;
     private static boolean buyable = false;
@@ -35,6 +35,7 @@ public class StreetViewTable extends Dialog implements GameUiElement {
         super("", new Skin(Gdx.files.internal("Skins/default/uiskin.json")));
         this.street = street;
         this.showButtons = showButtons;
+        this.initIcons();
     }
 
     private void initIcons() {
@@ -49,7 +50,6 @@ public class StreetViewTable extends Dialog implements GameUiElement {
 
     @Override
     public StreetViewTable create() {
-        this.initIcons();
         Pixmap backgroundColor = new Pixmap(300, 400, Pixmap.Format.RGB888);
         backgroundColor.setColor(Color.WHITE);
         backgroundColor.fill();

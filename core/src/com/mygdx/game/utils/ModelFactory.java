@@ -3,6 +3,7 @@ package com.mygdx.game.utils;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.VertexAttributes;
 import com.badlogic.gdx.graphics.g3d.Material;
 import com.badlogic.gdx.graphics.g3d.Model;
@@ -20,14 +21,23 @@ public class ModelFactory {
 
     public static void init() {
         for(GameAssets asset : GameAssets.values()) {
-            assetManager.load(asset.filepath, Model.class);
+            assetManager.load(asset.filepath, asset.type);
+            System.out.println("Loaded " + asset.filepath);
         }
         assetManager.finishLoading();
     }
 
+    public static Texture loadTexture(String fileName) {
+        if(assetManager.isLoaded(fileName)) {
+            return assetManager.get(fileName);
+        }else {
+            log.debug("Texture " + fileName + " isn't loaded yet!");
+            return null;
+        }
+    }
+
     public static Model loadModel(String fileName) {
         if (assetManager.isLoaded(fileName)) {
-            System.out.println("Loaded " + fileName);
             return assetManager.get(fileName);
         } else {
             log.debug("Model " + fileName + " isn't loaded yet!");
