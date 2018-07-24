@@ -10,7 +10,10 @@ import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
 import com.mygdx.game.components.PlayerComponent;
 import com.mygdx.game.settings.GameSettings;
+import com.mygdx.game.stages.ActionCards.ActionCard;
 import com.mygdx.game.stages.UI.GameUI;
+
+import java.util.List;
 
 public class GameController implements Telegraph {
 
@@ -24,6 +27,7 @@ public class GameController implements Telegraph {
     private int playerId = 0;
     private boolean moved;
     private static ImmutableArray<Entity> players;
+    private static List<ActionCard> cards;
 
 
     public GameController(Engine engine, GameSettings gameSettings, GameUI stage) {

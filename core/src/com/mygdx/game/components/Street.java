@@ -273,17 +273,15 @@ public class Street {
         CHANCE() {
             @Override
             public void effect(PlayerComponent playerComponent) {
-                // Draw Chance Card
-                // IF Instant Effect
-                //      Do Effect
-                // ELSE
-                //      Give Player Card
+
+                //CardViewTable.createAndMakeVisible(false);
             }
         },
         COMMUNITY_CHEST() {
             @Override
             public void effect(PlayerComponent playerComponent) {
                 // Draw Deed Card
+                // CardViewTable.makeVisible(true);
                 // IF Instant Effect
                 //      Do Effect
                 // ELSE

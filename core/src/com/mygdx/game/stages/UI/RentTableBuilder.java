@@ -102,7 +102,7 @@ public class RentTableBuilder {
         } else {
             background = new Image(ModelFactory.loadTexture("UI/Waterworks.png"));
         }
-        background.setSize(rt.getWidth() * 0.3f, rt.getHeight() * 0.3f);
+        background.setSize(rt.getWidth() * 0.1f, rt.getHeight() * 0.1f);
         rt.add(background);
         rt.row();
         Label name = new Label(street.getName(), skin);
