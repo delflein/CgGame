@@ -88,7 +88,7 @@ public class CardMatrix extends Table implements GameUiElement {
                 streetRectangle.addListener(new ClickListener(){
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
-                        GameController.getGameUi().addActor(new StreetViewTable(streetRectangle.getStreet(), false));
+                        GameController.getGameUi().addActor(new StreetViewTable(streetRectangle.getStreet(), false).create());
                     }
                 });
 
