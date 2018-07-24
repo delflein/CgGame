@@ -13,7 +13,7 @@ public class MovingComponent implements Component {
     Vector3 nextTarget;
     ModelComponent model;
 
-    private final static float speedMul = 20;
+    private final static float speedMul = 15;
 
     public boolean isMoving() {
         return nextTarget != null;
@@ -41,10 +41,11 @@ public class MovingComponent implements Component {
             }
         }
         Vector3 speed = calculateSpeed(delta);
+        System.out.println(speed);
         model.tra(speed);
         Vector3 newPosition = new Vector3();
         model.getInstance().transform.getTranslation(newPosition);
-        if (nextTarget.dst(newPosition) < 1) {
+        if (nextTarget.dst(newPosition) < 2) {
             next();
         }
     }
@@ -57,23 +58,27 @@ public class MovingComponent implements Component {
         int speedY = 0;
         int speedZ = 0;
 
-        if(nextTarget.x > position.x) {
+        if((int) nextTarget.x > (int)position.x) {
             speedX = 1;
-        }if(nextTarget.y > position.y) {
+        }if((int)nextTarget.y > (int)position.y) {
             speedY = 1;
-        }if(nextTarget.z > position.z) {
+        }if((int)nextTarget.z > (int)position.z) {
             speedZ = 1;
         }
 
-        if(nextTarget.x < position.x) {
+        if((int)nextTarget.x < (int)position.x) {
             speedX = -1;
-        }if(nextTarget.y < position.y) {
+        }if((int)nextTarget.y < (int)position.y) {
             speedY = -1;
-        }if(nextTarget.z < position.z) {
+        }if((int)nextTarget.z < (int)position.z) {
             speedZ = -1;
         }
 
-        return new Vector3(speedX * speedMul * delta, speedY * speedMul * delta, speedZ * speedMul * delta);
+        float x = speedX * speedMul * delta;
+        float y = speedY * speedMul * delta;
+        float z = speedZ * speedMul * delta;
+
+        return new Vector3(x, y, z);
     }
 
     public void setPath(List<Vector3> path) {
