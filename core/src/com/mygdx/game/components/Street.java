@@ -109,6 +109,12 @@ public class Street {
     public List<Vector3> getPath(int numberOfFields, PlayerComponent component) {
         List<Vector3> path = new ArrayList<>();
         Street toReturn = this;
+        while(numberOfFields < 0) {
+            toReturn = toReturn.getPrior();
+            path.add(toReturn.getPosition(component));
+            numberOfFields++;
+        }
+
         while (numberOfFields > 0) {
             toReturn = toReturn.getNext();
             path.add(toReturn.getPosition(component));
@@ -135,6 +141,17 @@ public class Street {
             return streets.get(id);
         }
     }
+
+    private Street getPrior() {
+        int id = streets.indexOf(this);
+        id--;
+        if (id < 0) {
+            return streets.get(streets.size() - 1);
+        } else {
+            return streets.get(id);
+        }
+    }
+
 
     public Vector3 getPosition(PlayerComponent comp) {
         switch (comp.getId()) {
