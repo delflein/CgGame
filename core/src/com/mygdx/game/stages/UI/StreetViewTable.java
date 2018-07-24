@@ -1,5 +1,6 @@
 package com.mygdx.game.stages.UI;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -54,7 +55,7 @@ public class StreetViewTable extends Dialog implements GameUiElement {
         backgroundColor.fill();
         this.setBackground(new Image(new Texture(backgroundColor)).getDrawable());
         this.setFillParent(false);
-        this.setPosition(400, 400);
+        this.setPosition(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
         this.setSize(300, 400);
         this.setVisible(true);
         this.setTouchable(Touchable.enabled);

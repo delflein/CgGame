@@ -1,6 +1,5 @@
 package com.mygdx.game.stages.UI;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -43,7 +42,7 @@ public class ActionCardView extends Dialog implements GameUiElement {
         backgroundColor.fill();
         this.setBackground(new Image(new Texture(backgroundColor)).getDrawable());
         this.setFillParent(false);
-        this.setPosition(Gdx.graphics.getWidth() / 2 - this.getWidth() / 2, Gdx.graphics.getHeight() / 2 - this.getHeight() / 2);
+
         this.setSize(400, 300);
         this.setTouchable(Touchable.enabled);
         this.addListener(new DragListener() {
