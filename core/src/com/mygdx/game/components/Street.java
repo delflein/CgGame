@@ -205,13 +205,14 @@ public class Street {
         return null;
     }
 
-    public boolean ownsAllOfType(PlayerComponent player) {
+    public boolean hasAllOfType(PlayerComponent player) {
         List<Street> owned = player.getOwned_streets();
         List<Street> needed = streets.stream()
                 .filter(a -> Objects.equals(a.colorCode, this.colorCode))
                 .filter(a -> Objects.equals(a.type, this.type))
                 .collect(Collectors.toList());
-        return false;
+        needed.removeAll(owned);
+        return needed.isEmpty();
     }
 
     public boolean isSold() {
@@ -316,7 +317,7 @@ public class Street {
                     StreetViewTable.makeVisible(playerComponent.getCurrentStreet().getCost() < playerComponent.getMoney());
                 } else {
                     int amount = Dice.getRollSum();
-                    if (playerComponent.getCurrentStreet().ownsAllOfType(playerComponent)) {
+                    {
                         playerComponent.payRent();
                     }
                 }

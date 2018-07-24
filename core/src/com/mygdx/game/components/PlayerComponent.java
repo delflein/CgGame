@@ -2,6 +2,7 @@ package com.mygdx.game.components;
 
 import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.math.Vector3;
+import com.mygdx.game.stages.UI.Dice;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,18 +52,22 @@ public class PlayerComponent implements Component {
 
     public void payRent() {
         PlayerComponent enemy = currentStreet.getOwner();
+        boolean hasAll = currentStreet.hasAllOfType(enemy);
         int rent = 0;
+        int multiplier = 0;
         switch (currentStreet.getType()) {
             case FACILITY:
-
+                multiplier = (hasAll) ? 10 : 4;
+                rent = multiplier * Dice.getRollSum();
             case PROPERTY:
                 if (currentStreet.getHouses() < 1) {
-                    int multiplier = (currentStreet.ownsAllOfType(enemy)) ? 2 : 1;
+                    multiplier = (hasAll) ? 2 : 1;
                     rent = getCurrentStreet().getBase_rent() * multiplier;
                 } else {
                     rent = currentStreet.getRents()[currentStreet.getHouses() - 1];
                 }
             case STATION:
+
         }
         this.money -= rent;
         enemy.money += rent;

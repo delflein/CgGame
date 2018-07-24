@@ -83,14 +83,15 @@ public class RentTableBuilder {
         }
 
     public RentTable createFacilityTable() {
-        //TODO Funzt nicht
         Image background;
         if (street.getName().equals("Electric Company")) {
             background = new Image(new Texture(Gdx.files.internal("UI/electric.png")));
         } else {
             background = new Image(new Texture(Gdx.files.internal("UI/Waterworks.png")));
         }
-        background.setSize(64, 64);
+        background.setSize(rt.getWidth() * 0.3f, rt.getHeight() * 0.3f);
+        rt.add(background);
+        rt.row();
         Label name = new Label(street.getName(), skin);
         name.setColor(Color.BLACK);
         rt.add(name);
@@ -101,7 +102,7 @@ public class RentTableBuilder {
     }
 
     private TextArea createFacilityText() {
-        return new TextArea("Yalla", skin);
+        return new TextArea("If ONE Utility is owned, rent is 4x the amount shown on the dice when the opponent rolled, but if BOTH Utilities are owned, rent is 10x the amount shown on the dice.", skin);
     }
 
 

@@ -76,10 +76,10 @@ public class GameInput implements InputProcessor {
             System.out.println(mod.getMoney());
         }
 
-        if (keycode == Input.Keys.NUM_1) {
+        if (keycode == Input.Keys.B) {
             Entity p1 = gameScreen.selected;
             final PlayerComponent mod = p1.getComponent(PlayerComponent.class);
-            mod.move(1);
+            mod.moveSmooth(1);
             GameController.getGameStateMachine().changeState(GameStates.DICE);
         }
 
