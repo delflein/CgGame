@@ -33,8 +33,5 @@ public class TurnButton extends TextButton implements GameUiElement {
     @Override
     public void act(float delta) {
         super.act(delta);
-        GameStates currState = screen.getGameController().getGameStateMachine().getCurrentState();
-        //this.setVisible(currState == GameStates.BUILD);
-        this.setVisible(true);
     }
 }

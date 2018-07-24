@@ -1,6 +1,5 @@
 package com.mygdx.game.stages.UI;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -9,7 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
@@ -17,6 +15,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.mygdx.game.components.Street;
 import com.mygdx.game.controller.GameController;
 import com.mygdx.game.controller.GameStates;
+import com.mygdx.game.utils.GameAssets;
+import com.mygdx.game.utils.ModelFactory;
 
 public class StreetViewTable extends Dialog implements GameUiElement {
 
@@ -32,7 +32,7 @@ public class StreetViewTable extends Dialog implements GameUiElement {
     private static boolean buyable = false;
 
     public StreetViewTable(Street street, boolean showButtons) {
-        super("", new Skin(Gdx.files.internal("Skins/default/uiskin.json")));
+        super("", ModelFactory.loadSkin(GameAssets.DEFAULT_UI_SKIN.filepath));
         this.street = street;
         this.showButtons = showButtons;
         this.initIcons();
@@ -40,8 +40,7 @@ public class StreetViewTable extends Dialog implements GameUiElement {
 
     private void initIcons() {
         for (int i = 0; i < 5; i++) {
-            Texture texture = new Texture(Gdx.files.internal("UI/streetViewer/House" + (i + 1) + ".png"));
-            Sprite sprite = new Sprite(texture);
+            Sprite sprite = new Sprite(ModelFactory.loadTexture("UI/streetViewer/House" + (i + 1) + ".png"));
             sprite.setSize(32f, 32f);
             SpriteDrawable icon = new SpriteDrawable(sprite);
             icons[i] = icon;

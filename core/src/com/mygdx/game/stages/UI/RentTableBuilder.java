@@ -1,6 +1,5 @@
 package com.mygdx.game.stages.UI;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -8,13 +7,15 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.mygdx.game.components.Street;
+import com.mygdx.game.utils.GameAssets;
+import com.mygdx.game.utils.ModelFactory;
 
 
 public class RentTableBuilder {
         Street street;
         RentTable rt;
 
-        private Skin skin = new Skin(Gdx.files.internal("Skins/default/uiskin.json"));
+        private Skin skin = ModelFactory.loadSkin(GameAssets.DEFAULT_UI_SKIN.filepath);
         private SpriteDrawable[] icons;
 
         public RentTableBuilder(Street street, SpriteDrawable[] icons) {
@@ -97,9 +98,9 @@ public class RentTableBuilder {
     public RentTable createFacilityTable() {
         Image background;
         if (street.getName().equals("Electric Company")) {
-            background = new Image(new Texture(Gdx.files.internal("UI/electric.png")));
+            background = new Image(ModelFactory.loadTexture("UI/electric.png"));
         } else {
-            background = new Image(new Texture(Gdx.files.internal("UI/Waterworks.png")));
+            background = new Image(ModelFactory.loadTexture("UI/Waterworks.png"));
         }
         background.setSize(rt.getWidth() * 0.3f, rt.getHeight() * 0.3f);
         rt.add(background);
@@ -115,7 +116,7 @@ public class RentTableBuilder {
 
 
     public RentTable createStationTable() {
-        Image background = new Image(new Texture(Gdx.files.internal("UI/station.png")));
+        Image background = new Image(ModelFactory.loadTexture("UI/station.png"));
         background.setSize(rt.getWidth() * 0.3f, rt.getHeight() * 0.3f);
         rt.add(background).center().colspan(3);
         rt.row();

@@ -1,7 +1,5 @@
 package com.mygdx.game.stages.UI;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -13,6 +11,7 @@ import com.badlogic.gdx.utils.Align;
 import com.mygdx.game.controller.GameController;
 import com.mygdx.game.controller.GameStates;
 import com.mygdx.game.screens.GameScreen;
+import com.mygdx.game.utils.ModelFactory;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -62,8 +61,7 @@ public class Dice extends Group implements GameUiElement {
 
     private void fillImageArray() {
         for (int i = 0; i < 6; i++) {
-            Texture texture = new Texture(Gdx.files.internal("UI/dice/"+(i+1)+".png"));
-            Sprite sprite = new Sprite(texture);
+            Sprite sprite = new Sprite(ModelFactory.loadTexture("UI/dice/" + (i+1) + ".png"));
             sprite.setSize(64f,64f);
             SpriteDrawable face = new SpriteDrawable(sprite);
             faces[i] = face;
@@ -106,7 +104,6 @@ public class Dice extends Group implements GameUiElement {
             rolls_left--;
             if (rolls_left == 0) {
                 GameController.getGameStateMachine().changeState(GameStates.DICE);
-
             }
         }
     }

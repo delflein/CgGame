@@ -43,6 +43,7 @@ public class Rectangle extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
+        texture.dispose();
         createTexture((int)getWidth(), (int)getHeight(), color);
         batch.draw(texture, getX(), getY(), getWidth(), getHeight());
     }

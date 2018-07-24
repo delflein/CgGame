@@ -10,6 +10,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.game.components.PlayerComponent;
 import com.mygdx.game.screens.GameScreen;
 import com.mygdx.game.systems.PlayerSystem;
+import com.mygdx.game.utils.GameAssets;
+import com.mygdx.game.utils.ModelFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +30,7 @@ public class GameUI extends Stage {
     public GameUI(GameScreen gameScreen, Engine engine){
         this.engine=engine;
         this.screen = gameScreen;
-        this.skin = new Skin(Gdx.files.internal("Skins/default/uiskin.json"));
+        this.skin = ModelFactory.loadSkin(GameAssets.DEFAULT_UI_SKIN.filepath);
         this.dice = new Dice(this.screen).create();
         this.playerStatus = new ArrayList<PlayerStatus>();
         this.turnBtn = new TurnButton("End Turn!", skin, screen).create();

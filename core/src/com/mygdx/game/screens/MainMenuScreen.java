@@ -20,6 +20,7 @@ import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.stages.Menus.MainMenuStage;
 import com.mygdx.game.systems.RenderSystem;
 import com.mygdx.game.utils.EntityFactory;
+import com.mygdx.game.utils.GameAssets;
 import com.mygdx.game.utils.ModelFactory;
 
 public class MainMenuScreen implements Screen {
@@ -40,7 +41,7 @@ public class MainMenuScreen implements Screen {
 
     public MainMenuScreen(final MyGdxGame game) {
         this.game = game;
-        this.skin = new Skin(Gdx.files.internal("Skins/default/uiskin.json"));
+        this.skin = ModelFactory.loadSkin(GameAssets.DEFAULT_UI_SKIN.filepath);
         this.shapeRenderer = new ShapeRenderer();
         setBGM();
         createBackground();

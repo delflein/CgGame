@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.attributes.FloatAttribute;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Logger;
 
 public class ModelFactory {
@@ -25,6 +26,19 @@ public class ModelFactory {
             System.out.println("Loaded " + asset.filepath);
         }
         assetManager.finishLoading();
+    }
+
+    public static void dispose() {
+        assetManager.dispose();
+    }
+
+    public static Skin loadSkin(String fileName) {
+        if(assetManager.isLoaded(fileName)) {
+            return assetManager.get(fileName);
+        }else {
+            log.debug("Skin " + fileName + " isn't loaded yet!");
+            return null;
+        }
     }
 
     public static Texture loadTexture(String fileName) {

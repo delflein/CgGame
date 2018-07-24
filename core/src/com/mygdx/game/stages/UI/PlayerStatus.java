@@ -1,10 +1,11 @@
 package com.mygdx.game.stages.UI;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.game.components.PlayerComponent;
+import com.mygdx.game.utils.GameAssets;
+import com.mygdx.game.utils.ModelFactory;
 
 public class PlayerStatus extends Table implements GameUiElement {
 
@@ -20,7 +21,7 @@ public class PlayerStatus extends Table implements GameUiElement {
 
     @Override
     public PlayerStatus create() {
-        Skin skin = new Skin(Gdx.files.internal("Skins/default/uiskin.json"));
+        Skin skin = ModelFactory.loadSkin(GameAssets.DEFAULT_UI_SKIN.filepath);
 
         nameLabel = new Label("Player " + (player.getId()+1), skin);
         moneyLabel = new Label( player.getMoney()+ " M",skin);
