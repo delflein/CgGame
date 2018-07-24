@@ -1,12 +1,15 @@
 package com.mygdx.game.stages.UI;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.components.MonopolyColors;
 import com.mygdx.game.components.PlayerComponent;
 import com.mygdx.game.components.Rectangle;
 import com.mygdx.game.components.Street;
+import com.mygdx.game.controller.GameController;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -80,8 +83,15 @@ public class CardMatrix extends Table implements GameUiElement {
                     touchable = Touchable.enabled;
                 }
 
-                Rectangle streetRectangle = new Rectangle(0, 0, 5, 10, color);
-                streetRectangle.setTouchable(touchable);
+                Rectangle streetRectangle = new Rectangle(0, 0, 5, 10, Color.CLEAR, street);
+                streetRectangle.setTouchable(Touchable.disabled);
+                streetRectangle.addListener(new ClickListener(){
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        GameController.getGameUi().addActor(new StreetViewTable(streetRectangle.getStreet(), false));
+                    }
+                });
+
                 cardMatrix[x][y] = streetRectangle;
                 mapping.put(street, streetRectangle);
                 this.add(streetRectangle);
@@ -98,7 +108,8 @@ public class CardMatrix extends Table implements GameUiElement {
         List<Street> owned_streets = player.getOwned_streets();
         for (Street owned_street : owned_streets) {
             Rectangle rect = mapping.get(owned_street);
-            rect.setColor(owned_street.getColorCode());
+            rect.changeColor(owned_street.getColorCode());
+            rect.setTouchable(Touchable.enabled);
         }
     }
 

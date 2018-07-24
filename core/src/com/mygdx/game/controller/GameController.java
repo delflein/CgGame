@@ -10,12 +10,14 @@ import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
 import com.mygdx.game.components.PlayerComponent;
 import com.mygdx.game.settings.GameSettings;
+import com.mygdx.game.stages.UI.GameUI;
 
 public class GameController implements Telegraph {
 
     private Engine engine;
     private static GameSettings settings;
     private static StateMachine<GameController, GameStates> gameStateMachine;
+    private static GameUI gameUi;
 
     private static Entity currentPlayer;
 
@@ -24,12 +26,13 @@ public class GameController implements Telegraph {
     private static ImmutableArray<Entity> players;
 
 
-    public GameController(Engine engine, GameSettings gameSettings) {
+    public GameController(Engine engine, GameSettings gameSettings, GameUI stage) {
         this.engine = engine;
         settings = gameSettings;
         gameStateMachine = new DefaultStateMachine<GameController, GameStates>(this, GameStates.IDLE);
-        this.players = engine.getEntitiesFor(Family.all(PlayerComponent.class).get());
+        players = engine.getEntitiesFor(Family.all(PlayerComponent.class).get());
         currentPlayer = players.get(0);
+        gameUi = stage;
     }
 
     public static GameSettings getGameSettings() {
@@ -46,6 +49,10 @@ public class GameController implements Telegraph {
 
     public static PlayerComponent getCurrentPlayerComponent() {
         return currentPlayer.getComponent(PlayerComponent.class);
+    }
+
+    public static GameUI getGameUi(){
+        return gameUi;
     }
 
     public void nextPlayer() {

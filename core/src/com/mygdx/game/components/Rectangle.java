@@ -9,14 +9,24 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 public class Rectangle extends Actor {
 
     private Texture texture;
+    private Street street;
 
-    public Rectangle(float x, float y, float width, float height, Color color) {
+    private Color color;
+
+    public Rectangle(float x, float y, float width, float height, Color color, Street street) {
+        this.color = color;
+        this.street = street;
+
         createTexture((int)width, (int)height, color);
 
         setX(x);
         setY(y);
         setWidth(width);
         setHeight(height);
+    }
+
+    public Street getStreet() {
+        return street;
     }
 
     private void createTexture(int width, int height, Color color) {
@@ -27,10 +37,13 @@ public class Rectangle extends Actor {
         pixmap.dispose();
     }
 
+    public void changeColor(Color color){
+        this.color = color;
+    }
+
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        Color color = getColor();
-        batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
+        createTexture((int)getWidth(), (int)getHeight(), color);
         batch.draw(texture, getX(), getY(), getWidth(), getHeight());
     }
 }

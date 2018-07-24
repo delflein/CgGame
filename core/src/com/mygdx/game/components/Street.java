@@ -258,7 +258,11 @@ public class Street {
                 //      Pay Rent to Other
                 // ELSE IF Not owned
                 if (!playerComponent.getCurrentStreet().isSold()) {
-                    StreetViewTable.makeVisible(playerComponent.getCurrentStreet().getCost() < playerComponent.getMoney());
+                    StreetViewTable dialog = new StreetViewTable(playerComponent.getCurrentStreet(), true).create();
+                    if(playerComponent.getCurrentStreet().getCost() > playerComponent.getMoney()){
+                        dialog.disableBuyOption();
+                    }
+                    GameController.getGameUi().addActor(dialog);
                 } else {
                     if (!playerComponent.getCurrentStreet().hasMortgage()) {
                         playerComponent.payRent();
@@ -301,11 +305,17 @@ public class Street {
         STATION() {
             @Override
             public void effect(PlayerComponent playerComponent) {
-                if (playerComponent.getCurrentStreet().hasMortgage() || playerComponent.getOwned_streets().contains(playerComponent.getCurrentStreet())) {
+                Street currentStreet = playerComponent.getCurrentStreet();
+
+                if (currentStreet.hasMortgage() || playerComponent.getOwned_streets().contains(currentStreet)) {
                     return;
                 }
-                if (!playerComponent.getCurrentStreet().isSold()) {
-                    StreetViewTable.makeVisible(playerComponent.getCurrentStreet().getCost() < playerComponent.getMoney());
+                if (!currentStreet.isSold()) {
+                    StreetViewTable dialog = new StreetViewTable(currentStreet, true).create();
+                    if(currentStreet.getCost() > playerComponent.getMoney()) {
+                        dialog.disableBuyOption();
+                    }
+                    GameController.getGameUi().addActor(dialog);
                 } else {
                     int amount = Dice.getRollSum();
                     {
@@ -317,11 +327,17 @@ public class Street {
         FACILITY() {
             @Override
             public void effect(PlayerComponent playerComponent) {
-                if (playerComponent.getCurrentStreet().hasMortgage() || playerComponent.getOwned_streets().contains(playerComponent.getCurrentStreet())) {
+                Street currentStreet = playerComponent.getCurrentStreet();
+                
+                if (currentStreet.hasMortgage() || playerComponent.getOwned_streets().contains(currentStreet)) {
                     return;
                 }
-                if (!playerComponent.getCurrentStreet().isSold()) {
-                    StreetViewTable.makeVisible(playerComponent.getCurrentStreet().getCost() < playerComponent.getMoney());
+                if (!currentStreet.isSold()) {
+                    StreetViewTable dialog = new StreetViewTable(currentStreet, true).create();
+                    if(currentStreet.getCost() > playerComponent.getMoney()) {
+                        dialog.disableBuyOption();
+                    }
+                    GameController.getGameUi().addActor(dialog);
                 } else {
                     int amount = Dice.getRollSum();
                     {

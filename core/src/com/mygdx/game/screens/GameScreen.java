@@ -65,7 +65,7 @@ public class GameScreen implements Screen {
         startBGM();
         //Gdx.input.setCursorCatched(true);
 
-        this.gameController = new GameController(engine, settings);
+        this.gameController = new GameController(engine, settings, (GameUI) stage);
     }
 
     private void startBGM() {

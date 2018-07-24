@@ -17,22 +17,24 @@ import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.mygdx.game.components.Street;
 import com.mygdx.game.controller.GameController;
 import com.mygdx.game.controller.GameStates;
-import com.mygdx.game.screens.GameScreen;
 
 public class StreetViewTable extends Dialog implements GameUiElement {
 
-    GameScreen screen;
     RentTableBuilder.RentTable rt;
     TextButton buyBtn, auctBtn;
+
+    Street street;
+    boolean showButtons;
 
     private SpriteDrawable[] icons = new SpriteDrawable[5];
 
     private static boolean visible = false;
     private static boolean buyable = false;
 
-    public StreetViewTable(Skin skin, GameScreen screen) {
-        super("", skin);
-        this.screen = screen;
+    public StreetViewTable(Street street, boolean showButtons) {
+        super("", new Skin(Gdx.files.internal("Skins/default/uiskin.json")));
+        this.street = street;
+        this.showButtons = showButtons;
     }
 
     private void initIcons() {
@@ -57,40 +59,47 @@ public class StreetViewTable extends Dialog implements GameUiElement {
         this.setSize(300, 400);
         this.setVisible(true);
         this.setTouchable(Touchable.enabled);
-        Dialog current = this;
-        current.addListener(new DragListener() {
+        this.addListener(new DragListener() {
             public void drag(InputEvent event, float x, float y, int pointer) {
-                current.moveBy(x - current.getWidth() / 2, y - current.getHeight() / 2);
+                moveBy(x - getWidth() / 2, y - getHeight() / 2);
             }
         });
 
-        buyBtn = new TextButton("Buy!", getSkin());
-        buyBtn.setColor(Color.BLACK);
-        buyBtn.addListener(new ClickListener() {
+        this.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                GameController.getGameStateMachine().changeState(GameStates.BUY);
-                makeInvisible();
+                if(x < getOriginX() || x > (getOriginX() + getWidth()) || y < getOriginY() || y > (getOriginY() + getHeight())) {
+                    remove();
+                }
             }
         });
-        auctBtn = new TextButton("Auction!", getSkin());
-        auctBtn.setColor(Color.BLACK);
-        auctBtn.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                super.clicked(event, x, y);
-                makeInvisible();
-            }
-        });
-        this.getButtonTable().add(buyBtn);
-        this.getButtonTable().add(auctBtn);
+
+        if(showButtons) {
+            buyBtn = new TextButton("Buy!", getSkin());
+            buyBtn.setColor(Color.BLACK);
+            buyBtn.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+                    GameController.getGameStateMachine().changeState(GameStates.BUY);
+                    remove();
+                }
+            });
+            auctBtn = new TextButton("Auction!", getSkin());
+            auctBtn.setColor(Color.BLACK);
+            auctBtn.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+                    remove();
+                }
+            });
+            this.getButtonTable().add(buyBtn);
+            this.getButtonTable().add(auctBtn);
+        }
         this.getContentTable().add(rt);
 
-        return this;
-    }
-
-    private void showRentTable(Street street) {
         this.getContentTable().clearChildren();
         switch (street.getType()) {
             case PROPERTY:
@@ -107,32 +116,12 @@ public class StreetViewTable extends Dialog implements GameUiElement {
         }
         this.pack();
         this.setVisible(true);
+
+        return this;
     }
 
-    public static void makeVisible(boolean isBuyable) {
-        visible = true;
-        buyable = isBuyable;
-    }
-
-    public static void makeInvisible() {
-        visible = false;
-    }
-
-    @Override
-    public void act(float delta) {
-        super.act(delta);
-        if(visible) {
-            if(!buyable) {
-                buyBtn.setTouchable(Touchable.disabled);
-                buyBtn.setText("Funds insufficient");
-            }else {
-                buyBtn.setTouchable(Touchable.enabled);
-                buyBtn.setText("Buy!");
-            }
-
-            showRentTable(GameController.getCurrentPlayerComponent().getCurrentStreet());
-        }else {
-            setVisible(false);
-        }
+    public void disableBuyOption() {
+        buyBtn.setTouchable(Touchable.disabled);
+        buyBtn.setText("Insufficient Funds !");
     }
 }

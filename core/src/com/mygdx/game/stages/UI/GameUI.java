@@ -22,7 +22,6 @@ public class GameUI extends Stage {
     List<PlayerStatus> playerStatus;
     Dice dice;
     TurnButton turnBtn;
-    StreetViewTable streetView;
 
     //
 
@@ -33,7 +32,7 @@ public class GameUI extends Stage {
         this.dice = new Dice(this.screen).create();
         this.playerStatus = new ArrayList<PlayerStatus>();
         this.turnBtn = new TurnButton("End Turn!", skin, screen).create();
-        this.streetView = new StreetViewTable(skin, screen).create();
+        //this.streetView = new StreetViewTable(skin, screen).create();
         initUI();
 
     }
@@ -55,10 +54,10 @@ public class GameUI extends Stage {
             rootPlayerTabel.add(ps).expandX();
         }
         this.addActor(rootPlayerTabel);
-
-        streetView.debug();
-        this.addActor(streetView);
     }
 
+    public Skin getSkin(){
+        return skin;
+    }
 
 }
