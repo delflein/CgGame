@@ -11,6 +11,8 @@ public enum GameAssets {
     TOKEN_2("Token2/Token2_New.g3db", Model.class),
     TOKEN_3("Token3/Token3_New.g3db", Model.class),
     TOKEN_4("Token4/Token4_New.g3db", Model.class),
+    CHANCE_CARDSTACK("CChest Card Stack/cchest_cardstack.g3db", Model.class),
+    CHEST_CARDSTACK("Chance Card Stack/chance_cardstack.g3db", Model.class),
     HOUSE_1("UI/streetViewer/House1.png",Texture.class),
     HOUSE_2("UI/streetViewer/House2.png",Texture.class),
     HOUSE_3("UI/streetViewer/House3.png",Texture.class),

@@ -28,6 +28,44 @@ public class EntityFactory {
         return entity;
     }
 
+    public static Entity createChestCardstack(float x, float y, float z) {
+        Model cardstack = ModelFactory.loadModel(GameAssets.CHEST_CARDSTACK.filepath);
+        if(cardstack == null) {
+            return null;
+        }
+
+        final BoundingBox boundingBox = new BoundingBox();
+        cardstack.calculateBoundingBox(boundingBox);
+
+        Entity entity = new Entity();
+        ModelComponent modelComponent = new ModelComponent(cardstack, x, y, z);
+        modelComponent.getInstance().transform.rotate(Vector3.Y, -45);
+        SelectableComponent selectableComponent = new SelectableComponent(modelComponent);
+        entity.add(modelComponent);
+        entity.add(selectableComponent);
+
+        return entity;
+    }
+
+    public static Entity createChanceCardstack(float x, float y, float z) {
+        Model cardstack = ModelFactory.loadModel(GameAssets.CHANCE_CARDSTACK.filepath);
+        if(cardstack == null) {
+            return null;
+        }
+
+        final BoundingBox boundingBox = new BoundingBox();
+        cardstack.calculateBoundingBox(boundingBox);
+
+        Entity entity = new Entity();
+        ModelComponent modelComponent = new ModelComponent(cardstack, x, y, z);
+        modelComponent.getInstance().transform.rotate(Vector3.Y, -45);
+        SelectableComponent selectableComponent = new SelectableComponent(modelComponent);
+        entity.add(modelComponent);
+        entity.add(selectableComponent);
+
+        return entity;
+    }
+
     public static Entity createPlayer() {
         PlayerComponent player = new PlayerComponent();
         Vector3 curr_pos = player.getCurrentStreet().getPosition(player);
