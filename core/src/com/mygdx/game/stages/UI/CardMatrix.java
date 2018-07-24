@@ -2,10 +2,12 @@ package com.mygdx.game.stages.UI;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.mygdx.game.components.MonopolyColors;
 import com.mygdx.game.components.PlayerComponent;
 import com.mygdx.game.components.Rectangle;
 import com.mygdx.game.components.Street;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +18,8 @@ public class CardMatrix extends Table implements GameUiElement {
 
     private Rectangle cardMatrix[][];
     private Map<Street, Rectangle> mapping;
+
+    private Color[] colors = new Color[] {};
 
     CardMatrix(PlayerComponent player) {
         this.player = player;
@@ -31,11 +35,44 @@ public class CardMatrix extends Table implements GameUiElement {
 
         int counter = 0;
         List<Street> streets = Street.getStreets();
+        Map<Color, List<Street>> streetByColor = new HashMap<>();
+
+        for (Street street : streets) {
+            if(streetByColor.containsKey(street.getColorCode())) {
+                streetByColor.get(street.getColorCode()).add(street);
+            }else{
+                List<Street> tmp = new ArrayList<>();
+                tmp.add(street);
+                streetByColor.put(street.getColorCode(), tmp);
+            }
+        }
+
+        streetByColor.remove(null);
+
+        /*Street[][] test = new Street[columns][rows];
+
+        int bla = 0;
+
+        for (int i = 0; i < columns; i++) {
+            for (int j = 0; j < rows; j++) {
+                Street x = streets.get(bla);
+                test[i][j] = x;
+                bla++;
+            }
+        }*/
 
         for (int x = 0; x < rows; x++) {
             this.row().pad(5f);
             for (int y = 0; y < columns; y++) {
-                Street street = streets.get(counter);
+                List<Street> colorStreets = streetByColor.get(MonopolyColors.getColorByIndex(y));
+
+                Street street;
+                if(colorStreets.size() > x ) {
+                    street = colorStreets.get(x);
+                }
+                else{
+                    continue;
+                }
                 Color color = street.getColorCode();
                 if(color == null) {
                     color = Color.CLEAR;
@@ -48,7 +85,7 @@ public class CardMatrix extends Table implements GameUiElement {
             }
         }
 
-        cleanMatrix();
+        //cleanMatrix();
         return this;
     }
 
@@ -57,7 +94,8 @@ public class CardMatrix extends Table implements GameUiElement {
         super.act(delta);
         List<Street> owned_streets = player.getOwned_streets();
         for (Street owned_street : owned_streets) {
-            //
+            Rectangle rect = mapping.get(owned_street);
+            rect.setColor(owned_street.getColorCode());
         }
     }
 
