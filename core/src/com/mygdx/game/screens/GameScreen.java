@@ -136,7 +136,7 @@ public class GameScreen implements Screen {
         engine.addEntity(EntityFactory.createChanceCardstack(35.5f, 0, 35.5f));
         engine.addEntity(EntityFactory.createTable(0,-1,0));
         for (int i = 0; i < settings.players ; i++) {
-            engine.addEntity(EntityFactory.createPlayer());
+            engine.addEntity(EntityFactory.createPlayer(settings));
         }
     }
 

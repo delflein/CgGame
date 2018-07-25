@@ -28,7 +28,7 @@ public class PlayerComponent implements Component {
         this.id = numOfPlayers++;
         this.currentStreet = Street.getStreets().get(0);
 
-        this.money = 10000;
+        this.money = 0;
         this.owned_streets = new ArrayList<Street>();
     }
 

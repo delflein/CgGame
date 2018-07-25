@@ -9,6 +9,7 @@ import com.mygdx.game.components.ModelComponent;
 import com.mygdx.game.components.MovingComponent;
 import com.mygdx.game.components.PlayerComponent;
 import com.mygdx.game.components.SelectableComponent;
+import com.mygdx.game.settings.GameSettings;
 
 public class EntityFactory {
 
@@ -65,8 +66,9 @@ public class EntityFactory {
         return entity;
     }
 
-    public static Entity createPlayer() {
+    public static Entity createPlayer(GameSettings settings) {
         PlayerComponent player = new PlayerComponent();
+        player.setMoney(settings.startMoney);
         Vector3 curr_pos = player.getCurrentStreet().getPosition(player);
 
         int id = player.getId();

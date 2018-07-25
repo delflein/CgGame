@@ -20,8 +20,8 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.fadeIn;
 public class GameConfigStage extends MenuStage {
 
     private Integer players=1;
-    private Float startCash= 2000.0f;
-    private Float cashOverGo= 200.0f;
+    private float startCash= 2000.0f;
+    private float cashOverGo= 200.0f;
     private boolean directGoDoubled = false;
 
     public GameConfigStage(Game game, MainMenuScreen screen, Skin skin){
@@ -50,14 +50,14 @@ public class GameConfigStage extends MenuStage {
         cashSlider.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                handleFloatSliderChange(cashSlider,cashIndicatorLabel,startCash);
+             startCash =  handleFloatSliderChange(cashSlider,cashIndicatorLabel);
             }
         });
 
         goCashSlider.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-               handleFloatSliderChange(goCashSlider,goCashIndicatorLabel,cashOverGo);
+              cashOverGo = handleFloatSliderChange(goCashSlider,goCashIndicatorLabel);
             }
         });
 
@@ -77,7 +77,7 @@ public class GameConfigStage extends MenuStage {
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                 screen.stopBGM();
-                GameSettings settings = new GameSettings(players,startCash,directGoDoubled,cashOverGo);
+                GameSettings settings = new GameSettings(players,(int)startCash,directGoDoubled,(int)cashOverGo);
                 game.setScreen(new GameScreen(game,settings));
 
             }
@@ -167,10 +167,10 @@ public class GameConfigStage extends MenuStage {
         bottomTable.addAction(fadeIn(2f));
     }
 
-    private void handleFloatSliderChange(Slider slider, Label labelToChange, Float varToChange){
+    private float handleFloatSliderChange(Slider slider, Label labelToChange){
         DecimalFormat df = new DecimalFormat(".#",new DecimalFormatSymbols(Locale.ENGLISH));
         String value = df.format(slider.getValue());
-        cashOverGo = Float.parseFloat(value);
         labelToChange.setText(value+"M");
+        return Float.parseFloat(value);
     }
 }
