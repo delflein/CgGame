@@ -123,7 +123,6 @@ public class RentTableBuilder {
         rt.row().expand();
         Label text = createFacilityText();
         rt.add(text).grow();
-        rt.debug();
         return this.buildTable();
     }
 

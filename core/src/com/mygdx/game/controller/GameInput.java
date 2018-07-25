@@ -169,7 +169,7 @@ public class GameInput implements InputProcessor {
         }
 
         if(keycode == Input.Keys.N) {
-            GameController.getCurrentPlayerComponent().moveTo(Street.getStreetByName("Jail"));
+            GameController.getCurrentPlayerComponent().moveTo(Street.getStreetByName("Start"));
         }
 
         return false;

@@ -4,6 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.mygdx.game.controller.GameController;
 import com.mygdx.game.controller.GameStates;
 import com.mygdx.game.screens.GameScreen;
 
@@ -27,11 +28,17 @@ public class TurnButton extends TextButton implements GameUiElement {
                 screen.getGameController().getGameStateMachine().changeState(GameStates.NEXT_PLAYER);
             }
         });
+        this.setVisible(false);
         return this;
+
     }
 
     @Override
     public void act(float delta) {
         super.act(delta);
+        this.setVisible(false);
+        if(GameController.getGameStateMachine().isInState(GameStates.BUILD)){
+            this.setVisible(true);
+        }
     }
 }

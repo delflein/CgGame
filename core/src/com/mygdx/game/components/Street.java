@@ -4,6 +4,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.controller.GameController;
+import com.mygdx.game.controller.GameStates;
 import com.mygdx.game.stages.UI.ActionCardView;
 import com.mygdx.game.stages.UI.Dice;
 import com.mygdx.game.stages.UI.StreetViewTable;
@@ -348,6 +349,7 @@ public class Street {
                         playerComponent.payRent();
                     }
                 }
+                GameController.getGameStateMachine().changeState(GameStates.BUILD);
             }
         },
         CHANCE() {
@@ -430,13 +432,14 @@ public class Street {
         JAIL() {
             @Override
             public void effect(PlayerComponent playerComponent) {
-                // Nothing ?
+                //TODO Implement Jail Feature
+                GameController.getGameStateMachine().changeState(GameStates.BUILD);
             }
         },
         FREE_PARKING() {
             @Override
             public void effect(PlayerComponent playerComponent) {
-                // Nothing ?
+                GameController.getGameStateMachine().changeState(GameStates.BUILD);
             }
         },
         GOTOJAIL() {

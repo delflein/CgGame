@@ -5,6 +5,7 @@ import com.badlogic.gdx.ai.fsm.State;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.mygdx.game.components.MovingComponent;
 import com.mygdx.game.components.PlayerComponent;
+import com.mygdx.game.components.Street;
 import com.mygdx.game.stages.UI.Dice;
 
 public enum GameStates implements State<GameController> {
@@ -69,7 +70,7 @@ public enum GameStates implements State<GameController> {
             player.getCurrentStreet().effect(player);
             if(Dice.isSame()){
                if(player.increaseSame()){
-                   //TODO move to jail
+                   player.moveTo(Street.getStreetByName("Jail"));
                    player.setSame(0);
                }
                GameController.getGameStateMachine().changeState(GameStates.IDLE);
@@ -97,6 +98,10 @@ public enum GameStates implements State<GameController> {
         @Override
         public void enter(GameController gc) {
             GameController.getCurrentPlayerComponent().buyStreet();
+            if (Dice.isSame()){
+                GameController.getGameStateMachine().changeState(GameStates.IDLE);
+                return;
+            }
             GameController.getGameStateMachine().changeState(GameStates.BUILD);
         }
 
@@ -190,7 +195,7 @@ public enum GameStates implements State<GameController> {
     }, BUILD() {
         @Override
         public void enter(GameController entity) {
-
+            if (Dice.isSame()){GameController.getGameStateMachine().changeState(GameStates.IDLE);}
         }
 
         @Override

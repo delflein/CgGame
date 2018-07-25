@@ -30,7 +30,6 @@ public class ActionCard extends Table implements Effect {
 
     public ActionCard(String text, ActionCardType type) {
         super();
-        this.debug();
         this.text = new Label("",skin);
         this.text.setColor(Colors.get("BLACK"));
         this.text.setText(text);

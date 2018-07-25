@@ -72,7 +72,6 @@ class GraphicsSettingsTable extends Table {
         });
 
         pack();
-        this.debug();
         this.setFillParent(true);
     }
 

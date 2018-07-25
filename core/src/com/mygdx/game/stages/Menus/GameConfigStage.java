@@ -20,8 +20,8 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.fadeIn;
 public class GameConfigStage extends MenuStage {
 
     private Integer players=1;
-    private Float startCash= 15.0f;
-    private Float cashOverGo= 2.0f;
+    private Float startCash= 2000.0f;
+    private Float cashOverGo= 200.0f;
     private boolean directGoDoubled = false;
 
     public GameConfigStage(Game game, MainMenuScreen screen, Skin skin){
@@ -36,16 +36,16 @@ public class GameConfigStage extends MenuStage {
         title.setColor(Color.GOLD);
 
         //Slider for choosing start money
-        final Slider cashSlider = new Slider(1.0f,30.0f,0.1f,false,skin);
+        final Slider cashSlider = new Slider(100.0f,10000.0f,100f,false,skin);
         cashSlider.setValue(startCash);
         final Label cashsliderLabel = new Label("Start Cash:",skin);
-        final Label cashIndicatorLabel = new Label("15.0M",skin);
+        final Label cashIndicatorLabel = new Label(startCash+"M",skin);
 
         //Slider for choosing amount of money when going over GO!
-        final Slider goCashSlider = new Slider(1.0f,30.0f,0.1f,false,skin);
+        final Slider goCashSlider = new Slider(0f,1000.0f,100f,false,skin);
         cashSlider.setValue(startCash);
-        Label goCashSliderLabel = new Label("Start Cash:",skin);
-        final Label goCashIndicatorLabel = new Label("2.0M",skin);
+        Label goCashSliderLabel = new Label("Cash over GO:",skin);
+        final Label goCashIndicatorLabel = new Label(cashOverGo+"M",skin);
 
         cashSlider.addListener(new ChangeListener() {
             @Override
@@ -116,8 +116,6 @@ public class GameConfigStage extends MenuStage {
         // Create tables
        Table topTable = new Table().top();
        Table bottomTable = new Table().bottom();
-       //topTable.debug();
-       //bottomTable.debug();
 
 
         // Set table structure
@@ -134,6 +132,12 @@ public class GameConfigStage extends MenuStage {
         topTable.add(cashsliderLabel);
         topTable.add(cashSlider).fill();
         topTable.add(cashIndicatorLabel).width(30).center().expandX();
+
+        topTable.row().expandX();
+        topTable.add(goCashSliderLabel);
+        topTable.add(goCashSlider).fill();
+        topTable.add(goCashIndicatorLabel).width(30).center().expandX();
+
 
         topTable.row();
         topTable.add(doubleCashBoxLabel);
