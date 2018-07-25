@@ -1,5 +1,6 @@
 package com.mygdx.game.stages.UI;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -21,8 +22,8 @@ import java.util.List;
 
 public class ActionCardView extends Dialog implements GameUiElement {
 
-    private static List<CommunityChestCard> chestCardList = CommunityChestCard.getCards();
-    private static List<ChanceCard> chanceCardList = ChanceCard.getCards();
+    static List<CommunityChestCard> chestCardList = CommunityChestCard.getCards();
+    static List<ChanceCard> chanceCardList = ChanceCard.getCards();
     private static boolean visible = false;
     private boolean chance;
     private TextButton buyBtn;
@@ -37,13 +38,10 @@ public class ActionCardView extends Dialog implements GameUiElement {
 
     @Override
     public ActionCardView create() {
-        Pixmap backgroundColor = new Pixmap(400, 300, Pixmap.Format.RGB888);
+        Pixmap backgroundColor = new Pixmap((int) (Gdx.graphics.getWidth()*0.2), (int) (Gdx.graphics.getHeight()*0.2), Pixmap.Format.RGB888);
         backgroundColor.setColor(Color.WHITE);
         backgroundColor.fill();
         this.setBackground(new Image(new Texture(backgroundColor)).getDrawable());
-        this.setFillParent(false);
-
-        this.setSize(400, 300);
         this.setTouchable(Touchable.enabled);
         this.addListener(new DragListener() {
             public void drag(InputEvent event, float x, float y, int pointer) {
@@ -74,18 +72,13 @@ public class ActionCardView extends Dialog implements GameUiElement {
             });
             this.getButtonTable().add(buyBtn);
         }
-        this.getContentTable().clearChildren();
         displayNextCard(chance);
         this.getContentTable().add(currentCard);
         this.pack();
+        this.setPosition(Gdx.graphics.getWidth() / 2 - this.getWidth()/2, Gdx.graphics.getHeight() / 2 - this.getHeight() / 2);
         this.setVisible(true);
 
         return this;
-    }
-
-    public void disableBuyOption() {
-        buyBtn.setTouchable(Touchable.disabled);
-        buyBtn.setText("Insufficient Funds !");
     }
 
     public void displayNextCard(boolean chance) {

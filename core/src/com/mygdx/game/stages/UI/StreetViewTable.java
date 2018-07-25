@@ -50,14 +50,12 @@ public class StreetViewTable extends Dialog implements GameUiElement {
 
     @Override
     public StreetViewTable create() {
-        Pixmap backgroundColor = new Pixmap(300, 400, Pixmap.Format.RGB888);
+        Pixmap backgroundColor = new Pixmap((int) (Gdx.graphics.getHeight()*0.25), (int) (Gdx.graphics.getWidth()*0.25), Pixmap.Format.RGB888);
         backgroundColor.setColor(Color.WHITE);
         backgroundColor.fill();
         this.setBackground(new Image(new Texture(backgroundColor)).getDrawable());
-        this.setFillParent(false);
-        this.setSize(300, 400);
-        this.setPosition(Gdx.graphics.getWidth() / 2 - this.getWidth() / 2, Gdx.graphics.getHeight() / 2 - this.getHeight() / 2);
         this.setVisible(true);
+        this.setPosition(Gdx.graphics.getWidth() / 2 - this.getWidth() / 2, Gdx.graphics.getHeight() / 2 - this.getHeight() / 2);
         this.setTouchable(Touchable.enabled);
         this.addListener(new DragListener() {
             public void drag(InputEvent event, float x, float y, int pointer) {
@@ -76,6 +74,7 @@ public class StreetViewTable extends Dialog implements GameUiElement {
         });
 
 
+
         if (GameController.getGameStateMachine().getCurrentState() == GameStates.BUILD &&
                 street.hasAllOfType(GameController.getCurrentPlayerComponent()) &&
                 street.getType()== Street.StreetType.PROPERTY && street.isBuildable()){
@@ -85,9 +84,7 @@ public class StreetViewTable extends Dialog implements GameUiElement {
             addBuyButtons();
         }
 
-        this.getContentTable().add(rt);
-
-        this.getContentTable().clearChildren();
+        this.getContentTable().add(rt).grow();
         switch (street.getType()) {
             case PROPERTY:
                 rt = new RentTableBuilder(street, icons).createPropertyTable();
@@ -102,7 +99,12 @@ public class StreetViewTable extends Dialog implements GameUiElement {
                 this.getContentTable().add(rt);
         }
         this.pack();
+        this.setPosition(Gdx.graphics.getWidth() / 2 - this.getWidth()/2, Gdx.graphics.getHeight() / 2 - this.getHeight() / 2);
         this.setVisible(true);
+
+        this.getButtonTable().row().setActorWidth(rt.getWidth()/2);
+        this.getButtonTable().add(buyBtn).padLeft(10);
+        this.getButtonTable().add(auctBtn).padRight(10);
 
         return this;
     }

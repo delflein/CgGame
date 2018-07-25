@@ -7,6 +7,8 @@ import java.util.List;
 
 public class ChanceCard extends ActionCard {
 
+    String name = "Community Chest";
+
     static List<ChanceCard> chanceCards = Arrays.asList(
             new ChanceCard("Advance to Go (Collect $200))", ActionCardType.GO),
             new ChanceCard("Advance to Illinois Ave. - If you pass Go, collect $20", ActionCardType.GET, 20),
@@ -30,7 +32,8 @@ public class ChanceCard extends ActionCard {
 
 
     public ChanceCard(String text, ActionCardType type, Integer... amounts) {
-        super(text, type, amounts);
+        super(text,type,amounts);
+
     }
 
     public ChanceCard(String text, ActionCardType type) {
