@@ -130,8 +130,7 @@ public class RentTableBuilder {
 
     public RentTable createStationTable() {
         Image background = new Image(ModelFactory.loadTexture("UI/station.png"));
-        rt.setSize(rt.getParent().getWidth(), rt.getParent().getHeight());
-        background.setSize(rt.getWidth() * 0.3f, rt.getHeight() * 0.3f);
+        background.setSize((float) ((float)Gdx.graphics.getWidth()*0.05), ((float)(Gdx.graphics.getHeight()*0.1)));
         rt.add(background).center().colspan(3);
         rt.row();
         rt.pack();
