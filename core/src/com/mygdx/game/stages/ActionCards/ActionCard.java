@@ -1,20 +1,17 @@
 package com.mygdx.game.stages.ActionCards;
 
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Colors;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.game.components.Effect;
 import com.mygdx.game.components.PlayerComponent;
+import com.mygdx.game.components.Street;
 import com.mygdx.game.controller.GameController;
 import com.mygdx.game.utils.GameAssets;
 import com.mygdx.game.utils.ModelFactory;
 
-import javax.xml.bind.SchemaOutputResolver;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -52,8 +49,8 @@ public class ActionCard extends Table implements Effect {
                 playerComponent.setMoney(playerComponent.getMoney() - amounts.get(0));
                 break;
             case JAIL:
-                //TODO Move to Jail
-                //playerComponent.goDirectToJail()
+                playerComponent.moveTo(Street.getStreetByName("Jail"));
+                playerComponent.setJail();
                 break;
             case VAMPIRE:
                 int amount = amounts.get(0);

@@ -169,8 +169,7 @@ public class GameInput implements InputProcessor {
         }
 
         if(keycode == Input.Keys.N) {
-            GameController.getCurrentPlayerComponent().moveSmooth(2);
-            GameController.getGameStateMachine().changeState(GameStates.FIELD);
+            GameController.getCurrentPlayerComponent().moveTo(Street.getStreetByName("Jail"));
         }
 
         return false;

@@ -16,7 +16,7 @@ public class MovingComponent implements Component {
     private final static float speedMul = 15;
 
     public boolean isMoving() {
-        return nextTarget != null;
+        return path.size() > 0;
     }
 
     public MovingComponent(ModelComponent model) {
