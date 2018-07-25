@@ -8,8 +8,8 @@ import java.util.List;
 public class CommunityChestCard extends ActionCard {
 
     static List<CommunityChestCard> chestCards = Arrays.asList(
-            //new CommunityChestCard("Advance to Go (Collect $200)", ActionCardType.GO),
-            //new CommunityChestCard("Bank error in your favor – Collect $200", ActionCardType.GET, 200),
+            new CommunityChestCard("Advance to Go (Collect $200)", ActionCardType.GO),
+            new CommunityChestCard("Bank error in your favor – Collect $200", ActionCardType.GET, 200),
             new CommunityChestCard("Doctor's fees Pay $50", ActionCardType.PAY, 50),
             new CommunityChestCard("From sale of stock you get $50", ActionCardType.GET, 50),
             new CommunityChestCard("Get Out of Jail Free - This card may be kept until needed or sold/traded)", ActionCardType.JAILFREE),

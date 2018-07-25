@@ -77,7 +77,7 @@ public class StreetViewTable extends Dialog implements GameUiElement {
 
         if (GameController.getGameStateMachine().getCurrentState() == GameStates.BUILD &&
                 street.hasAllOfType(GameController.getCurrentPlayerComponent()) &&
-                street.getType()== Street.StreetType.PROPERTY && street.isBuildable()){
+                street.getType()== Street.StreetType.PROPERTY && street.isBuildable() && GameController.getCurrentPlayerComponent().getOwned_streets().contains(street)){
 
             addBuildButtons();
         } else {

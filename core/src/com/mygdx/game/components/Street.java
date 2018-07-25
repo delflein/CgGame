@@ -110,6 +110,15 @@ public class Street {
         this.type.effect(component);
     }
 
+    public static Street getStreetByName(String name) {
+        for (Street street : streets) {
+            if(street.getName() == name) {
+                return street;
+            }
+        }
+        return null;
+    }
+
     public List<Vector3> getPath(int numberOfFields, PlayerComponent component) {
         List<Vector3> path = new ArrayList<>();
         Street toReturn = this;
@@ -433,8 +442,9 @@ public class Street {
         GOTOJAIL() {
             @Override
             public void effect(PlayerComponent playerComponent) {
-                // Move Player to Jail
-                // playerComponent.goToJail()
+                //TODO Jail Message ?
+                playerComponent.moveTo(Street.getStreetByName("Jail"));
+                playerComponent.setJail();
             }
         }
     }
