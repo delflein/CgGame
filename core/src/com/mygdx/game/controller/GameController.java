@@ -17,7 +17,7 @@ import java.util.List;
 
 public class GameController implements Telegraph {
 
-    private Engine engine;
+    private static Engine engine;
     private static GameSettings settings;
     private static StateMachine<GameController, GameStates> gameStateMachine;
     private static GameUI gameUi;
@@ -30,8 +30,8 @@ public class GameController implements Telegraph {
     private static List<ActionCard> cards;
 
 
-    public GameController(Engine engine, GameSettings gameSettings, GameUI stage) {
-        this.engine = engine;
+    public GameController(Engine eng, GameSettings gameSettings, GameUI stage) {
+        engine = eng;
         settings = gameSettings;
         gameStateMachine = new DefaultStateMachine<GameController, GameStates>(this, GameStates.IDLE);
         players = engine.getEntitiesFor(Family.all(PlayerComponent.class).get());
@@ -93,7 +93,7 @@ public class GameController implements Telegraph {
         gameStateMachine.update();
     }
 
-    public Engine getEngine() {
-        return this.engine;
+    public static Engine getEngine() {
+        return engine;
     }
 }

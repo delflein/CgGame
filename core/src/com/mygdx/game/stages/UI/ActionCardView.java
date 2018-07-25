@@ -95,7 +95,7 @@ public class ActionCardView extends Dialog implements GameUiElement {
                 chanceCardList = ChanceCard.getCards();
             }
         } else {
-            currentCard = chestCardList.remove(chanceCardList.size() - 1);
+            currentCard = chestCardList.remove(chestCardList.size() - 1);
             if (chestCardList.isEmpty()) {
                 chestCardList = CommunityChestCard.getCards();
             }

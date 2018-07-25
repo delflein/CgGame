@@ -28,6 +28,7 @@ public class MovingComponent implements Component {
         if(path.size() > 0) {
             nextTarget = path.remove(0);
         }else {
+            model.move(nextTarget);
             nextTarget = null;
         }
     }
@@ -41,7 +42,6 @@ public class MovingComponent implements Component {
             }
         }
         Vector3 speed = calculateSpeed(delta);
-        System.out.println(speed);
         model.tra(speed);
         Vector3 newPosition = new Vector3();
         model.getInstance().transform.getTranslation(newPosition);

@@ -67,6 +67,8 @@ public enum GameStates implements State<GameController> {
             Entity entity = GameController.getCurrentPlayer();
             PlayerComponent player = entity.getComponent(PlayerComponent.class);
             player.getCurrentStreet().effect(player);
+
+            GameController.getGameStateMachine().changeState(GameStates.BUILD);
         }
 
         @Override

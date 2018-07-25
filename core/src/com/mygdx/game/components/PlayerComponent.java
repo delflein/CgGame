@@ -63,11 +63,11 @@ public class PlayerComponent implements Component {
                 rent = multiplier * Dice.getRollSum();
                 break;
             case PROPERTY:
-                if (currentStreet.getHouses() < 1) {
+                if (currentStreet.getHouseCount() < 1) {
                     multiplier = (hasAll) ? 2 : 1;
                     rent = getCurrentStreet().getBase_rent() * multiplier;
                 } else {
-                    rent = currentStreet.getRents()[currentStreet.getHouses() - 1];
+                    rent = currentStreet.getRents()[currentStreet.getHouseCount() - 1];
                 }
                 break;
             case STATION:
@@ -138,11 +138,11 @@ public class PlayerComponent implements Component {
         int house = 0;
         int hotel = 0;
         for (Street owned_street : owned_streets) {
-            if (owned_street.getHouses() == 4) {
+            if (owned_street.getHouseCount() == 4) {
                 hotel++;
             }
-            if (owned_street.getHouses() > 0 && owned_street.getHouses() < 4) {
-                house += owned_street.getHouses();
+            if (owned_street.getHouseCount() > 0 && owned_street.getHouseCount() < 4) {
+                house += owned_street.getHouseCount();
             }
         }
         return new int[]{house, hotel};

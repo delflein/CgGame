@@ -7,7 +7,13 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.Ray;
 import com.mygdx.game.components.ModelComponent;
 import com.mygdx.game.components.PlayerComponent;
+import com.mygdx.game.components.Street;
 import com.mygdx.game.screens.GameScreen;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameInput implements InputProcessor {
 
@@ -16,6 +22,12 @@ public class GameInput implements InputProcessor {
     public GameInput(GameScreen gameScreen) {
         this.gameScreen = gameScreen;
     }
+
+    int count = 0;
+    private JSONArray house_json = new JSONArray();
+    private JSONObject tmp_house = new JSONObject();
+
+    List<Entity> visible_houses = new ArrayList<>();
 
     @Override
     public boolean keyDown(int keycode) {
@@ -34,38 +46,106 @@ public class GameInput implements InputProcessor {
                 System.out.printf("new Vector3(%f, %f, %f), new Vector3(%f, %f, %f), new Vector3(%f, %f, %f), new Vector3(%f, %f, %f)", positions.get(0).x,positions.get(0).y,positions.get(0).z, positions.get(1).x,positions.get(1).y,positions.get(1).z,positions.get(2).x,positions.get(2).y,positions.get(2).z,positions.get(3).x,positions.get(3).y,positions.get(3).z);
             }
         }*/
+        /*if(keycode == Input.Keys.K) {
+            Entity house = gameScreen.selected;
+            if(house == null){
+                house = EntityFactory.createHouse(0, 0, 0, 0);
+                gameScreen.getEngine().addEntity(house);
+                visible_houses.add(house);
+                return false;
+            }
+            Vector3 pos = new Vector3();
+            house.getComponent(ModelComponent.class).getInstance().transform.getTranslation(pos);
+
+            Entity newHouse = EntityFactory.createHouse(pos.x, pos.y, pos.z, 0);
+            gameScreen.getEngine().addEntity(newHouse);
+            visible_houses.add(newHouse);
+            gameScreen.selected = newHouse;
+        }
+
+        if(keycode == Input.Keys.H) {
+            JSONObject house = new JSONObject();
+            for (Entity visible_house : visible_houses) {
+                Vector3 pos = new Vector3();
+                visible_house.getComponent(ModelComponent.class).getInstance().transform.getTranslation(pos);
+
+                JSONObject vector = new JSONObject();
+                vector.put("x", pos.x);
+                vector.put("y", pos.y);
+                vector.put("z", pos.z);
+
+                house.put("house" + (visible_houses.indexOf(visible_house) + 1), vector);
+                gameScreen.getEngine().removeEntity(visible_house);
+            }
+            house_json.add(house);
+
+            visible_houses.clear();
+        }
+
+        if (keycode == Input.Keys.L) {
+            try (FileWriter file = new FileWriter("houses.json")) {
+
+                file.write(house_json.toJSONString());
+                file.flush();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }*/
 
         if(keycode == Input.Keys.LEFT) {
-            final ModelComponent mod = gameScreen.selected.getComponent(ModelComponent.class);
+            Entity entity = gameScreen.selected;
+            if(entity == null){
+                return false;
+            }
+            final ModelComponent mod = entity.getComponent(ModelComponent.class);
             mod.tra(-1,0,0);
             return false;
         }
         if(keycode == Input.Keys.UP) {
-            final ModelComponent mod = gameScreen.selected.getComponent(ModelComponent.class);
+            Entity entity = gameScreen.selected;
+            if(entity == null){
+                return false;
+            }
+            final ModelComponent mod = entity.getComponent(ModelComponent.class);
             mod.tra(0,0,-1);
             return false;
         }
         if(keycode == Input.Keys.RIGHT) {
-            final ModelComponent mod = gameScreen.selected.getComponent(ModelComponent.class);
+            Entity entity = gameScreen.selected;
+            if(entity == null){
+                return false;
+            }
+            final ModelComponent mod = entity.getComponent(ModelComponent.class);
             mod.tra(1,0,0);
             return false;
         }
         if(keycode == Input.Keys.DOWN) {
-            final ModelComponent mod = gameScreen.selected.getComponent(ModelComponent.class);
+            Entity entity = gameScreen.selected;
+            if(entity == null){
+                return false;
+            }
+            final ModelComponent mod = entity.getComponent(ModelComponent.class);
             mod.tra(0,0,1);
             return false;
         }
 
         if(keycode == Input.Keys.Z) {
-            final ModelComponent mod = gameScreen.selected.getComponent(ModelComponent.class);
-            mod.getInstance().transform.rotate(Vector3.Y, 1);
-            System.out.println("Turned Left");
+            Entity entity = gameScreen.selected;
+            if(entity == null){
+                return false;
+            }
+            final ModelComponent mod = entity.getComponent(ModelComponent.class);
+            mod.getInstance().transform.rotate(Vector3.Y, 45);
             return false;
         }
         if(keycode == Input.Keys.U) {
-            final ModelComponent mod = gameScreen.selected.getComponent(ModelComponent.class);
-            mod.getInstance().transform.rotate(Vector3.Y, -1);
-            System.out.println("Turned Right");
+            Entity entity = gameScreen.selected;
+            if(entity == null){
+                return false;
+            }
+            final ModelComponent mod = entity.getComponent(ModelComponent.class);
+            mod.getInstance().transform.rotate(Vector3.Y, -45);
             return false;
         }
 
@@ -80,9 +160,19 @@ public class GameInput implements InputProcessor {
         }
 
         if (keycode == Input.Keys.B) {
-            GameController.getCurrentPlayerComponent().moveSmooth(1);
-            GameController.getGameStateMachine().changeState(GameStates.DICE);
+            for (Street street : Street.getStreets()) {
+                if(street.getType() == Street.StreetType.PROPERTY) {
+                    street.setSold();
+                    GameController.getCurrentPlayerComponent().getOwned_streets().add(street);
+                }
+            }
         }
+
+        if(keycode == Input.Keys.N) {
+            GameController.getCurrentPlayerComponent().moveSmooth(2);
+            GameController.getGameStateMachine().changeState(GameStates.FIELD);
+        }
+
         return false;
     }
 

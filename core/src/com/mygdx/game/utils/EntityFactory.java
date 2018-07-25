@@ -13,55 +13,54 @@ import com.mygdx.game.components.SelectableComponent;
 public class EntityFactory {
 
     public static Entity createGameBoard(float x, float y, float z) {
-        Model board = ModelFactory.loadModel(GameAssets.BOARD.filepath);
-        if (board == null) {
-            return null;
-        }
-
-        final BoundingBox boundingBox = new BoundingBox();
-        board.calculateBoundingBox(boundingBox);
-
-        Entity entity = new Entity();
-        ModelComponent modelComponent = new ModelComponent(board, x, y, z);
-        entity.add(modelComponent);
-
-        return entity;
+        return getEntity(x, y, z, 0, false, GameAssets.BOARD);
     }
 
     public static Entity createChestCardstack(float x, float y, float z) {
-        Model cardstack = ModelFactory.loadModel(GameAssets.CHEST_CARDSTACK.filepath);
-        if(cardstack == null) {
-            return null;
-        }
-
-        final BoundingBox boundingBox = new BoundingBox();
-        cardstack.calculateBoundingBox(boundingBox);
-
-        Entity entity = new Entity();
-        ModelComponent modelComponent = new ModelComponent(cardstack, x, y, z);
-        modelComponent.getInstance().transform.rotate(Vector3.Y, -45);
-        SelectableComponent selectableComponent = new SelectableComponent(modelComponent);
-        entity.add(modelComponent);
-        entity.add(selectableComponent);
-
-        return entity;
+        return getEntity(x, y, z, -45, false, GameAssets.CHEST_CARDSTACK);
     }
 
     public static Entity createChanceCardstack(float x, float y, float z) {
-        Model cardstack = ModelFactory.loadModel(GameAssets.CHANCE_CARDSTACK.filepath);
-        if(cardstack == null) {
+        return getEntity(x, y, z, -45, false, GameAssets.CHANCE_CARDSTACK);
+    }
+
+    public static Entity createTable(float x, float y, float z) {
+        return getEntity(x, y, z, 0, false, GameAssets.TABLE);
+    }
+
+    public static Entity createHouse(float x, float y, float z, int degrees) {
+        return getEntity(x, y, z, degrees, true, GameAssets.HOUSE);
+    }
+
+    public static Entity createHouse(Vector3 pos, int degrees) {
+        return createHouse(pos.x, pos.y, pos.z, degrees);
+    }
+
+    public static Entity createHotel(float x, float y, float z, int degrees) {
+        return getEntity(x, y, z, degrees, true, GameAssets.HOTEL);
+    }
+
+    public static Entity createHotel(Vector3 pos, int degrees) {
+        return createHotel(pos.x, pos.y, pos.z, degrees);
+    }
+
+    private static Entity getEntity(float x, float y, float z, int degrees, boolean selectable, GameAssets asset) {
+        Model model = ModelFactory.loadModel(asset.filepath);
+        if(model == null) {
             return null;
         }
 
         final BoundingBox boundingBox = new BoundingBox();
-        cardstack.calculateBoundingBox(boundingBox);
+        model.calculateBoundingBox(boundingBox);
 
         Entity entity = new Entity();
-        ModelComponent modelComponent = new ModelComponent(cardstack, x, y, z);
-        modelComponent.getInstance().transform.rotate(Vector3.Y, -45);
-        SelectableComponent selectableComponent = new SelectableComponent(modelComponent);
+        ModelComponent modelComponent = new ModelComponent(model, x, y, z);
+        modelComponent.getInstance().transform.rotate(Vector3.Y, degrees);
         entity.add(modelComponent);
-        entity.add(selectableComponent);
+        if(selectable) {
+            SelectableComponent sel = new SelectableComponent(modelComponent);
+            entity.add(sel);
+        }
 
         return entity;
     }

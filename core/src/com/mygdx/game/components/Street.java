@@ -7,6 +7,7 @@ import com.mygdx.game.controller.GameController;
 import com.mygdx.game.stages.UI.ActionCardView;
 import com.mygdx.game.stages.UI.Dice;
 import com.mygdx.game.stages.UI.StreetViewTable;
+import com.mygdx.game.utils.EntityFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,7 @@ public class Street {
     private int[] rents;
     private int hypothek;
     int houses;
+    private List<Entity> houseEntities = new ArrayList<>();
 
     private Vector3 p1_position;
     private Vector3 p2_position;
@@ -71,36 +73,37 @@ public class Street {
         streets.add(new Street("Chance", null, StreetType.CHANCE, 0, 0, 0, 0, new int[] {0,0,0,0,0}, 0, new Vector3(-29f, 0f, 69f), new Vector3(-29f, 0f, 75f), new Vector3(-23f, 0f, 69f), new Vector3(-23f, 0f, 75f)));
         streets.add(new Street("Vermont Avenue", MonopolyColors.LIGHT_BLUE, StreetType.PROPERTY, 100, 50, 50, 6, new int[] {30,90,270,400,550}, 50, new Vector3(-42f, 0f, 69f), new Vector3(-42f, 0f, 75f), new Vector3(-36f, 0f, 69f), new Vector3(-36f, 0f, 75f)));
         streets.add(new Street("Connecticut Avenue", MonopolyColors.LIGHT_BLUE, StreetType.PROPERTY, 120, 50, 50, 8, new int[] {40,100,300,450,600}, 60, new Vector3(-55f, 0f, 69f), new Vector3(-55f, 0f, 75f), new Vector3(-49f, 0f, 69f), new Vector3(-49f, 0f, 75f)));
-        streets.add(new Street("Jail", null, StreetType.JAIL, 0, 0, 0, 0, new int[] {0,0,0,0,0}, 0, new Vector3(-72f, 0f, 66f), new Vector3(-72f, 0f, 72f), new Vector3(-66f, 0f, 66f), new Vector3(-66f, 0f, 72f)));
-        streets.add(new Street("St. Charles Place", MonopolyColors.PINK, StreetType.PROPERTY, 140, 100, 100, 10, new int[] {50,150,450,625,750}, 70, new Vector3(-75f, 0f, 49f), new Vector3(-75f, 0f, 55f), new Vector3(-69f, 0f, 49f), new Vector3(-69f, 0f, 55f)));
-        streets.add(new Street("Electric Company", Color.LIGHT_GRAY, StreetType.FACILITY, 150, 0, 0, 0, new int[] {0,0,0,0,0}, 75, new Vector3(-75f, 0f, 37f), new Vector3(-75f, 0f, 43f), new Vector3(-69f, 0f, 37f), new Vector3(-69f, 0f, 43f)));
-        streets.add(new Street("States Avenue", MonopolyColors.PINK, StreetType.PROPERTY, 140, 100, 100, 10, new int[] {50,150,450,625,750}, 70, new Vector3(-75f, 0f, 23f), new Vector3(-75f, 0f, 29f), new Vector3(-69f, 0f, 23f), new Vector3(-69f, 0f, 29f)));
-        streets.add(new Street("Virginia Avenue", MonopolyColors.PINK, StreetType.PROPERTY, 160, 100, 100, 12, new int[] {60,180,500,700,900}, 80, new Vector3(-75f, 0f, 10f), new Vector3(-75f, 0f, 16f), new Vector3(-69f, 0f, 10f), new Vector3(-69f, 0f, 16f)));
-        streets.add(new Street("Pennsylvania Railroad", Color.WHITE, StreetType.STATION, 200, 0, 0, 25, new int[]{25, 50, 100, 200, 0}, 100, new Vector3(-75f, 0f, -3f), new Vector3(-75f, 0f, 3f), new Vector3(-69f, 0f, -3f), new Vector3(-69f, 0f, 3f)));
-        streets.add(new Street("St. James Place", MonopolyColors.ORANGE, StreetType.PROPERTY, 180, 100, 100, 14, new int[] {70,200,550,750,950}, 90, new Vector3(-75f, 0f, -16f), new Vector3(-75f, 0f, -10f), new Vector3(-69f, 0f, -16f), new Vector3(-69f, 0f, -10f)));
-        streets.add(new Street("Community Chest", null, StreetType.COMMUNITY_CHEST, 0, 0, 0, 0, new int[] {0,0,0,0,0}, 0, new Vector3(-75f, 0f, -29f), new Vector3(-75f, 0f, -23f), new Vector3(-69f, 0f, -29f), new Vector3(-69f, 0f, -23f)));
-        streets.add(new Street("Tennessee Avenue", MonopolyColors.ORANGE, StreetType.PROPERTY, 180, 100, 100, 14, new int[] {70,200,550,750,950}, 90, new Vector3(-75f, 0f, -43f), new Vector3(-75f, 0f, -37f), new Vector3(-69f, 0f, -43f), new Vector3(-69f, 0f, -37f)));
-        streets.add(new Street("New York Avenue", MonopolyColors.ORANGE, StreetType.PROPERTY, 200, 100, 100, 16, new int[] {80,220,600,800,1000}, 100, new Vector3(-75f, 0f, -55f), new Vector3(-75f, 0f, -49f), new Vector3(-69f, 0f, -55f), new Vector3(-69f, 0f, -49f)));
-        streets.add(new Street("Free Parking", null, StreetType.FREE_PARKING, 0, 0, 0, 0, new int[] {0,0,0,0,0}, 0, new Vector3(-72f, 0f, -72f), new Vector3(-72f, 0f, -66f), new Vector3(-66f, 0f, -72f), new Vector3(-66f, 0f, -66f)));
-        streets.add(new Street("Kentucky Avenue", MonopolyColors.RED, StreetType.PROPERTY, 220, 150, 150, 18, new int[] {90,250,700,875,1050}, 110, new Vector3(-56f, 0f, -75f), new Vector3(-56f, 0f, -69f), new Vector3(-50f, 0f, -75f), new Vector3(-50f, 0f, -69f)));
-        streets.add(new Street("Chance", null, StreetType.CHANCE, 0, 0, 0, 0, new int[] {0,0,0,0,0}, 0, new Vector3(-43f, 0f, -75f), new Vector3(-43f, 0f, -69f), new Vector3(-37f, 0f, -75f), new Vector3(-37f, 0f, -69f)));
-        streets.add(new Street("Indiana Avenue", MonopolyColors.RED, StreetType.PROPERTY, 220, 150, 150, 18, new int[] {90,250,700,875,1050}, 110, new Vector3(-29f, 0f, -75f), new Vector3(-29f, 0f, -69f), new Vector3(-23f, 0f, -75f), new Vector3(-23f, 0f, -69f)));
-        streets.add(new Street("Illinois Avenue", MonopolyColors.RED, StreetType.PROPERTY, 240, 150, 150, 20, new int[] {100,300,750,925,1100}, 120, new Vector3(-16f, 0f, -75f), new Vector3(-16f, 0f, -69f), new Vector3(-10f, 0f, -75f), new Vector3(-10f, 0f, -69f)));
-        streets.add(new Street("B. & O. Railroad", Color.WHITE, StreetType.STATION, 200, 0, 0, 25, new int[]{25, 50, 100, 200, 0}, 100, new Vector3(-3f, 0f, -75f), new Vector3(-3f, 0f, -69f), new Vector3(3f, 0f, -75f), new Vector3(3f, 0f, -69f)));
-        streets.add(new Street("Atlantic Avenue", MonopolyColors.YELLOW, StreetType.PROPERTY, 260, 150, 150, 22, new int[] {110,330,800,975,1150}, 130, new Vector3(10f, 0f, -75f), new Vector3(10f, 0f, -69f), new Vector3(16f, 0f, -75f), new Vector3(16f, 0f, -69f)));
-        streets.add(new Street("Ventnor Avenue", MonopolyColors.YELLOW, StreetType.PROPERTY, 260, 150, 150, 22, new int[] {110,330,800,975,1150}, 130, new Vector3(23f, 0f, -75f), new Vector3(23f, 0f, -69f), new Vector3(29f, 0f, -75f), new Vector3(29f, 0f, -69f)));
-        streets.add(new Street("Water Works", Color.LIGHT_GRAY, StreetType.FACILITY, 150, 0, 0, 0, new int[] {0,0,0,0,0}, 0, new Vector3(36f, 0f, -75f), new Vector3(36f, 0f, -69f), new Vector3(42f, 0f, -75f), new Vector3(42f, 0f, -69f)));
-        streets.add(new Street("Marvin Gardens", MonopolyColors.YELLOW, StreetType.PROPERTY, 280, 150, 150, 24, new int[] {120,360,850,1025,1200}, 140, new Vector3(50f, 0f, -75f), new Vector3(50f, 0f, -69f), new Vector3(56f, 0f, -75f), new Vector3(56f, 0f, -69f)));
-        streets.add(new Street("Go to Jail", null, StreetType.GOTOJAIL, 0, 0, 0, 0, new int[] {0,0,0,0,0}, 0, new Vector3(66f, 0f, -73f), new Vector3(66f, 0f, -67f), new Vector3(72f, 0f, -73f), new Vector3(72f, 0f, -67f)));
-        streets.add(new Street("Pacific Avenue", MonopolyColors.GREEN, StreetType.PROPERTY, 300, 200, 200, 26, new int[] {130,390,900,1100,1275}, 150, new Vector3(69f, 0f, -56f), new Vector3(69f, 0f, -50f), new Vector3(75f, 0f, -56f), new Vector3(75f, 0f, -50f)));
-        streets.add(new Street("North Carolina Avenue", MonopolyColors.GREEN, StreetType.PROPERTY, 300, 200, 200, 26, new int[] {130,390,900,1100,1275}, 150, new Vector3(69f, 0f, -43f), new Vector3(69f, 0f, -37f), new Vector3(75f, 0f, -43f), new Vector3(75f, 0f, -37f)));
-        streets.add(new Street("Community Chest", null, StreetType.COMMUNITY_CHEST, 0, 0, 0, 0, new int[] {0,0,0,0,0}, 0, new Vector3(69f, 0f, -30f), new Vector3(69f, 0f, -24f), new Vector3(75f, 0f, -30f), new Vector3(75f, 0f, -24f)));
-        streets.add(new Street("Pennsylvania Avenue", MonopolyColors.GREEN, StreetType.PROPERTY, 0, 0, 0, 0, new int[]{0, 0, 0, 0, 0}, 0, new Vector3(69f, 0f, -16f), new Vector3(69f, 0f, -10f), new Vector3(75f, 0f, -16f), new Vector3(75f, 0f, -10f)));
-        streets.add(new Street("Shortline", Color.WHITE, StreetType.STATION, 200, 0, 0, 25, new int[]{25, 50, 100, 200, 0}, 100, new Vector3(69f, 0f, -3f), new Vector3(69f, 0f, 3f), new Vector3(75f, 0f, -3f), new Vector3(75f, 0f, 3f)));
-        streets.add(new Street("Chance", null, StreetType.CHANCE, 0, 0, 0, 0, new int[] {0,0,0,0,0}, 0, new Vector3(69f, 0f, 10f), new Vector3(69f, 0f, 16f), new Vector3(75f, 0f, 10f), new Vector3(75f, 0f, 16f)));
-        streets.add(new Street("Park Place", MonopolyColors.DARK_BLUE, StreetType.PROPERTY, 350, 200, 200, 35, new int[] {175,500,1100,1300,1500}, 175, new Vector3(69f, 0f, 23f), new Vector3(69f, 0f, 29f), new Vector3(75f, 0f, 23f), new Vector3(75f, 0f, 29f)));
-        streets.add(new Street("Luxury Tax", null, StreetType.SUPER_TAX, 0, 0, 0, 0, new int[] {0,0,0,0,0}, 0, new Vector3(69f, 0f, 37f), new Vector3(69f, 0f, 43f), new Vector3(75f, 0f, 37f), new Vector3(75f, 0f, 43f)));
-        streets.add(new Street("Boardwalk", MonopolyColors.DARK_BLUE, StreetType.PROPERTY, 400, 200, 200, 50, new int[] {200,600,1400,1700,2000}, 200, new Vector3(69f, 0f, 50f), new Vector3(69f, 0f, 56f), new Vector3(75f, 0f, 50f), new Vector3(75f, 0f, 56f)));
+        streets.add(new Street("Jail", null, StreetType.JAIL, 0, 0, 0, 0, new int[] {0,0,0,0,0}, 0, new Vector3(-72f, 0f, 66f), new Vector3(-66f, 0f, 66f), new Vector3(-66f, 0f, 72f), new Vector3(-72f, 0f, 72f)));
+        streets.add(new Street("St. Charles Place", MonopolyColors.PINK, StreetType.PROPERTY, 140, 100, 100, 10, new int[] {50,150,450,625,750}, 70, new Vector3(-69f, 0f, 55f), new Vector3(-75f, 0f, 49f), new Vector3(-75f, 0f, 55f), new Vector3(-69f, 0f, 49f)));
+        streets.add(new Street("Electric Company", Color.LIGHT_GRAY, StreetType.FACILITY, 150, 0, 0, 0, new int[] {0,0,0,0,0}, 75, new Vector3(-69f, 0f, 43f), new Vector3(-75f, 0f, 37f), new Vector3(-75f, 0f, 43f), new Vector3(-69f, 0f, 37f)));
+        streets.add(new Street("States Avenue", MonopolyColors.PINK, StreetType.PROPERTY, 140, 100, 100, 10, new int[] {50,150,450,625,750}, 70, new Vector3(-69f, 0f, 29f), new Vector3(-75f, 0f, 23f), new Vector3(-75f, 0f, 29f), new Vector3(-69f, 0f, 23f)));
+        streets.add(new Street("Virginia Avenue", MonopolyColors.PINK, StreetType.PROPERTY, 160, 100, 100, 12, new int[] {60,180,500,700,900}, 80, new Vector3(-69f, 0f, 16f), new Vector3(-75f, 0f, 10f), new Vector3(-75f, 0f, 16f), new Vector3(-69f, 0f, 10f)));
+        streets.add(new Street("Pennsylvania Railroad", Color.WHITE, StreetType.STATION, 200, 0, 0, 25, new int[]{25, 50, 100, 200, 0}, 100, new Vector3(-69f, 0f, 3f), new Vector3(-75f, 0f, -3f), new Vector3(-75f, 0f, 3f), new Vector3(-69f, 0f, -3f)));
+        streets.add(new Street("St. James Place", MonopolyColors.ORANGE, StreetType.PROPERTY, 180, 100, 100, 14, new int[] {70,200,550,750,950}, 90, new Vector3(-69f, 0f, -10f), new Vector3(-75f, 0f, -16f), new Vector3(-75f, 0f, -10f), new Vector3(-69f, 0f, -16f)));
+        streets.add(new Street("Community Chest", null, StreetType.COMMUNITY_CHEST, 0, 0, 0, 0, new int[] {0,0,0,0,0}, 0, new Vector3(-69f, 0f, -23f), new Vector3(-75f, 0f, -29f), new Vector3(-75f, 0f, -23f), new Vector3(-69f, 0f, -29f)));
+        streets.add(new Street("Tennessee Avenue", MonopolyColors.ORANGE, StreetType.PROPERTY, 180, 100, 100, 14, new int[] {70,200,550,750,950}, 90, new Vector3(-69f, 0f, -37f), new Vector3(-75f, 0f, -43f), new Vector3(-75f, 0f, -37f), new Vector3(-69f, 0f, -43f)));
+        streets.add(new Street("New York Avenue", MonopolyColors.ORANGE, StreetType.PROPERTY, 200, 100, 100, 16, new int[] {80,220,600,800,1000}, 100, new Vector3(-69f, 0f, -49f), new Vector3(-75f, 0f, -55f), new Vector3(-75f, 0f, -49f), new Vector3(-69f, 0f, -55f)));
+        streets.add(new Street("Free Parking", null, StreetType.FREE_PARKING, 0, 0, 0, 0, new int[] {0,0,0,0,0}, 0, new Vector3(-66f, 0f, -72f), new Vector3(-66f, 0f, -66f), new Vector3(-72f, 0f, -72f), new Vector3(-72f, 0f, -66f)));
+        streets.add(new Street("Kentucky Avenue", MonopolyColors.RED, StreetType.PROPERTY, 220, 150, 150, 18, new int[] {90,250,700,875,1050}, 110, new Vector3(-50f, 0f, -75f), new Vector3(-50f, 0f, -69f), new Vector3(-56f, 0f, -75f), new Vector3(-56f, 0f, -69f)));
+        streets.add(new Street("Chance", null, StreetType.CHANCE, 0, 0, 0, 0, new int[] {0,0,0,0,0}, 0, new Vector3(-37f, 0f, -75f), new Vector3(-37f, 0f, -69f), new Vector3(-43f, 0f, -75f), new Vector3(-43f, 0f, -69f)));
+        streets.add(new Street("Indiana Avenue", MonopolyColors.RED, StreetType.PROPERTY, 220, 150, 150, 18, new int[] {90,250,700,875,1050}, 110, new Vector3(-23f, 0f, -75f), new Vector3(-23f, 0f, -69f), new Vector3(-29f, 0f, -75f), new Vector3(-29f, 0f, -69f)));
+        streets.add(new Street("Illinois Avenue", MonopolyColors.RED, StreetType.PROPERTY, 240, 150, 150, 20, new int[] {100,300,750,925,1100}, 120, new Vector3(-10f, 0f, -75f), new Vector3(-10f, 0f, -69f), new Vector3(-16f, 0f, -75f), new Vector3(-16f, 0f, -69f)));
+        streets.add(new Street("B. & O. Railroad", Color.WHITE, StreetType.STATION, 200, 0, 0, 25, new int[]{25, 50, 100, 200, 0}, 100, new Vector3(3f, 0f, -75f), new Vector3(3f, 0f, -69f), new Vector3(-3f, 0f, -75f), new Vector3(-3f, 0f, -69f)));
+        streets.add(new Street("Atlantic Avenue", MonopolyColors.YELLOW, StreetType.PROPERTY, 260, 150, 150, 22, new int[] {110,330,800,975,1150}, 130, new Vector3(16f, 0f, -75f), new Vector3(16f, 0f, -69f), new Vector3(10f, 0f, -75f), new Vector3(10f, 0f, -69f)));
+        streets.add(new Street("Ventnor Avenue", MonopolyColors.YELLOW, StreetType.PROPERTY, 260, 150, 150, 22, new int[] {110,330,800,975,1150}, 130, new Vector3(29f, 0f, -75f), new Vector3(29f, 0f, -69f), new Vector3(23f, 0f, -75f), new Vector3(23f, 0f, -69f)));
+        streets.add(new Street("Water Works", Color.LIGHT_GRAY, StreetType.FACILITY, 150, 0, 0, 0, new int[] {0,0,0,0,0}, 0, new Vector3(42f, 0f, -75f), new Vector3(42f, 0f, -69f), new Vector3(36f, 0f, -75f), new Vector3(36f, 0f, -69f)));
+        streets.add(new Street("Marvin Gardens", MonopolyColors.YELLOW, StreetType.PROPERTY, 280, 150, 150, 24, new int[] {120,360,850,1025,1200}, 140, new Vector3(56f, 0f, -75f), new Vector3(56f, 0f, -69f), new Vector3(50f, 0f, -75f), new Vector3(50f, 0f, -69f)));
+        streets.add(new Street("Go to Jail", null, StreetType.GOTOJAIL, 0, 0, 0, 0, new int[] {0,0,0,0,0}, 0, new Vector3(66f, 0f, -67f), new Vector3(72f, 0f, -73f), new Vector3(72f, 0f, -67f), new Vector3(66f, 0f, -73f)));
+        streets.add(new Street("Pacific Avenue", MonopolyColors.GREEN, StreetType.PROPERTY, 300, 200, 200, 26, new int[] {130,390,900,1100,1275}, 150, new Vector3(69f, 0f, -50f), new Vector3(75f, 0f, -56f), new Vector3(75f, 0f, -50f), new Vector3(69f, 0f, -56f)));
+        streets.add(new Street("North Carolina Avenue", MonopolyColors.GREEN, StreetType.PROPERTY, 300, 200, 200, 26, new int[] {130,390,900,1100,1275}, 150, new Vector3(69f, 0f, -37f), new Vector3(75f, 0f, -43f), new Vector3(75f, 0f, -37f), new Vector3(69f, 0f, -43f)));
+        streets.add(new Street("Community Chest", null, StreetType.COMMUNITY_CHEST, 0, 0, 0, 0, new int[] {0,0,0,0,0}, 0, new Vector3(69f, 0f, -24f), new Vector3(75f, 0f, -30f), new Vector3(75f, 0f, -24f), new Vector3(69f, 0f, -30f)));
+        streets.add(new Street("Pennsylvania Avenue", MonopolyColors.GREEN, StreetType.PROPERTY, 0, 0, 0, 0, new int[]{0, 0, 0, 0, 0}, 0, new Vector3(69f, 0f, -10f), new Vector3(75f, 0f, -16f), new Vector3(75f, 0f, -10f), new Vector3(69f, 0f, -16f)));
+        streets.add(new Street("Shortline", Color.WHITE, StreetType.STATION, 200, 0, 0, 25, new int[]{25, 50, 100, 200, 0}, 100, new Vector3(69f, 0f, 3f), new Vector3(75f, 0f, -3f), new Vector3(75f, 0f, 3f), new Vector3(69f, 0f, -3f)));
+        streets.add(new Street("Chance", null, StreetType.CHANCE, 0, 0, 0, 0, new int[] {0,0,0,0,0}, 0, new Vector3(69f, 0f, 16f), new Vector3(75f, 0f, 10f), new Vector3(75f, 0f, 16f), new Vector3(69f, 0f, 10f)));
+        streets.add(new Street("Park Place", MonopolyColors.DARK_BLUE, StreetType.PROPERTY, 350, 200, 200, 35, new int[] {175,500,1100,1300,1500}, 175, new Vector3(69f, 0f, 29f), new Vector3(75f, 0f, 23f), new Vector3(75f, 0f, 29f), new Vector3(69f, 0f, 23f)));
+        streets.add(new Street("Luxury Tax", null, StreetType.SUPER_TAX, 0, 0, 0, 0, new int[] {0,0,0,0,0}, 0, new Vector3(69f, 0f, 43f), new Vector3(75f, 0f, 37f), new Vector3(75f, 0f, 43f), new Vector3(69f, 0f, 37f)));
+        streets.add(new Street("Boardwalk", MonopolyColors.DARK_BLUE, StreetType.PROPERTY, 400, 200, 200, 50, new int[] {200,600,1400,1700,2000}, 200, new Vector3(69f, 0f, 56f), new Vector3(75f, 0f, 50f), new Vector3(75f, 0f, 56f), new Vector3(69f, 0f, 50f)));
+        House.init();
     }
 
     public void effect(PlayerComponent component) {
@@ -243,14 +246,61 @@ public class Street {
         return mortgaged;
     }
 
+    public boolean isBuildable() {
+        List<Street> owned_streets = GameController.getCurrentPlayerComponent().getOwned_streets();
+        List<Street> this_type = new ArrayList<>();
+        for (Street owned_street : owned_streets) {
+            if(owned_street.getColorCode() == getColorCode()){
+                this_type.add(owned_street);
+            }
+        }
+
+        List<Integer> house_counts = new ArrayList<>();
+        for (Street street : this_type) {
+            house_counts.add(street.getHouseCount());
+        }
+
+        //allEqual
+        if(house_counts.stream().distinct().limit(2).count() <= 1){
+            return true;
+        }
+
+        int threshold = getHouseCount();
+        for (Street street : this_type) {
+            if(street.getHouseCount() == threshold || street.getHouseCount() - 1 == threshold) {
+                continue;
+            }else {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     public void buildHouse() {
-        int buildcost = (getHouses() == 4) ? getCost_hotel() : getCost_house();
+        int buildcost = (getHouseCount() == 4) ? getCost_hotel() : getCost_house();
         PlayerComponent player = GameController.getCurrentPlayerComponent();
         player.setMoney(player.getMoney() - buildcost);
         this.houses++;
+
+        House house = House.getHouse(this);
+
+        if(houses == 5){
+            for (Entity houseEntity : houseEntities) {
+                GameController.getEngine().removeEntity(houseEntity);
+            }
+            Entity entity = EntityFactory.createHotel(house.getHousePosition(getHouseCount()), house.getRotation());
+            houseEntities.add(entity);
+            GameController.getEngine().addEntity(entity);
+            return;
+        }
+
+        Entity entity = EntityFactory.createHouse(house.getHousePosition(getHouseCount()), house.getRotation());
+        houseEntities.add(entity);
+        GameController.getEngine().addEntity(entity);
     }
 
-    public int getHouses() {
+    public int getHouseCount() {
         return houses;
     }
 
@@ -302,7 +352,7 @@ public class Street {
         COMMUNITY_CHEST() {
             @Override
             public void effect(PlayerComponent playerComponent) {
-                ActionCardView view = new ActionCardView(true, true).create();
+                ActionCardView view = new ActionCardView(true, false).create();
                 GameController.getGameUi().addActor(view);
             }
         },

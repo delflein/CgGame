@@ -55,8 +55,8 @@ public class StreetViewTable extends Dialog implements GameUiElement {
         backgroundColor.fill();
         this.setBackground(new Image(new Texture(backgroundColor)).getDrawable());
         this.setFillParent(false);
-        this.setPosition(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
         this.setSize(300, 400);
+        this.setPosition(Gdx.graphics.getWidth() / 2 - this.getWidth() / 2, Gdx.graphics.getHeight() / 2 - this.getHeight() / 2);
         this.setVisible(true);
         this.setTouchable(Touchable.enabled);
         this.addListener(new DragListener() {
@@ -75,29 +75,16 @@ public class StreetViewTable extends Dialog implements GameUiElement {
             }
         });
 
-        if(showButtons) {
-            buyBtn = new TextButton("Buy!", getSkin());
-            buyBtn.setColor(Color.BLACK);
-            buyBtn.addListener(new ClickListener() {
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    super.clicked(event, x, y);
-                    GameController.getGameStateMachine().changeState(GameStates.BUY);
-                    remove();
-                }
-            });
-            auctBtn = new TextButton("Auction!", getSkin());
-            auctBtn.setColor(Color.BLACK);
-            auctBtn.addListener(new ClickListener() {
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    super.clicked(event, x, y);
-                    remove();
-                }
-            });
-            this.getButtonTable().add(buyBtn);
-            this.getButtonTable().add(auctBtn);
+
+        if (GameController.getGameStateMachine().getCurrentState() == GameStates.BUILD &&
+                street.hasAllOfType(GameController.getCurrentPlayerComponent()) &&
+                street.getType()== Street.StreetType.PROPERTY && street.isBuildable()){
+
+            addBuildButtons();
+        } else {
+            addBuyButtons();
         }
+
         this.getContentTable().add(rt);
 
         this.getContentTable().clearChildren();
@@ -120,8 +107,48 @@ public class StreetViewTable extends Dialog implements GameUiElement {
         return this;
     }
 
+    private void addBuildButtons() {
+        buyBtn = new TextButton("Build!", getSkin());
+        buyBtn.setColor(Color.BLACK);
+        buyBtn.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                street.buildHouse();
+                remove();
+            }
+        });
+        this.getButtonTable().add(buyBtn);
+    }
+
     public void disableBuyOption() {
         buyBtn.setTouchable(Touchable.disabled);
         buyBtn.setText("Insufficient Funds !");
+    }
+
+    public void addBuyButtons(){
+        if(showButtons) {
+            buyBtn = new TextButton("Buy!", getSkin());
+            buyBtn.setColor(Color.BLACK);
+            buyBtn.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+                    GameController.getGameStateMachine().changeState(GameStates.BUY);
+                    remove();
+                }
+            });
+            auctBtn = new TextButton("Pass!", getSkin());
+            auctBtn.setColor(Color.BLACK);
+            auctBtn.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+                    remove();
+                }
+            });
+            this.getButtonTable().add(buyBtn);
+            this.getButtonTable().add(auctBtn);
+        }
     }
 }
