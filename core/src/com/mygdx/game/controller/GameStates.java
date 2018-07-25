@@ -67,7 +67,14 @@ public enum GameStates implements State<GameController> {
             Entity entity = GameController.getCurrentPlayer();
             PlayerComponent player = entity.getComponent(PlayerComponent.class);
             player.getCurrentStreet().effect(player);
-
+            if(Dice.isSame()){
+               if(player.increaseSame()){
+                   //TODO move to jail
+                   player.setSame(0);
+               }
+               GameController.getGameStateMachine().changeState(GameStates.IDLE);
+               return;
+            }
             GameController.getGameStateMachine().changeState(GameStates.BUILD);
         }
 

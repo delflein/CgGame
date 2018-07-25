@@ -22,6 +22,7 @@ public class PlayerComponent implements Component {
 
     // Jail Stats
     private int jail_counter = 0;
+    private int same =0;
 
     public PlayerComponent() {
         this.id = numOfPlayers++;
@@ -150,5 +151,14 @@ public class PlayerComponent implements Component {
 
     public void go() {
         this.money += GameController.getGameSettings().gocash;
+    }
+
+    public boolean increaseSame() {
+        same++;
+        return same==3;
+    }
+
+    public void setSame(int same) {
+        this.same = same;
     }
 }

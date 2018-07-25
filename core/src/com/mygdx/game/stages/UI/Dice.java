@@ -29,6 +29,10 @@ public class Dice extends Group implements GameUiElement {
         this.screen = screen;
     }
 
+    public static boolean isSame() {
+        return roll_a==roll_b;
+    }
+
     public Dice create() {
         fillImageArray();
 
