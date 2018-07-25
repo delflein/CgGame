@@ -24,7 +24,7 @@ public class MainMenuStage extends MenuStage {
 
     @Override
     void buildStage() {
-        Label title = new Label("Monopoly feat. CG-Superstars", skin);
+        Label title = new Label("Monopoly \n Endless Game of the Century Version", skin);
         title.setColor(Color.GOLD);
         title.setAlignment(Align.center);
         title.setY(Gdx.graphics.getHeight()*7/8);
