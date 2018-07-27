@@ -120,7 +120,7 @@ public class StreetViewTable extends Dialog implements GameUiElement {
                 remove();
             }
         });
-        this.getButtonTable().add(buyBtn);
+        this.getButtonTable().add(buyBtn).expand();
     }
 
     public void disableBuyOption() {

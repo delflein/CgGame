@@ -1,6 +1,7 @@
 package com.mygdx.game.screens;
 
 import com.badlogic.ashley.core.Engine;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
@@ -26,7 +27,7 @@ import com.mygdx.game.utils.ModelFactory;
 public class MainMenuScreen implements Screen {
 
     //Background
-    private MyGdxGame game;
+    private Game game;
     private ModelBatch batch;
     private Camera cam;
     private Environment environment;
@@ -39,7 +40,7 @@ public class MainMenuScreen implements Screen {
     private Skin skin;
     private Music music;
 
-    public MainMenuScreen(final MyGdxGame game) {
+    public MainMenuScreen(final Game game) {
         this.game = game;
         this.skin = ModelFactory.loadSkin(GameAssets.DEFAULT_UI_SKIN.filepath);
         this.shapeRenderer = new ShapeRenderer();

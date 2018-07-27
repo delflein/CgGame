@@ -4,11 +4,14 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.ai.fsm.DefaultStateMachine;
 import com.badlogic.gdx.ai.fsm.StateMachine;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
 import com.mygdx.game.components.PlayerComponent;
+import com.mygdx.game.screens.GameScreen;
 import com.mygdx.game.settings.GameSettings;
 import com.mygdx.game.stages.ActionCards.ActionCard;
 import com.mygdx.game.stages.UI.GameUI;
@@ -21,6 +24,8 @@ public class GameController implements Telegraph {
     private static GameSettings settings;
     private static StateMachine<GameController, GameStates> gameStateMachine;
     private static GameUI gameUi;
+    private static GameScreen gameScreen;
+    private static Game game;
 
     private static Entity currentPlayer;
 
@@ -30,13 +35,16 @@ public class GameController implements Telegraph {
     private static List<ActionCard> cards;
 
 
-    public GameController(Engine eng, GameSettings gameSettings, GameUI stage) {
+    public GameController(Engine eng, GameSettings gameSettings, GameUI stage, Game g, GameScreen screen) {
         engine = eng;
         settings = gameSettings;
         gameStateMachine = new DefaultStateMachine<GameController, GameStates>(this, GameStates.IDLE);
         players = engine.getEntitiesFor(Family.all(PlayerComponent.class).get());
         currentPlayer = players.get(0);
         gameUi = stage;
+        game = g;
+        gameScreen = screen;
+
     }
 
     public static GameSettings getGameSettings() {
@@ -57,6 +65,14 @@ public class GameController implements Telegraph {
 
     public static GameUI getGameUi(){
         return gameUi;
+    }
+
+    public static Game getGame() {
+        return game;
+    }
+
+    public static GameScreen getGameScreen() {
+        return gameScreen;
     }
 
     public void nextPlayer() {

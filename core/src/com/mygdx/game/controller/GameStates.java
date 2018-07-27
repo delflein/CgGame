@@ -1,12 +1,15 @@
 package com.mygdx.game.controller;
 
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.ashley.core.Family;
 import com.badlogic.gdx.ai.fsm.State;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.mygdx.game.components.MovingComponent;
 import com.mygdx.game.components.PlayerComponent;
 import com.mygdx.game.components.Street;
+import com.mygdx.game.screens.MainMenuScreen;
 import com.mygdx.game.stages.UI.Dice;
+import com.mygdx.game.stages.UI.WinStage;
 
 public enum GameStates implements State<GameController> {
 
@@ -146,8 +149,18 @@ public enum GameStates implements State<GameController> {
     NEXT_PLAYER() {
         @Override
         public void enter(GameController entity) {
+            Entity playerentity = GameController.getCurrentPlayer();
+            PlayerComponent player = GameController.getCurrentPlayerComponent();
+            if (player.getMoney()<0){
+                if (GameController.getEngine().getEntitiesFor(Family.all(PlayerComponent.class).get()).size()<=2){
+                    GameController.getGameStateMachine().changeState(GameStates.WIN);
+                    return;
+                }
+                GameController.getEngine().removeEntity(playerentity);
+            }
             entity.nextPlayer();
             GameController.getGameStateMachine().changeState(GameStates.IDLE);
+
         }
 
         @Override
@@ -212,6 +225,29 @@ public enum GameStates implements State<GameController> {
         public boolean onMessage(GameController entity, Telegram telegram) {
             return false;
         }
-    },
+    }, WIN() {
+        @Override
+        public void enter(GameController entity) {
+            GameController.getGameScreen().setStage(new WinStage(GameController.getCurrentPlayerComponent()));
+        }
+
+        @Override
+        public void update(GameController entity) {
+
+        }
+
+        @Override
+        public void exit(GameController entity) {
+
+        }
+
+        @Override
+        public boolean onMessage(GameController entity, Telegram telegram) {
+            System.exit(0);
+            return true;
+
+        }
+    }
+
 
 }
