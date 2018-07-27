@@ -59,7 +59,6 @@ public class GameScreen implements Screen {
         this.game = game;
         this.settings = settings;
 
-
         batch = new ModelBatch();
 
         //Initializer, keep order in mind
@@ -73,7 +72,7 @@ public class GameScreen implements Screen {
         startBGM();
         //Gdx.input.setCursorCatched(true);
 
-        this.gameController = new GameController(engine, settings, (GameUI) stage);
+        this.gameController = new GameController(engine, settings, (GameUI) stage,game, this);
     }
 
     private void startBGM() {
