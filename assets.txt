@@ -1,0 +1,27 @@
+/assets/Board2/blanc-board-with-colour.png
+ - https://i.pinimg.com/originals/ae/cf/f5/aecff5f058348b20be3a41d3bc306800.jpg 
+
+
+/assets/UI/Waterworks.png
+ - https://thumbs.dreamstime.com/z/iconic-monopoly-game-water-works-logo-can-make-you-lots-money-if-you-own-both-utilities-monopoly-water-works-115551047.jpg
+
+/assets/UI/dice/*.png
+- https://commons.wikimedia.org/wiki/File:Alea_1.png
+- https://commons.wikimedia.org/wiki/File:Alea_2.png
+- https://commons.wikimedia.org/wiki/File:Alea_3.png
+- https://commons.wikimedia.org/wiki/File:Alea_4.png
+- https://commons.wikimedia.org/wiki/File:Alea_5.png
+- https://commons.wikimedia.org/wiki/File:Alea_6.png
+
+/assets/Skins/default
+ - https://github.com/czyzby/gdx-skins/tree/master/default
+
+/assets/CChest Card Stack/v_small_community-chest-vintage-monopoly-board-game-theme-card-design-turnpike.jpg
+ -https://images.fineartamerica.com/images/artworkimages/mediumlarge/1/community-chest-vintage-monopoly-board-game-theme-card-design-turnpike.jpg
+
+/assets/Chance Card Stack/v_small_chance-vintage-monopoly-board-game-theme-card-design-turnpike.jpg
+ - https://images.fineartamerica.com/images/artworkimages/mediumlarge/1/community-chest-vintage-monopoly-board-game-theme-card-design-turnpike.jpg
+
+/assets/Table/484096068-612x612.jpg
+  - https://media.istockphoto.com/photos/wooden-texture-background-picture-id484096068?k=6&m=484096068&s=612x612&w=0&h=cqRgScCyv-HhkibNMbYLN6JBAhVvzaB5XB6qeXPW_Y4=
+  
